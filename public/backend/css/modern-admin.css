@@ -1,0 +1,142 @@
+/* Modern Admin CSS */
+
+/* Layout */
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.admin-header {
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    background: #2c3e50;
+}
+
+/* Main Content */
+.admin-main {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+    margin-top: 60px;
+}
+
+/* Responsive */
+@media screen and (max-width: 991px) {
+    .admin-sidebar {
+        width: 200px;
+    }
+    
+    .admin-main {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .admin-sidebar {
+        width: 0;
+        transform: translateX(-100%);
+    }
+    
+    .admin-main {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Tables */
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Forms */
+.admin-form {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Cards */
+.admin-card {
+    width: 100%;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.admin-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Grid System */
+.admin-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.admin-col {
+    width: 100%;
+    padding: 15px;
+}
+
+.modern-search-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+.modern-search-dropdown.show {
+    opacity: 1;
+    transform: translateY(0);
+    display: block; /* Ensure it shows */
+}
+
+.modern-search-dropdown .search-item {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
