@@ -410,22 +410,7 @@
 
 @section('admin-content')
     <div class="main-content">
-        {{-- Show Credentials Setup Alert --}}
-        @if (Route::is('admin.dashboard') && ($checkCrentials = checkCrentials()))
-            @if ($checkCrentials->status)
-                <div class="alert alert-danger alert-has-icon alert-dismissible d-none" id="missingCrentialsAlert">
-                    <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-                    <div class="alert-body">
-                        <div class="alert-title">{{ $checkCrentials->message }}</div>
-                        <button class="close" id="missingCrentialsAlertClose" data-dismiss="alert">
-                            <span><i class="fas fa-times"></i></span>
-                        </button>
-                        {{ $checkCrentials->description }} <b><a class="btn btn-sm btn-outline-warning"
-                                href="{{ !empty($checkCrentials->route) ? route($checkCrentials->route) : url($checkCrentials->url) }}">{{ __('Update') }}</a></b>
-                    </div>
-                </div>
-            @endif
-        @endif
+
 
         @if ($setting->is_queable == 'active' && Cache::get('corn_working') !== 'working')
             <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
@@ -835,20 +820,7 @@
                 }
             });
             
-            var alertKey = 'missingCrentialsAlert';
-            var dismissedTimestamp = localStorage.getItem(alertKey);
 
-            if (!dismissedTimestamp || Date.now() - dismissedTimestamp > 24 * 60 * 60 * 1000) {
-                $('#missingCrentialsAlert').removeClass('d-none');
-                $('#missingCrentialsAlert').show();
-            } else {
-                $('#missingCrentialsAlert').hide();
-            }
-
-            $('#missingCrentialsAlertClose').on('click', function() {
-                $('#missingCrentialsAlert').hide();
-                localStorage.setItem(alertKey, Date.now());
-            });
             
             // Initialize learning analytics chart
             initializeLearningAnalyticsChart();

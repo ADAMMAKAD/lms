@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="{{ asset('backend/css/dev.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/modern-admin.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/modern-dashboard.css') }}?v={{$setting?->version}}">
+<link rel="stylesheet" href="{{ asset('backend/css/minimized-icons.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/tagify.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/bootstrap-tagsinput.css') }}">

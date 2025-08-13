@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider {
 
     protected function registerBladeDirectives() {
         Blade::directive('adminCan', function ($permission) {
-            return "<?php if(auth()->guard('admin')->user()->can({$permission})): ?>";
+            return "<?php if(auth()->guard('admin')->check() && auth()->guard('admin')->user()->can({$permission})): ?>";
         });
 
         Blade::directive('endadminCan', function () {

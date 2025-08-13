@@ -15,9 +15,9 @@
             </div>
 
             <div class="section-body">
-                <div class="row">
+                <div class="settings-grid">
                     @if (Module::isEnabled('GlobalSetting') && checkAdminHasPermission('setting.view'))
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-cog"></i>
@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-envelope"></i>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-key"></i>
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-arrow-circle-up"></i>
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-money-bill"></i>
@@ -84,7 +84,7 @@
                         </div>
                     @endif
                     @if (Module::isEnabled('GlobalSetting') && checkAdminHasPermission('addon.view'))
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="text-white card-icon bg-primary">
                                     <i class="fas fa-plug"></i>
@@ -98,7 +98,7 @@
                         </div>
                     @endif
                     @adminCan('currency.view')
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-coins"></i>
@@ -112,7 +112,7 @@
                         </div>
                     @endadminCan
                     @adminCan('language.view')
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-language"></i>
@@ -127,7 +127,7 @@
                     @endadminCan
 
                     @if (checkAdminHasPermission('admin.view') || checkAdminHasPermission('role.view'))
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-shield-alt"></i>
@@ -141,7 +141,7 @@
                         </div>
                     @endif
                     @if (Module::isEnabled('GlobalSetting') && checkAdminHasPermission('setting.view'))
-                        <div class="col-lg-6">
+                        <div>
                             <div class="card card-large-icons">
                                 <div class="card-icon bg-primary text-white">
                                     <i class="fas fa-ad"></i>

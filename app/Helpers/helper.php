@@ -180,8 +180,15 @@ function html_decode($text) {
 }
 
 if (!function_exists('checkAdminHasPermission')) {
+    /**
+     * Check if admin has permission
+     * @param string $permission
+     * @return bool
+     */
     function checkAdminHasPermission($permission): bool {
-        return Auth::guard('admin')->user()->can($permission) ? true : false;
+        $user = Auth::guard('admin')->user();
+        // Admin model uses HasRoles trait which provides can() method
+        return $user && method_exists($user, 'can') && $user->can($permission) ? true : false;
     }
 }
 
@@ -321,6 +328,7 @@ if (!function_exists('checkCrentials')) {
 
         if (Cache::has('bkashConfig') && Module::isEnabled('BkashPG')) {
             Cache::rememberForever('bkashConfig', function () {
+                // @phpstan-ignore-next-line - Dynamic module model
                 return (object) BkashPGModel::pluck('value', 'key')->toArray();
             });
         }
@@ -337,6 +345,7 @@ if (!function_exists('checkCrentials')) {
 
         if (Cache::has('cryptoConfig') && Module::isEnabled('CryptoPayment')) {
             Cache::rememberForever('cryptoConfig', function () {
+                // @phpstan-ignore-next-line - Dynamic module model
                 return (object) CryptoPG::pluck('value', 'key')->toArray();
             });
         }
@@ -353,6 +362,7 @@ if (!function_exists('checkCrentials')) {
 
         if (Cache::has('mercadopagoConfig') && Module::isEnabled('MercadoPagoPG')) {
             Cache::rememberForever('mercadopagoConfig', function () {
+                // @phpstan-ignore-next-line - Dynamic module model
                 return (object) MercadoPagoPG::pluck('value', 'key')->toArray();
             });
         }
@@ -785,6 +795,7 @@ if (!function_exists('generateVideoEmbedUrl')) {
             return null;
         }
         if (in_array($storage, ['wasabi', 'aws'])) {
+            // @phpstan-ignore-next-line - Storage disk method exists
             return Storage::disk($storage)->temporaryUrl($url, now()->addSeconds(30));
         }
         return asset($url);
@@ -836,6 +847,7 @@ if (!function_exists('sessionCartToDatabase')) {
             foreach ($carts as $item) {
                 $course = Course::active()->find($item->id);
                 if ($course && !isOwnCourse($user, $course) && !hasCourseInPurchased($user, $course)) {
+                    // @phpstan-ignore-next-line - User model has carts relationship
                     $user->carts()->create(['course_id' => $item->id]);
                 }
             }
