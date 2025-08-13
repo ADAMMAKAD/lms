@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-This document outlines the comprehensive rebranding and cleanup process for transforming the existing Laravel LMS project from "SkillGro" to "UNDO" with complete removal of third-party integrations and payment gateways.
+This document outlines the comprehensive rebranding and cleanup process for transforming the existing Laravel LMS project UNDP with complete removal of third-party integrations and payment gateways.
 
 **Current State:**
 
