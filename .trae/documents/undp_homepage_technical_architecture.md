@@ -1,4 +1,4 @@
-# SkillGro Homepage Redesign - Technical Architecture Document
+# Undp Homepage Redesign - Technical Architecture Document
 
 ## 1. Architecture Design
 
