@@ -1,4 +1,4 @@
-# SkillGro LMS Homepage Redesign - Product Requirements Document
+# undp LMS Homepage Redesign - Product Requirements Document
 
 ## 1. Product Overview
 Redesign the SkillGro LMS homepage to match a modern Pluralsight-style design with focus on skill assessment and learning paths. The new homepage will transform the current basic layout into a professional, gradient-rich interface that emphasizes skill development, assessments, and personalized learning experiences.
