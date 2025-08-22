@@ -158,10 +158,14 @@
                             <i class="fas fa-globe me-2 text-primary"></i>{{ __('Country') }} <code>*</code>
                         </label>
                         <select name="country" id="country" class="country modern-location-select">
-                            <option value="">{{ __('Select Country') }}</option>
-                            @foreach (countries() as $country)
-                            <option @selected($user->country_id == $country->id) value="{{ $country->id }}">{{ $country->name }}</option>
-                            @endforeach
+                            @if(isset($ethiopia) && $ethiopia)
+                                <option value="{{ $ethiopia->id }}" selected>{{ $ethiopia->name }}</option>
+                            @else
+                                <option value="">{{ __('Select Country') }}</option>
+                                @foreach (countries() as $country)
+                                <option @selected($user->country_id == $country->id) value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
                 </div>
@@ -172,8 +176,12 @@
                         </label>
                         <select name="state" id="state" class="state modern-location-select">
                             <option value="">{{ __('Select State') }}</option>
-                            @if ($user->state_id)
-                            <option selected value="{{ $user->state_id }}">{{ $user->state->name }}</option>
+                            @if(isset($states) && $states->count() > 0)
+                                @foreach ($states as $state)
+                                    <option @selected($user->state === $state->name) value="{{ $state->name }}">{{ $state->name }}</option>
+                                @endforeach
+                            @elseif (!empty($user->state))
+                                <option selected value="{{ $user->state }}">{{ $user->state }}</option>
                             @endif
                         </select>
                     </div>

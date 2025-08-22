@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Modules\Location\app\Models\City;
 use Modules\Location\app\Models\State;
+use Modules\Location\app\Models\Country; // added
 
 class StudentProfileSettingController extends Controller
 {
@@ -35,10 +36,12 @@ class StudentProfileSettingController extends Controller
         $user = Auth::user();
         $experiences = UserExperience::where('user_id', $user->id)->get();
         $educations = UserEducation::where('user_id', $user->id)->get();
-        $states = State::where(['country_id' => $user->country_id,'status' => 1])->get();
+        // Load Ethiopia and its states regardless of current user country
+        $ethiopia = Country::where('name', 'Ethiopia')->first();
+        $states = State::where(['country_id' => $ethiopia?->id, 'status' => 1])->get();
         $cities = City::where(['state_id' => $user->state_id,'status' => 1])->get();
 
-        return view('frontend.student-dashboard.profile.index', compact('user', 'experiences', 'educations', 'states', 'cities'));
+        return view('frontend.student-dashboard.profile.index', compact('user', 'experiences', 'educations', 'states', 'cities', 'ethiopia'));
     }
 
     function updateProfile(StudentProfileUpdateRequest $request): RedirectResponse
