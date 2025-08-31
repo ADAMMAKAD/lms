@@ -17,7 +17,7 @@ class ApprovedInstructorMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if(!instructorStatus() || instructorStatus() && instructorStatus() != UserStatus::APPROVED->value) {
-            return redirect()->route('become-instructor');
+            return redirect()->route('home');
         }
 
         return $next($request);

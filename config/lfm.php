@@ -39,8 +39,8 @@ return [
 
     'shared_folder_name'       => 'shares',
 
-    'max_image_size' => 2097152,
-    'max_file_size' => 2097152,
+    'max_image_size' => 1048576, // Reduced from 2MB to 1MB
+    'max_file_size' => 1048576,  // Reduced from 2MB to 1MB
     /*
     |--------------------------------------------------------------------------
     | Folder Names
@@ -51,7 +51,7 @@ return [
         'file'  => [
             'folder_name'  => 'files',
             'startup_view' => 'list',
-            'max_size'     => 2097152, // size in KB
+            'max_size'     => 1048576, // Reduced from 2MB to 1MB
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,

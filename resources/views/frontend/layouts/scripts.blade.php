@@ -30,6 +30,7 @@
 
 
 <script src="{{ asset('frontend/js/main.js') }}?v={{ $setting?->version }}"></script>
+<script src="{{ asset('frontend/js/lazy-loading.js') }}?v={{ $setting?->version }}"></script>
 
 <script>
     $('.file-manager').filemanager('file', {
@@ -49,8 +50,16 @@
     toastr.options.progressBar = true;
     toastr.options.positionClass = 'toast-bottom-right';
 
-    @session('messege')
-    var type = "{{ Session::get('alert-type', 'info') }}"
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        orientation: "bottom auto"
+    });
+</script>
+
+@session('messege')
+<script>
+    "use strict";
+    var type = "{{ Session::get('alert-type', 'info') }}";
     switch (type) {
         case 'info':
             toastr.info("{{ $value }}");
@@ -65,13 +74,8 @@
             toastr.error("{{ $value }}");
             break;
     }
-    @endsession
-
-    $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
-        orientation: "bottom auto"
-    });
 </script>
+@endsession
 
 
 <!-- Toastr -->

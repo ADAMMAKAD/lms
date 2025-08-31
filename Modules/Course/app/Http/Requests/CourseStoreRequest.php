@@ -20,7 +20,7 @@ class CourseStoreRequest extends FormRequest
             'thumbnail' => ['required', 'max:255'],
             'demo_video_source' => ['nullable', 'string'],
             'path' => ['nullable', 'string'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'price' => ['nullable', 'numeric', 'min:0'],
             'discount_price' => ['nullable', 'numeric', new ValidateDiscountRule()],
             'description' => ['required', 'string', 'max:5000'],
             'instructor' => ['required', 'numeric'],

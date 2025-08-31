@@ -15,12 +15,12 @@
                         <ul class="tg-header__top-info list-wrap">
                             @if ($setting?->site_address)
                                 <li><img src="{{ asset('frontend/img/icons/map_marker.svg') }}" alt="Icon">
-                                    <span style="color: #333; font-weight: 500;">{{ $setting?->site_address }}</span>
+                                    <span style="color: #ffffff; font-weight: 500;">{{ $setting?->site_address }}</span>
                                 </li>
                             @endif
                             @if ($setting?->site_email)
                                 <li><img src="{{ asset('frontend/img/icons/envelope.svg') }}" alt="Icon"> <a
-                                        href="mailto:{{ $setting?->site_email }}" style="color: #0066cc; font-weight: 500; text-decoration: none;">{{ $setting?->site_email }}</a>
+                                        href="mailto:{{ $setting?->site_email }}" style="color:rgb(255, 255, 255); font-weight: 500; text-decoration: none;">{{ $setting?->site_email }}</a>
                                 </li>
                             @endif
                         </ul>
@@ -29,7 +29,7 @@
                         <div class="tg-header__top-right">
                             @if ($setting?->header_social_status == 'active')
                                 <ul class="tg-header__top-social list-wrap">
-                                    <li style="color: #333; font-weight: 500;">{{ __('Follow Us On') }} :</li>
+                                    <li style="color: #ffffff; font-weight: 500;">{{ __('Follow Us On') }} :</li>
                                     @foreach (getSocialLinks() as $socialLink)
                                         <li class="header-social">
                                             <a href="{{ $socialLink->link }}" target="_blank">
@@ -99,7 +99,7 @@
                         <nav class="tgmenu__nav">
                             <div class="logo">
                                 <a href="{{ route('home') }}" style="text-decoration: none;">
-                                    <h2 style="color: #0066cc; font-weight: 800; margin: 0; font-size: 1.8rem; letter-spacing: -0.5px;">UNDP LMS</h2>
+                                    <h2 style="color: #4787ed; font-weight: 800; margin: 0; font-size: 1.8rem; letter-spacing: -0.5px;">UNDP LMS</h2>
                                 </a>
                             </div>
                             <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
@@ -141,7 +141,7 @@
                             <div class="tgmenu__search d-none d-md-block">
                                 <form action="{{ route('courses') }}" class="tgmenu__search-form">
                                     <div class="select-grp">
-                                        <i class="fas fa-th-large" style="color: #0066cc; font-size: 16px;"></i>
+                                        <i class="fas fa-th-large" style="color: #4787ed; font-size: 16px;"></i>
 
                                         <select class="form-select select_js w_150px"
                                             aria-label="Default select example" name="main_category" style="color: #333; font-weight: 500;">
@@ -155,7 +155,7 @@
                                     <div class="input-grp">
                                         <input type="text" placeholder="{{ __('Search For Course') }} . . ."
                                             name="search" value="{{ request('search') }}" style="color: #333; font-weight: 500;">
-                                        <button type="submit" aria-label="Search" style="background: #0066cc; border: none; color: white;"><i
+                                        <button type="submit" aria-label="Search" style="background: #4787ed; border: none; color: white;"><i
                                                 class="fas fa-search"></i></button>
                                     </div>
                                 </form>
@@ -163,7 +163,7 @@
                             <div class="tgmenu__action">
                                 <ul class="list-wrap">
                                     <li class="mini-cart-icon user_icon">
-                                        <a href="javascript:;" class="cart-count" style="color: #0066cc; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(0, 102, 204, 0.1); transition: all 0.3s ease;">
+                                        <a href="javascript:;" class="cart-count" style="color: #4787ed; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(30, 64, 175, 0.1); transition: all 0.3s ease;">
                                             <i class="fas fa-user"></i>
                                         </a>
                                         <ul class="menu_user_list" style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -210,7 +210,7 @@
                             <div class="close-btn"><i class="tg-flaticon-close-1"></i></div>
                             <div class="nav-logo">
                                 <a href="{{ route('home') }}" style="text-decoration: none;">
-                                    <h2 style="color: #0066cc; font-weight: 800; margin: 0; font-size: 1.5rem; letter-spacing: -0.5px;">UNDP LMS</h2>
+                                    <h2 style="color: #4787ed; font-weight: 800; margin: 0; font-size: 1.5rem; letter-spacing: -0.5px;">UNDP LMS</h2>
                                 </a>
                             </div>
 

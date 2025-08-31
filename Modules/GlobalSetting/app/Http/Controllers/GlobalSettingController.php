@@ -664,7 +664,7 @@ class GlobalSettingController extends Controller {
 
         $request->validate([
             'maintenance_title'       => 'required',
-            'maintenance_image'       => 'nullable|image|max:2048',
+            'maintenance_image'       => 'nullable|image|max:10240',
             'maintenance_description' => 'required',
         ], [
             'maintenance_title'       => __('Maintenance Mode Title is required'),

@@ -1,0 +1,193 @@
+/* Responsive Toastr Notifications Fix */
+
+/* Override default toastr positioning for better mobile visibility */
+#toast-container {
+    position: fixed;
+    z-index: 999999;
+    pointer-events: none;
+}
+
+/* Ensure toasts are always visible within viewport */
+#toast-container.toast-bottom-right {
+    right: 12px;
+    bottom: 12px;
+    max-width: calc(100vw - 24px); /* Ensure container doesn't exceed viewport */
+}
+
+#toast-container.toast-top-right {
+    top: 12px;
+    right: 12px;
+    max-width: calc(100vw - 24px);
+}
+
+#toast-container.toast-bottom-left {
+    bottom: 12px;
+    left: 12px;
+    max-width: calc(100vw - 24px);
+}
+
+#toast-container.toast-top-left {
+    top: 12px;
+    left: 12px;
+    max-width: calc(100vw - 24px);
+}
+
+/* Responsive toast width adjustments */
+#toast-container > div {
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Mobile devices (up to 480px) */
+@media screen and (max-width: 480px) {
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-top-right {
+        right: 8px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    #toast-container.toast-bottom-left,
+    #toast-container.toast-top-left {
+        left: 8px;
+        max-width: calc(100vw - 16px);
+    }
+    
+    #toast-container.toast-bottom-right {
+        bottom: 8px;
+    }
+    
+    #toast-container.toast-top-right {
+        top: 8px;
+    }
+    
+    #toast-container.toast-bottom-left {
+        bottom: 8px;
+    }
+    
+    #toast-container.toast-top-left {
+        top: 8px;
+    }
+    
+    #toast-container > div {
+        width: calc(100vw - 32px) !important;
+        max-width: 320px;
+        margin: 0;
+        font-size: 14px;
+        padding: 12px 12px 12px 45px;
+    }
+    
+    #toast-container > div.rtl {
+        padding: 12px 45px 12px 12px;
+    }
+}
+
+/* Small tablets (481px to 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-top-right {
+        right: 5px;
+    }
+    
+    #toast-container > div {
+        width: 280px !important;
+        max-width: calc(100vw - 32px);
+    }
+}
+
+/* Large tablets and small desktops (769px to 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-top-right {
+        right: 10px;
+    }
+    
+    #toast-container > div {
+        width: 300px !important;
+        max-width: calc(100vw - 32px);
+    }
+}
+
+/* Ensure toasts are always above other elements */
+#toast-container {
+    z-index: 999999 !important;
+}
+
+/* Desktop (1025px and above) - move notifications further left */
+@media screen and (min-width: 1025px) {
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-top-right {
+        right: 15px;
+    }
+}
+
+/* Fix for very small screens */
+@media screen and (max-width: 320px) {
+    #toast-container > div {
+        width: calc(100vw - 24px) !important;
+        max-width: 280px;
+        padding: 10px 10px 10px 40px;
+        font-size: 13px;
+    }
+    
+    #toast-container > div.rtl {
+        padding: 10px 40px 10px 10px;
+    }
+    
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-top-right,
+    #toast-container.toast-bottom-left,
+    #toast-container.toast-top-left {
+        right: 6px;
+        left: 6px;
+        bottom: 6px;
+        top: 6px;
+        max-width: calc(100vw - 12px);
+    }
+}
+
+/* Ensure toast messages are readable */
+.toast-message {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* Fix for toast close button on mobile */
+@media screen and (max-width: 480px) {
+    .toast-close-button {
+        right: -0.1em;
+        top: -0.1em;
+        font-size: 18px;
+    }
+    
+    .rtl .toast-close-button {
+        left: -0.1em;
+        right: 0.1em;
+    }
+}
+
+/* Ensure toasts don't interfere with mobile navigation */
+@media screen and (max-width: 768px) {
+    body.mobile-menu-visible #toast-container {
+        z-index: 999998; /* Slightly lower than mobile menu */
+    }
+}
+
+/* Additional fix for landscape mobile orientation */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    #toast-container.toast-bottom-right,
+    #toast-container.toast-bottom-left {
+        bottom: 8px;
+    }
+    
+    #toast-container > div {
+        margin-bottom: 4px;
+        padding: 8px 8px 8px 35px;
+        font-size: 13px;
+    }
+    
+    #toast-container > div.rtl {
+        padding: 8px 35px 8px 8px;
+    }
+}

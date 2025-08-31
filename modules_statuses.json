@@ -14,7 +14,7 @@
     "Order": true,
     "Coupon": true,
     "Refund": false,
-    "PaymentWithdraw": true,
+    "PaymentWithdraw": false,
     "Testimonial": true,
     "Faq": true,
     "Location": true,
@@ -32,5 +32,6 @@
     "Installer": true,
     "BkashPG": true,
     "CryptoPayment": true,
-    "MercadoPagoPG": true
+    "MercadoPagoPG": true,
+    "Chat": true
 }

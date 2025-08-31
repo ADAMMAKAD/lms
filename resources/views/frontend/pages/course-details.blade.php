@@ -57,6 +57,35 @@
             box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
         }
         
+        /* Curriculum video link styling */
+        .curriculum-video-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #374151;
+            padding: 0;
+            background: none;
+            border: none;
+            width: 100%;
+        }
+        
+        .curriculum-video-link:hover {
+            color: #3b82f6;
+        }
+        
+        .curriculum-video-link .item-name {
+            font-weight: 600;
+        }
+        
+        .curriculum-video-link .course-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
         .courses__details-content {
             background: white;
             border-radius: 16px;
@@ -168,9 +197,9 @@
         }
         
         .nav-tabs .nav-link.active {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: linear-gradient(135deg, #0066cc, #004499);
             color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
         }
         
         .nav-tabs .nav-link:hover:not(.active) {
@@ -656,7 +685,7 @@
     <!-- breadcrumb-area -->
     <x-frontend.breadcrumb :title="__('Course Details')" :links="[
         ['url' => route('home'), 'text' => __('Home')],
-        ['url' => route('become-instructor'), 'text' => __('Course Details')],
+        ['url' => route('courses'), 'text' => __('Courses')],
     ]" />
     <!-- breadcrumb-area-end -->
 
@@ -769,7 +798,7 @@
                                                                                         data-bs-toggle="modal"
                                                                                         data-bs-target="#videoModal"
                                                                                         data-bs-video="https://drive.google.com/file/d/{{ extractGoogleDriveVideoId($chapterItem?->lesson->file_path) }}/preview"
-                                                                                        class="course-item-link">
+                                                                                        class="curriculum-video-link">
                                                                                         <span
                                                                                             class="item-name">{{ $chapterItem?->lesson?->title }}</span>
                                                                                         <div class="course-item-meta">
@@ -780,16 +809,16 @@
                                                                                 </li>
                                                                             @else
                                                                                 <li class="course-item open-item">
-                                                                                    <a href="@if(!in_array($chapterItem?->lesson->storage, ['wasabi', 'aws'])){{ $chapterItem?->lesson->file_path }}@else{{ Storage::disk($chapterItem?->lesson->storage)->temporaryUrl($chapterItem?->lesson->file_path, now()->addHours(1)) }}@endif"
-                                                                                        class="course-item-link popup-video">
+                                                                                <a href="@if(!in_array($chapterItem?->lesson->storage, ['wasabi', 'aws'])){{ $chapterItem?->lesson->file_path }}@else{{ Storage::disk($chapterItem?->lesson->storage)->temporaryUrl($chapterItem?->lesson->file_path, now()->addHours(1)) }}@endif"
+                                                                                    class="curriculum-video-link">
+                                                                                    <span
+                                                                                        class="item-name">{{ $chapterItem?->lesson?->title }}</span>
+                                                                                    <div class="course-item-meta">
                                                                                         <span
-                                                                                            class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                                        <div class="course-item-meta">
-                                                                                            <span
-                                                                                                class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
+                                                                                            class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
+                                                                                    </div>
+                                                                                </a>
+                                                                            </li>
                                                                             @endif
                                                                         @else
                                                                             <li class="course-item">
@@ -1188,7 +1217,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="courses__details-social">
+                        <!-- <div class="courses__details-social">
                             <h5 class="title">{{ __('Share this course') }}:</h5>
                             <div class="shareon">
                                 <a class="facebook"></a>
@@ -1196,7 +1225,7 @@
                                 <a class="pinterest"></a>
                                 <a class="telegram"></a>
                                 <a class="twitter"></a>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="courses__details-enroll">
                             <div class="tg-button-wrap">
@@ -1209,7 +1238,7 @@
                                 @else
                                     <a href="javascript:;" class="btn btn-two arrow-btn start-learning-btn"
                                         data-id="{{ $course->id }}">
-                                        <span class="text">{{ __('Start Learning') }}</span>
+                                        <span class="text">{{ __('Enroll') }}</span>
                                         <i class="flaticon-arrow-right"></i>
                                     </a>
                                 @endif

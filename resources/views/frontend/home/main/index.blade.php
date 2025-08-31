@@ -35,7 +35,6 @@
         <!-- features-area-end -->
     @endif
 
-
     @if ($sectionSetting?->testimonial_section)
         <!-- testimonial-area -->
         @include('frontend.home.main.sections.testimonial-area')

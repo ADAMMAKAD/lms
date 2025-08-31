@@ -82,6 +82,7 @@
     padding: 0;
     overflow: hidden;
     border: 1px solid rgba(0,102,204,0.1);
+    margin-right: 20px;
 }
 
 .courses-widget {
@@ -154,8 +155,9 @@
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    padding: 36px;
+    padding: 32px;
     margin-bottom: 2rem;
+    margin-left: 20px;
 }
 
 .courses-top-wrap {
@@ -209,7 +211,7 @@
 .all-courses-area .container {
     background: rgba(248, 250, 252, 0.5);
     border-radius: 20px;
-    padding: 40px;
+    padding: 30px 20px;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -266,23 +268,45 @@
 
 /* Course Grid */
 .course-holder {
-    gap: 12px;
+    gap: 20px;
     margin-bottom: 2rem;
-}
-
-.course-holder .col-xl-4 {
-    margin-bottom: 12px;
-    padding-left: 6px;
-    padding-right: 6px;
-    flex: 0 0 33.333333%;
-    max-width: 33.333333%;
-}
-
-.course-holder {
     display: flex;
     flex-wrap: wrap;
-    margin-left: -6px;
-    margin-right: -6px;
+}
+
+.course-holder .col-xl-4,
+.course-holder .col-lg-4,
+.course-holder .col-md-4 {
+    margin-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    flex: 0 0 calc(33.333333% - 20px);
+    max-width: calc(33.333333% - 20px);
+}
+
+/* Force 3 columns on large screens */
+@media (min-width: 992px) {
+    .course-holder .col-xl-4,
+    .course-holder .col-lg-4 {
+        flex: 0 0 calc(33.333333% - 20px);
+        max-width: calc(33.333333% - 20px);
+    }
+}
+
+/* 2 columns on medium screens */
+@media (min-width: 768px) and (max-width: 991px) {
+    .course-holder .col-md-4 {
+        flex: 0 0 calc(50% - 20px);
+        max-width: calc(50% - 20px);
+    }
+}
+
+/* 1 column on small screens */
+@media (max-width: 767px) {
+    .course-holder .col-md-4 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
 
 /* Modern Course Cards */
@@ -320,15 +344,15 @@
 }
 
 .pagination .page-link:hover {
-    background: #667eea;
+    background: #3b82f6;
     color: white;
     transform: translateY(-2px);
 }
 
 .pagination .page-item.active .page-link {
-    background: linear-gradient(135deg, #667eea, #764ba2);
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
     color: white;
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 /* Animations */
@@ -375,6 +399,32 @@
     }
 }
 
+@media (max-width: 992px) {
+    .courses__sidebar {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .courses-main-content {
+        margin-left: 0;
+    }
+    
+    .all-courses-area .container {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .all-courses-area .container {
+        max-width: 100%;
+        padding: 15px 10px;
+    }
+    
+    .courses-main-content {
+        padding: 20px;
+    }
+}
+
 @media (max-width: 576px) {
     .courses-hero-section {
         padding: 60px 0 40px;
@@ -388,6 +438,14 @@
         flex-direction: column;
         gap: 1rem;
     }
+    
+    .all-courses-area .container {
+        padding: 10px 5px;
+    }
+    
+    .courses-main-content {
+        padding: 15px;
+    }
 }
 </style>
 @endpush
@@ -399,23 +457,11 @@
 
     <!-- Modern Hero Section -->
     <section class="courses-hero-section">
-        <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 40px;">
+        <div class="container" style="max-width: 1600px; margin: 0 auto; padding: 0 20px;">
             <div class="courses-hero-content">
                 <h1 class="courses-hero-title">{{ __('Discover Your Next Skill') }}</h1>
                 <p class="courses-hero-subtitle">{{ __('Explore our comprehensive collection of professional courses designed to accelerate your career growth and unlock new opportunities.') }}</p>
-                <div class="courses-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">500+</span>
-                        <span class="stat-label">{{ __('Courses') }}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">{{ __('Instructors') }}</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">10K+</span>
-                        <span class="stat-label">{{ __('Students') }}</span>
-                    </div>
+                
                 </div>
             </div>
         </div>
@@ -423,12 +469,12 @@
 
     <!-- all-courses -->
     <section class="all-courses-area section-py-120">
-        <div class="container position-relative" style="max-width: 1400px; margin: 0 auto; padding: 0 40px;">
+        <div class="container position-relative" style="max-width: 1600px; margin: 0 auto; padding: 0 20px;">
             {{-- <div class="preloader-two d-none">
                 <div class="loader-icon-two"><img src="{{ asset(Cache::get('setting')->preloader) }}" alt="Preloader"></div>
             </div> --}} {{-- Removed preloader functionality --}}
             <div class="row">
-                <div class="col-xl-3 col-lg-4">
+                <div class="col-xl-3 col-lg-3">
                     <div class="courses__sidebar_area">
                         <div class="courses__sidebar_button d-lg-none">
                             <h4>{{ __('filter') }}</h4>
@@ -514,7 +560,7 @@
                         </aside>
                     </div>
                 </div>
-                <div class="col-xl-9 col-lg-8">
+                <div class="col-xl-9 col-lg-9">
                     <div class="courses-main-content">
                         <div class="courses-top-wrap">
                             <div class="row align-items-center">

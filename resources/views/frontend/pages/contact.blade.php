@@ -7,63 +7,187 @@
     <!-- breadcrumb-area-end -->
     
     <style>
+        /* Modern Contact Page Styling */
         .modern-contact-area {
-            background: #ffffff;
+            background: linear-gradient(135deg, #f8fafc 0%, #e3f2fd 50%, #f0f9ff 100%);
             min-height: 100vh;
-            padding: 80px 0;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modern-contact-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="contact-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%230066cc" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23contact-dots)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
         
         .contact-info-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 8px 32px rgba(0, 102, 204, 0.1);
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(0,102,204,0.1);
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: 0 15px 50px rgba(0,102,204,0.12);
+            margin-bottom: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .contact-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0066cc 0%, #ffd700 50%, #0066cc 100%);
+            border-radius: 24px 24px 0 0;
         }
         
         .contact-info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 102, 204, 0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0,102,204,0.2);
+            border-color: rgba(0,102,204,0.2);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         .contact-form-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 50px 40px;
-            box-shadow: 0 8px 32px rgba(0, 102, 204, 0.1);
-            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(248,250,252,0.95) 100%);
+            backdrop-filter: blur(30px);
+            border: 2px solid rgba(0,102,204,0.12);
+            border-radius: 28px;
+            padding: 60px 50px;
+            box-shadow: 0 20px 60px rgba(0,102,204,0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .contact-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #0066cc 0%, #ffd700 30%, #0066cc 60%, #ffd700 100%);
+            border-radius: 28px 28px 0 0;
+        }
+        
+        .contact-form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0,102,204,0.2);
+            border-color: rgba(0,102,204,0.2);
         }
         
         .contact-info-item {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 15px;
-            background: rgba(0, 102, 204, 0.05);
-            transition: all 0.3s ease;
+            margin-bottom: 35px;
+            padding: 28px 24px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0,102,204,0.06) 0%, rgba(255,215,0,0.03) 100%);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0,102,204,0.08);
+            position: relative;
+            overflow: hidden;
+            animation: slideInLeft 0.6s ease-out;
+            animation-delay: calc(var(--item-index, 0) * 0.1s);
+        }
+        
+        .contact-info-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,102,204,0.1), rgba(255,215,0,0.05), transparent);
+            transition: left 0.6s ease;
         }
         
         .contact-info-item:hover {
-            background: rgba(0, 102, 204, 0.1);
-            transform: translateX(10px);
+            background: linear-gradient(135deg, rgba(0,102,204,0.12) 0%, rgba(255,215,0,0.08) 100%);
+            transform: translateX(15px) translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,102,204,0.15);
+            border-color: rgba(0,102,204,0.2);
+        }
+        
+        .contact-info-item:hover::before {
+            left: 100%;
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
         
         .contact-info-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #0066cc, #004499);
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002266 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 20px;
+            margin-right: 25px;
             flex-shrink: 0;
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,102,204,0.3);
+        }
+        
+        .contact-info-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #0066cc, #ffd700, #0066cc);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .contact-info-item:hover .contact-info-icon {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 12px 35px rgba(0,102,204,0.4);
+        }
+        
+        .contact-info-item:hover .contact-info-icon::before {
+            opacity: 1;
         }
         
         .contact-info-icon img {
@@ -94,10 +218,24 @@
         
         .modern-form-title {
             color: #0066cc;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 50px;
             text-align: center;
+            position: relative;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .modern-form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #0066cc, #ffd700);
+            border-radius: 2px;
         }
         
         .modern-form-subtitle {
@@ -109,7 +247,10 @@
         
         .modern-form-group {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            animation: fadeInUp 0.6s ease-out;
+            animation-delay: calc(var(--form-index, 0) * 0.1s);
+            animation-fill-mode: both;
         }
         
         .modern-form-input {
@@ -167,26 +308,50 @@
         }
         
         .modern-submit-btn {
-            background: #0066cc;
+            background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002266 100%);
             color: white;
             border: none;
-            padding: 18px 40px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 20px 50px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 30px rgba(0,102,204,0.3);
+        }
+        
+        .modern-submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
         }
         
         .modern-submit-btn:hover {
-            background: #0052a3;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 102, 204, 0.3);
+            background: linear-gradient(135deg, #004499 0%, #002266 50%, #001133 100%);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,102,204,0.4);
+        }
+        
+        .modern-submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .modern-submit-btn:active {
+            transform: translateY(-2px) scale(1.01);
         }
         
         .modern-submit-btn img {

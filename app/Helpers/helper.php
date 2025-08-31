@@ -28,24 +28,67 @@ use Nwidart\Modules\Facades\Module;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 function file_upload(UploadedFile $file, string $path = 'uploads/custom-images/', string | null $oldFile = '', bool $optimize = false) {
-    $extention = $file->getClientOriginalExtension();
-    $file_name = 'wsus-img' . date('-Y-m-d-h-i-s-') . rand(999, 9999) . '.' . $extention;
-    $file_name = $path . $file_name;
-    $file->move(public_path($path), $file_name);
-
+    // Define allowed file extensions whitelist
+    $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'pdf', 'doc', 'docx', 'txt', 'zip'];
+    
+    // Get file extension and convert to lowercase
+    $extension = strtolower($file->getClientOriginalExtension());
+    
+    // Validate file extension against whitelist
+    if (!in_array($extension, $allowedExtensions)) {
+        throw new \InvalidArgumentException('File type not allowed. Allowed types: ' . implode(', ', $allowedExtensions));
+    }
+    
+    // Additional MIME type validation for security
+    $allowedMimeTypes = [
+        'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml',
+        'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain', 'application/zip'
+    ];
+    
+    $mimeType = $file->getMimeType();
+    if (!in_array($mimeType, $allowedMimeTypes)) {
+        throw new \InvalidArgumentException('Invalid file MIME type: ' . $mimeType);
+    }
+    
+    // Sanitize filename to prevent directory traversal
+    $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+    $sanitizedName = preg_replace('/[^a-zA-Z0-9_\-]/', '', $originalName);
+    $sanitizedName = substr($sanitizedName, 0, 50); // Limit filename length
+    
+    // Generate secure filename
+    $file_name = 'wsus-img' . date('-Y-m-d-h-i-s-') . rand(999, 9999);
+    if (!empty($sanitizedName)) {
+        $file_name .= '-' . $sanitizedName;
+    }
+    $file_name .= '.' . $extension;
+    
+    // Ensure upload directory exists and is secure
+    $uploadPath = public_path($path);
+    if (!File::exists($uploadPath)) {
+        File::makeDirectory($uploadPath, 0755, true);
+    }
+    
+    $full_file_path = $path . $file_name;
+    
+    // Move file to destination
+    $file->move($uploadPath, $file_name);
+    
     try {
+        // Delete old file if specified
         if ($oldFile && !str($oldFile)->contains('uploads/website-images') && File::exists(public_path($oldFile))) {
             File::delete(public_path($oldFile));
         }
 
-        if ($optimize) {
-            ImageOptimizer::optimize(public_path($file_name));
+        // Optimize image if requested and file is an image
+        if ($optimize && in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+            ImageOptimizer::optimize(public_path($full_file_path));
         }
     } catch (Exception $e) {
-        Log::info($e->getMessage());
+        Log::error('File upload error: ' . $e->getMessage());
     }
 
-    return $file_name;
+    return $full_file_path;
 }
 // file upload method
 if (!function_exists('allLanguages')) {

@@ -3,12 +3,16 @@
 <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/bootstrap-social.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/components.css') }}?v={{$setting?->version}}">
+<link rel="stylesheet" href="{{ asset('backend/css/optimized.css') }}?v={{$setting?->version}}">
 
 <link rel="stylesheet" href="{{ asset('global/toastr/toastr.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/bootstrap4-toggle.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/dev.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/modern-admin.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/modern-dashboard.css') }}?v={{$setting?->version}}">
+<link rel="stylesheet" href="{{ asset('backend/css/modern-sidebar.css') }}?v={{$setting?->version}}">
+<link rel="stylesheet" href="{{ asset('backend/css/modern-navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/css/responsive-notifications.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/minimized-icons.css') }}?v={{$setting?->version}}">
 <link rel="stylesheet" href="{{ asset('backend/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('backend/css/tagify.css') }}">

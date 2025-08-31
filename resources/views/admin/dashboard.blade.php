@@ -5,130 +5,229 @@
 
 @push('css')
 <style>
-/* Dashboard Layout Optimization - Desktop focused */
-.section-body {
-    min-height: calc(100vh - 200px);
-    height: auto;
-    overflow-y: visible;
-    overflow-x: hidden;
-    padding: 0;
-    margin: 0;
-}
-
+/* Chart specific styles only */
 .chart-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
-    height: auto;
-    min-height: 400px;
-    padding: 20px;
-}
-
-.chart-header {
-    padding: 15px 20px 0 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 15px;
-}
-
-.chart-title {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 600;
-    color: #333;
+    margin-bottom: 24px;
 }
 
 .chart-body {
-    padding: 0 20px 15px 20px;
+    height: 350px;
+    position: relative;
 }
 
-
-
-.form-inline select {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
+.chart-header {
+    padding: 24px 24px 0 24px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #ffffff;
 }
 
-.form-inline select:first-child {
-    margin-left: 0;
+.chart-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 16px 0;
 }
 
-/* AI Dashboard Enhancements */
-.ai-widget {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 12px;
-    padding: 15px;
-    color: white;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.activity-icon-primary {
+    background-color: #4787ed;
 }
 
-.analytics-card {
+.activity-icon-success {
+    background-color: #10b981;
+}
+
+.activity-icon-warning {
+    background-color: #f59e0b;
+}
+
+.activity-icon-info {
+    background-color: #3b82f6;
+}
+
+.statistics-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4787ed 0%, #764ba2 50%, #f093fb 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.statistics-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.statistics-card .card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.statistics-card .card-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statistics-card .card-header {
+    flex: 1;
+}
+
+.statistics-card .card-header h4 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #1f2937;
+    line-height: 1;
+}
+
+.statistics-card .card-header p {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color:rgb(106, 162, 247);
+}
+
+.card-growth-text {
+    color: #ffffff !important;
+    font-weight: bold !important;
+    font-size: 0.875rem;
+    opacity: 0.9;
+    padding-bottom: 8px;
+}
+
+/* Chart Cards */
+.chart-card {
     background: #fff;
     border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
-    border-left: 4px solid #4f46e5;
-    height: auto;
-    min-height: 280px;
-    overflow-y: visible;
-}
-
-/* Desktop Statistics Cards */
-.modern-stat-card {
-    height: auto;
-    min-height: 160px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
+    border: 1px solid #4787ed;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.chart-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.chart-header {
+    padding: 24px 24px 0 24px;
+    border-bottom: 1px solid #4787ed;
+}
+
+.chart-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 16px 0;
+}
+
+.chart-body {
     padding: 24px;
-}
-
-/* Desktop row spacing */
-.row.mb-4 {
-    margin-bottom: 2rem !important;
-}
-
-.mb-3 {
-    margin-bottom: 1.5rem !important;
-}
-
-/* Desktop chart containers */
-.chart-container {
-    position: relative;
     height: 350px;
-    width: 100%;
-    margin-bottom: 20px;
+    position: relative;
 }
 
-/* Desktop statistics cards */
-.modern-stat-card {
-    height: auto;
-    min-height: 180px;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-/* Desktop analytics widgets */
+/* Analytics Cards */
 .analytics-card {
-    padding: 2rem;
-    margin-bottom: 2.5rem;
-    min-height: 250px;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    height: 100%;
 }
 
+.analytics-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.analytics-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+    border-color: rgba(79, 172, 254, 0.3);
+}
+
+.analytics-card h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+}
+
+.analytics-card h5 i {
+    color: #4787ed;
+}
+
+/* Quick Action Buttons */
+.quick-action-btn {
+    background: #fff;
+    border: 2px solid rgba(0, 102, 204, 0.1);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    text-decoration: none;
+    color: var(--dark-color);
+}
+
+.quick-action-btn:hover {
+    border-color: var(--primary-color);
+    background: rgba(79, 172, 254, 0.1);
+    color: var(--dark-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+}
+
+.quick-action-btn i {
+    transition: var(--transition);
+}
+
+.quick-action-btn:hover i {
+    color: #fff !important;
+}
+
+/* Metric Items */
 .metric-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 102, 204, 0.1);
 }
 
 .metric-item:last-child {
@@ -136,42 +235,38 @@
 }
 
 .metric-value {
-    font-weight: 600;
-    color: #1e293b;
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 18px;
 }
 
 .progress-ring {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: conic-gradient(#4f46e5 0deg, #e2e8f0 0deg);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 }
 
-.progress-ring::before {
-    content: '';
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: white;
-    position: absolute;
+.progress-text {
+    font-weight: 700;
+    color: #fff;
+    font-size: 14px;
 }
 
-.progress-text {
-    position: relative;
-    z-index: 1;
-    font-weight: 600;
-    font-size: 12px;
+/* Activity Feed */
+.activity-feed {
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .activity-item {
     display: flex;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 102, 204, 0.1);
 }
 
 .activity-item:last-child {
@@ -185,8 +280,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 12px;
-    font-size: 14px;
+    margin-right: 15px;
+    color: #fff;
+    font-size: 16px;
 }
 
 .activity-content {
@@ -194,569 +290,465 @@
 }
 
 .activity-message {
-    font-size: 14px;
-    color: #374151;
-    margin: 0;
+    margin: 0 0 5px 0;
+    font-weight: 500;
+    color: var(--dark-color);
 }
 
 .activity-time {
+    color: var(--secondary-color);
     font-size: 12px;
-    color: #6b7280;
 }
 
-
-
-.quick-action-btn {
-    background: #fff;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    margin-bottom: 10px;
+/* AI Widgets */
+.ai-widget {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border-radius: var(--border-radius-lg);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow-lg);
+    transition: var(--transition);
 }
 
-.quick-action-btn:hover {
-    border-color: #4f46e5;
+.ai-widget:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+    box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
 }
 
-/* Info Cards Styling - Recent Courses, Blogs, Contacts */
-.info-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+.ai-widget h5 {
+    color: #fff;
     margin-bottom: 20px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
-    height: auto;
-    min-height: 350px;
-    max-height: 450px;
-    display: flex;
-    flex-direction: column;
 }
 
-.info-header {
-    padding: 20px;
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    align-items: center;
+.ai-suggestion {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 15px;
+    backdrop-filter: blur(10px);
 }
 
-.info-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    color: white;
-    font-size: 20px;
+.ai-suggestion:last-child {
+    margin-bottom: 0;
 }
 
-.info-title h5 {
-    margin: 0;
-    font-size: 18px;
+.ai-suggestion-title {
     font-weight: 600;
-    color: #1f2937;
+    margin-bottom: 5px;
 }
 
-.info-subtitle {
+.ai-suggestion-desc {
     font-size: 14px;
-    color: #6b7280;
-    margin-top: 4px;
+    opacity: 0.9;
+    margin: 0;
 }
 
-.tickets-list {
-    max-height: 280px;
-    overflow-y: auto;
-    padding: 0;
-    flex: 1;
-}
-
-.ticket-item {
-    display: block;
-    padding: 16px 20px;
-    border-bottom: 1px solid #f3f4f6;
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.2s ease;
-}
-
-.ticket-item:hover {
-    background-color: #f9fafb;
-    text-decoration: none;
-    color: inherit;
-}
-
-.ticket-title h4 {
-    margin: 0 0 8px 0;
-    font-size: 15px;
-    font-weight: 500;
-    color: #1f2937;
-    line-height: 1.4;
-}
-
-.ticket-info {
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-    color: #6b7280;
-    flex-wrap: wrap;
-}
-
-.ticket-info .bullet {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: #d1d5db;
-    margin: 0 8px;
-}
-
-.ticket-more {
-    background-color: #f8fafc;
-    color: #4f46e5;
-    font-weight: 500;
-    text-align: center;
-    border-bottom: none;
-}
-
-.ticket-more:hover {
-    background-color: #e0e7ff;
-    color: #4338ca;
-}
-
-/* Ensure proper spacing for the bottom section */
-.row.mt-4 {
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-}
-
-/* Ensure the bottom row is always visible */
-.dashboard-bottom-section {
-    margin-bottom: 40px !important;
-    clear: both;
-}
-
-/* Main content wrapper adjustments */
-.main-content {
-    padding-bottom: 60px !important;
-}
-
-/* Desktop Grid System Optimization */
-@media (min-width: 1400px) {
-    .col-xl-3 .modern-stat-card {
-        min-height: 200px;
-        padding: 2.5rem;
-    }
-    
+/* Responsive Design */
+@media (max-width: 768px) {
     .chart-card {
-        min-height: 450px;
-        padding: 30px;
+        margin-bottom: 20px;
     }
     
-    .analytics-card {
-        min-height: 320px;
-        padding: 2.5rem;
-    }
-}
-
-@media (min-width: 1200px) and (max-width: 1399px) {
-    .col-xl-3 .modern-stat-card {
-        min-height: 180px;
-        padding: 2rem;
-    }
-    
-    .chart-card {
-        min-height: 400px;
-        padding: 24px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .col-xl-3 .modern-stat-card {
-        min-height: 160px;
-        padding: 1.5rem;
-    }
-    
-    .chart-card {
-        min-height: 350px;
+    .chart-header {
         padding: 20px;
     }
     
-    .main-content {
-        padding: 20px 25px !important;
+    .chart-body {
+        padding: 20px;
+        height: 300px;
+    }
+    
+    .statistics-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .analytics-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .quick-action-btn {
+        padding: 15px;
+        min-height: 100px;
     }
 }
-
-/* Ensure proper spacing between grid items */
-.row > [class*="col-"] {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-.row {
-    margin-left: -15px;
-    margin-right: -15px;
-}
-
 </style>
 @endpush
 
 @section('admin-content')
-    <div class="main-content">
-
-
-        @if ($setting->is_queable == 'active' && Cache::get('corn_working') !== 'working')
-            <div class="alert alert-danger alert-has-icon alert-dismissible show fade">
-                <div class="alert-icon"><i class="fas fa-sync"></i></div>
-                <div class="alert-body">
-                    <div class="alert-title"><a href="{{ route('admin.general-setting') }}" target="_blank"
-                            rel="noopener noreferrer">{{ __('Corn Job Is Not Running! Many features will be disabled and face errors') }}</a>
+<div class="section-body" style="padding-top: 5rem; margin-top: 3rem;">
+    <div class="container-fluid">
+        <!-- Statistics Cards -->
+        <div class="row dashboard-stats" style="margin-top: 3rem;">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card-statistic-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>{{ __('Total Courses') }}</h4>
                     </div>
-                    <button class="close" data-dismiss="alert">
-                        <span><i class="fas fa-times"></i></span>
-                    </button>
+                    <div class="card-body">
+                        <div class="card-statistic-title">{{ $data['total_course'] }}</div>
+                        <div class="card-growth-text">{{ $data['course_growth'] }} from last month</div>
+                    </div>
                 </div>
             </div>
-        @endif
-
-        <section class="section">
-            <div class="section-header">
-                <h1>{{ __('Dashboard') }}</h1>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card-statistic-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h4>{{ __('Total Instructors') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-statistic-title">{{ $data['total_instructor'] }}</div>
+                        <div class="card-growth-text">{{ $data['instructor_growth'] }} from last month</div>
+                    </div>
+                </div>
             </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card-statistic-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h4>{{ __('Total Students') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-statistic-title">{{ $data['total_student'] }}</div>
+                        <div class="card-growth-text">{{ $data['student_growth'] }} from last month</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+                <div class="card-statistic-1">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>{{ __('Online Users') }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-statistic-title">{{ $data['users_online'] ?? 0 }}</div>
+                        <div class="card-growth-text">Currently active</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <div class="section-body">
-                @if(checkAdminHasPermission('course.management'))
-                <!-- Modern Statistics Cards -->
-                <div class="row mb-4">
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                        <div class="modern-stat-card students-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon-wrapper students-icon">
-                                    <i class="fas fa-user-graduate"></i>
-                                </div>
-                                <div class="stat-trend positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+12%</span>
-                                </div>
-                            </div>
-                            <div class="stat-card-body">
-                                <h3 class="stat-number">{{ number_format($data['total_users']) }}</h3>
-                                <p class="stat-label">{{ __('Students') }}</p>
-                                <div class="stat-progress">
-                                    <div class="progress-bar students-progress" style="width: 75%"></div>
-                                </div>
-                                <small class="stat-description">{{ __('Total registered students') }}</small>
-                            </div>
+        <!-- Charts Section -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card chart-card">
+                    <div class="card-header chart-header">
+                        <h4 class="chart-title">{{ __('Course Activity (Monthly)') }}</h4>
+                    </div>
+                    <div class="card-body chart-body">
+                        <canvas id="courseActivityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card chart-card">
+                    <div class="card-header chart-header">
+                        <h4 class="chart-title">{{ __('User Registration (Yearly)') }}</h4>
+                    </div>
+                    <div class="card-body chart-body">
+                        <canvas id="userRegistrationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card chart-card">
+                    <div class="card-header chart-header">
+                        <h4 class="chart-title">{{ __('Course Creation (Yearly)') }}</h4>
+                    </div>
+                    <div class="card-body chart-body">
+                        <canvas id="courseCreationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Section -->
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card analytics-card">
+                    <div class="card-body">
+                        <h5><i class="fas fa-robot mr-2"></i>{{ __('AI Insights') }}</h5>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title">{{ __('Course Optimization') }}</div>
+                            <p class="ai-suggestion-desc">{{ __('Consider adding more interactive content to increase engagement by 23%') }}</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title">{{ __('Peak Learning Hours') }}</div>
+                            <p class="ai-suggestion-desc">{{ __('Students are most active between 7-9 PM. Schedule live sessions accordingly.') }}</p>
+                        </div>
+                        <div class="ai-suggestion">
+                            <div class="ai-suggestion-title">{{ __('Content Recommendation') }}</div>
+                            <p class="ai-suggestion-desc">{{ __('Web Development courses show 40% higher completion rates') }}</p>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                        <div class="modern-stat-card instructor-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon-wrapper instructor-icon">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                </div>
-                                <div class="stat-trend positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+8%</span>
-                                </div>
-                            </div>
-                            <div class="stat-card-body">
-                                <h3 class="stat-number">{{ number_format($data['total_pending_course']) }}</h3>
-                                <p class="stat-label">{{ __('Instructor') }}</p>
-                                <div class="stat-progress">
-                                    <div class="progress-bar instructor-progress" style="width: 60%"></div>
-                                </div>
-                                <small class="stat-description">{{ __('Active instructors') }}</small>
-                            </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card analytics-card">
+                    <div class="card-body">
+                        <h5><i class="fas fa-chart-line mr-2"></i>{{ __('Performance Analytics') }}</h5>
+                        <div class="metric-item">
+                            <span>{{ __('Course Completion Rate') }}</span>
+                            <span class="metric-value">{{ $data['analytics']['completion_rate'] ?? '78%' }}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>{{ __('Average Rating') }}</span>
+                            <span class="metric-value">{{ $data['analytics']['avg_rating'] ?? '4.6' }}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>{{ __('Student Satisfaction') }}</span>
+                            <span class="metric-value">{{ $data['analytics']['satisfaction'] ?? '92%' }}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>{{ __('Revenue Growth') }}</span>
+                            <span class="metric-value">{{ $data['analytics']['revenue_growth'] ?? '+15%' }}</span>
                         </div>
                     </div>
-                    
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                        <div class="modern-stat-card subjects-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon-wrapper subjects-icon">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card analytics-card">
+                    <div class="card-body">
+                        <h5><i class="fas fa-tachometer-alt mr-2"></i>{{ __('Key Metrics') }}</h5>
+                        <div class="metric-item">
+                            <span>{{ __('Completion Rate') }}</span>
+                            <div class="progress-ring">
+                                <span class="progress-text">{{ $data['learning_analytics']['completion_rate'] ?? 75 }}%</span>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span>{{ __('Avg. Study Time') }}</span>
+                            <span class="metric-value">{{ $data['learning_analytics']['avg_study_time'] ?? '2.5h' }}</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>{{ __('Active Learners') }}</span>
+                            <span class="metric-value">{{ number_format($data['learning_analytics']['active_learners'] ?? 1250) }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity and Quick Actions -->
+        <div class="row mb-4" style="margin-top: 2rem;">
+            <div class="col-md-6">
+                <div class="card analytics-card">
+                    <div class="card-body">
+                        <h5><i class="fas fa-clock mr-2"></i>{{ __('Recent Activity') }}</h5>
+                        <div class="activity-feed">
+                            @php
+                                $activities = $data['recent_activities'] ?? [];
+                            @endphp
+                            @forelse($activities as $activity)
+                            <div class="activity-item">
+                                <div class="activity-icon activity-icon-primary">
+                                    <i class="{{ $activity['icon'] ?? 'fas fa-user' }}"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-message">{{ $activity['message'] ?? 'New activity' }}</p>
+                                    <small class="activity-time">{{ $activity['time'] ?? '2 minutes ago' }}</small>
+                                </div>
+                            </div>
+                            @empty
+                            <div class="activity-item">
+                                <div class="activity-icon activity-icon-primary">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <div class="activity-content">
+                                    <p class="activity-message">{{ __('New student registered') }}</p>
+                                    <small class="activity-time">{{ __('2 minutes ago') }}</small>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon activity-icon-success">
                                     <i class="fas fa-book-open"></i>
                                 </div>
-                                <div class="stat-trend positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+15%</span>
+                                <div class="activity-content">
+                                    <p class="activity-message">{{ __('Course completed by student') }}</p>
+                                    <small class="activity-time">{{ __('5 minutes ago') }}</small>
                                 </div>
                             </div>
-                            <div class="stat-card-body">
-                                <h3 class="stat-number">{{ number_format($data['total_course']) }}</h3>
-                                <p class="stat-label">{{ __('Subjects') }}</p>
-                                <div class="stat-progress">
-                                    <div class="progress-bar subjects-progress" style="width: 85%"></div>
+                            <div class="activity-item">
+                                <div class="activity-icon activity-icon-warning">
+                                    <i class="fas fa-star"></i>
                                 </div>
-                                <small class="stat-description">{{ __('Available courses') }}</small>
+                                <div class="activity-content">
+                                    <p class="activity-message">{{ __('New course review received') }}</p>
+                                    <small class="activity-time">{{ __('10 minutes ago') }}</small>
+                                </div>
                             </div>
+                            @endforelse
                         </div>
                     </div>
-                    
-                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 mb-3">
-                        <div class="modern-stat-card enrolled-card">
-                            <div class="stat-card-header">
-                                <div class="stat-icon-wrapper enrolled-icon">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="stat-trend positive">
-                                    <i class="fas fa-arrow-up"></i>
-                                    <span>+22%</span>
-                                </div>
-                            </div>
-                            <div class="stat-card-body">
-                                <h3 class="stat-number">{{ number_format($data['users_online']) }}</h3>
-                                <p class="stat-label">{{ __('Enrolled') }}</p>
-                                <div class="stat-progress">
-                                    <div class="progress-bar enrolled-progress" style="width: 90%"></div>
-                                </div>
-                                <small class="stat-description">{{ __('Total enrollments') }}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
-                
-
-                
-
-                
-
-                
-
-                
-                <!-- Charts Section -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="chart-card">
-                            <!-- Card Header - Dropdown -->
-                            <div class="chart-header">
-                                <h6 class="chart-title"> {{ __('Course Activity In') }}
-                                    {{ request()->has('year') && request()->has('month')
-                                        ? Carbon\Carbon::createFromFormat('Y-m', request('year') . '-' . request('month'))->format('F, Y')
-                                        : date('F, Y') }}
-                                </h6>
-                                <div class="form-inline">
-                                    <form method="get" onchange="$(this).trigger('submit');">
-                                        <select name="year" id="year" class="form-control">
-                                            @php
-                                                $currentYear = Carbon\Carbon::now()->year;
-                                                $currentMonth = Carbon\Carbon::now()->month;
-                                                $selectYear = request('year') ?? $currentYear;
-                                                $selectMonth = request('month') ?? $currentMonth;
-                                            @endphp
-                                            @for ($i = $data['oldestYear']; $i <= $data['latestYear']; $i++)
-                                                <option value="{{ $i }}" @selected($selectYear == $i)>
-                                                    {{ $i }}</option>
-                                            @endfor
-                                        </select>
-                                        <select name="month" id="month" class="form-control">
-                                            @php
-                                                for ($month = 1; $month <= 12; $month++) {
-                                                    $monthNumber = str_pad($month, 2, '0', STR_PAD_LEFT);
-                                                    $monthName = Carbon\Carbon::createFromFormat('m', $month)->format('M');
-                                                    echo '<option value="' .
-                                                        $monthNumber .
-                                                        '" ' .
-                                                        ($selectMonth == $monthNumber ? ' selected' : '') .
-                                                        '>' .
-                                                        $monthName .
-                                                        '</option>';
-                                                }
-                                            @endphp </select>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- Card Body -->
-                            <div class="chart-body">
-                                <div class="chart-container">
-                                    <canvas id="courseActivityChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Yearly Charts Row -->
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <div class="chart-card">
-                            <div class="chart-header">
-                                <h6 class="chart-title">{{ __('User Registrations') }} {{ $selectYear }}</h6>
-                            </div>
-                            <div class="chart-body">
-                                <div class="chart-container">
-                                    <canvas id="userRegistrationChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="chart-card">
-                            <div class="chart-header">
-                                <h6 class="chart-title">{{ __('Course Creation') }} {{ $selectYear }}</h6>
-                            </div>
-                            <div class="chart-body">
-                                <div class="chart-container">
-                                    <canvas id="courseCreationChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row mt-4 dashboard-bottom-section">
-                    @if(checkAdminHasPermission('course.management'))
-                    <div class="col-md-6 col-lg-4">
-                        <div class="info-card">
-                            <div class="info-header">
-                                <div class="info-icon">
-                                    <i class="fas fa-graduation-cap"></i>
-                                </div>
-                                <div class="info-title">
-                                    <h5>{{ __('Recent Courses') }}</h5>
-                                    <div class="info-subtitle">({{ $data['pending_courses'] }}) {{ __('Courses are pending') }}</div>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="tickets-list">
-                                    @foreach ($data['recent_courses'] as $course)
-                                        <a href="{{ route('admin.courses.edit-view', $course->id) }}"
-                                            class="ticket-item">
-                                            <div class="ticket-title">
-                                                <h4>{{ truncate($course->title, 50) }}</h4>
-                                            </div>
-                                            <div class="ticket-info">
-                                                <div>{{ $course->instructor->name }}</div>
-                                                <div class="bullet"></div>
-                                                <div>{{ $course->is_approved }}</div>
-                                                <div class="bullet"></div>
-                                                <div class="text-primary">{{ $course->created_at->diffForHumans() }}</div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                    <a href="{{ route('admin.courses.index') }}" class="ticket-item ticket-more">
-                                        {{ __('View All') }} <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @if(checkAdminHasPermission('blog.view'))
-                    <div class="col-md-6 col-lg-4">
-                        <div class="info-card">
-                            <div class="info-header">
-                                <div class="info-icon">
-                                    <i class="fas fa-blog"></i>
-                                </div>
-                                <div class="info-title">
-                                    <h5>{{ __('Recent Blogs') }}</h5>
-                                    <div class="info-subtitle">({{ $data['pending_blogs'] }}) {{ __('Blogs are pending') }}</div>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="tickets-list">
-                                    @foreach ($data['recent_blogs'] as $blog)
-                                        <a href="{{ route('admin.blogs.edit', ['blog' => $blog, 'code' => getSessionLanguage()]) }}"
-                                            class="ticket-item">
-                                            <div class="ticket-title">
-                                                <h4>{{ truncate($blog->translation->title, 50) }}</h4>
-                                            </div>
-                                            <div class="ticket-info">
-                                                <div>{{ $blog->author->name }}</div>
-                                                <div class="bullet"></div>
-                                                <div>{{ $blog->status == 1 ? __('Approved') : __('Pending') }}</div>
-                                                <div class="bullet"></div>
-                                                <div class="text-primary">{{ $blog->created_at->diffForHumans() }}</div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                    <a href="{{ route('admin.blogs.index') }}" class="ticket-item ticket-more">
-                                        {{ __('View All') }} <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    @if(checkAdminHasPermission('contect.message.view'))
-                    <div class="col-md-6 col-lg-4">
-                        <div class="info-card">
-                            <div class="info-header">
-                                <div class="info-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="info-title">
-                                    <h5>{{ __('Recent Contacts') }}</h5>
-                                    <div class="info-subtitle">{{ __('Here is your recent contacts messages') }}</div>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="tickets-list">
-                                    @foreach ($data['recent_contacts'] as $contact)
-                                        <a href="{{ route('admin.contact-message', $contact->id) }}"
-                                            class="ticket-item">
-                                            <div class="ticket-title">
-                                                <h4>{{ truncate($contact->subject, 50) }}</h4>
-                                            </div>
-                                            <div class="ticket-info">
-                                                <div>{{ $contact->name }}</div>
-                                                <div class="bullet"></div>
-                                                <div>{{ $contact->email }}</div>
-                                                <div class="bullet"></div>
-                                                <div class="text-primary">{{ $contact->created_at->diffForHumans() }}
-                                                </div>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                    <a href="{{ route('admin.contact-messages') }}" class="ticket-item ticket-more">
-                                        {{ __('View All') }} <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </div>
-        </section>
+            <div class="col-md-6">
+                <div class="card analytics-card">
+                    <div class="card-body">
+                        <h5><i class="fas fa-bolt mr-2"></i>{{ __('Quick Actions') }}</h5>
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <a href="{{ route('admin.courses.create') }}" class="quick-action-btn">
+                                    <i class="fas fa-plus-circle text-primary mb-2" style="font-size: 24px;"></i>
+                                    <div>{{ __('Add Course') }}</div>
+                                </a>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <a href="{{ route('admin.admin.index') }}" class="quick-action-btn">
+                                    <i class="fas fa-user-plus text-success mb-2" style="font-size: 24px;"></i>
+                                    <div>{{ __('Add User') }}</div>
+                                </a>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <a href="{{ route('admin.blogs.create') }}" class="quick-action-btn">
+                                    <i class="fas fa-edit text-warning mb-2" style="font-size: 24px;"></i>
+                                    <div>{{ __('Write Blog') }}</div>
+                                </a>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <a href="{{ route('admin.general-setting') }}" class="quick-action-btn">
+                                    <i class="fas fa-cog text-info mb-2" style="font-size: 24px;"></i>
+                                    <div>{{ __('Settings') }}</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-@endsection
+</div>
 
 @push('js')
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(document).ready(function() {
+        "use strict";
+        
+        // Chart data from controller
+        var monthlyData = @json($data['monthly_data'] ?? []);
+        var userRegistrationData = @json($data['user_registration_data'] ?? []);
+        var courseCreationData = @json($data['course_creation_data'] ?? []);
+        
+        // Course Activity Chart (Monthly)
+        var courseActivityCtx = document.getElementById('courseActivityChart').getContext('2d');
+        var courseActivityChart = new Chart(courseActivityCtx, {
+            type: 'line',
+            data: {
+                labels: monthlyData.labels || [],
+                datasets: [{
+                    label: '{{ __('Course Activity') }}',
+                    data: monthlyData.data || [],
+                    borderColor: 'rgb(73, 160, 247)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // User Registration Chart (Yearly)
+        var userRegistrationCtx = document.getElementById('userRegistrationChart').getContext('2d');
+        var userRegistrationChart = new Chart(userRegistrationCtx, {
+            type: 'bar',
+            data: {
+                labels: userRegistrationData.labels || [],
+                datasets: [{
+                    label: '{{ __('User Registrations') }}',
+                    data: userRegistrationData.data || [],
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Course Creation Chart (Yearly)
+        var courseCreationCtx = document.getElementById('courseCreationChart').getContext('2d');
+        var courseCreationChart = new Chart(courseCreationCtx, {
+            type: 'bar',
+            data: {
+                labels: courseCreationData.labels || [],
+                datasets: [{
+                    label: '{{ __('Course Creation') }}',
+                    data: courseCreationData.data || [],
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        // Initialize learning analytics chart
+        initializeLearningAnalyticsChart();
+        
+        // Auto-refresh activity feed every 30 seconds
+        setInterval(refreshActivityFeed, 30000);
+    });
     
-    <script>
-        $(document).ready(function() {
-            "use strict";
+    function initializeLearningAnalyticsChart() {
+        var learningData = @json($data['learning_analytics']['weekly_progress'] ?? []);
+        
+        var ctx = document.createElement('canvas');
+        ctx.id = 'learningProgressChart';
+        
+        // Add chart to a container if needed
+        var chartContainer = document.querySelector('.learning-chart-container');
+        if (chartContainer) {
+            chartContainer.appendChild(ctx);
             
-            // Chart data from controller
-            var monthlyData = @json($data['monthly_data']);
-            var userRegistrationData = @json($data['user_registration_data']);
-            var courseCreationData = @json($data['course_creation_data']);
-            
-            // Course Activity Chart (Monthly)
-            var courseActivityCtx = document.getElementById('courseActivityChart').getContext('2d');
-            var courseActivityChart = new Chart(courseActivityCtx, {
+            new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: monthlyData.labels,
+                    labels: learningData.labels || [],
                     datasets: [{
-                        label: '{{ __('Course Activity') }}',
-                        data: monthlyData.data,
-                        borderColor: 'rgb(75, 192, 192)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        tension: 0.1
+                        label: '{{ __('Learning Progress') }}',
+                        data: learningData.data || [],
+                        borderColor: '#4f46e5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4
                     }]
                 },
                 options: {
@@ -769,290 +761,33 @@
                     }
                 }
             });
-            
-            // User Registration Chart (Yearly)
-            var userRegistrationCtx = document.getElementById('userRegistrationChart').getContext('2d');
-            var userRegistrationChart = new Chart(userRegistrationCtx, {
-                type: 'bar',
-                data: {
-                    labels: userRegistrationData.labels,
-                    datasets: [{
-                        label: '{{ __('User Registrations') }}',
-                        data: userRegistrationData.data,
-                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            
-            // Course Creation Chart (Yearly)
-            var courseCreationCtx = document.getElementById('courseCreationChart').getContext('2d');
-            var courseCreationChart = new Chart(courseCreationCtx, {
-                type: 'bar',
-                data: {
-                    labels: courseCreationData.labels,
-                    datasets: [{
-                        label: '{{ __('Course Creation') }}',
-                        data: courseCreationData.data,
-                        backgroundColor: 'rgba(255, 99, 132, 0.8)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-            
+        }
+    }
+    
+    function refreshActivityFeed() {
+        // Simulate activity feed refresh
+        console.log('Refreshing activity feed...');
+    }
+</script>
 
-            
-            // Initialize learning analytics chart
-            initializeLearningAnalyticsChart();
-            
-            // Auto-refresh activity feed every 30 seconds
-            setInterval(refreshActivityFeed, 30000);
+<script>
+    $(document).ready(function() {
+        "use strict";
+        var alertKey = 'updateAvailablityAlert';
+        var dismissedTimestamp = localStorage.getItem(alertKey);
+
+        if (!dismissedTimestamp || Date.now() - dismissedTimestamp > 24 * 60 * 60 * 1000) {
+            $('#updateAvailablityAlert').removeClass('d-none');
+            $('#updateAvailablityAlert').show();
+        } else {
+            $('#updateAvailablityAlert').hide();
+        }
+
+        $('#updateAvailablityAlertClose').on('click', function() {
+            $('#updateAvailablityAlert').hide();
+            localStorage.setItem(alertKey, Date.now());
         });
-        
-        // Quick Action Functions
-        function generateAIContent() {
-            Swal.fire({
-                title: '{{ __('AI Content Generator') }}',
-                html: `
-                    <div class="text-left">
-                        <div class="form-group">
-                            <label>{{ __('Content Type') }}</label>
-                            <select class="form-control" id="contentType">
-                                <option value="course">{{ __('Course Outline') }}</option>
-                                <option value="quiz">{{ __('Quiz Questions') }}</option>
-                                <option value="assignment">{{ __('Assignment') }}</option>
-                                <option value="description">{{ __('Course Description') }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Topic/Subject') }}</label>
-                            <input type="text" class="form-control" id="contentTopic" placeholder="{{ __('Enter topic or subject') }}">
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Difficulty Level') }}</label>
-                            <select class="form-control" id="difficultyLevel">
-                                <option value="beginner">{{ __('Beginner') }}</option>
-                                <option value="intermediate">{{ __('Intermediate') }}</option>
-                                <option value="advanced">{{ __('Advanced') }}</option>
-                            </select>
-                        </div>
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: '{{ __('Generate Content') }}',
-                cancelButtonText: '{{ __('Cancel') }}',
-                preConfirm: () => {
-                    const contentType = document.getElementById('contentType').value;
-                    const topic = document.getElementById('contentTopic').value;
-                    const difficulty = document.getElementById('difficultyLevel').value;
-                    
-                    if (!topic) {
-                        Swal.showValidationMessage('{{ __('Please enter a topic') }}');
-                        return false;
-                    }
-                    
-                    return { contentType, topic, difficulty };
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Simulate AI content generation
-                    Swal.fire({
-                        title: '{{ __('Generating Content...') }}',
-                        html: '{{ __('AI is creating your content. Please wait...') }}',
-                        allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                            setTimeout(() => {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: '{{ __('Content Generated!') }}',
-                                    text: '{{ __('Your AI-generated content is ready. Check your drafts folder.') }}'
-                                });
-                            }, 3000);
-                        }
-                    });
-                }
-            });
-        }
-        
-        function bulkOperations() {
-            Swal.fire({
-                title: '{{ __('Bulk Operations') }}',
-                html: `
-                    <div class="text-left">
-                        <div class="form-group">
-                            <label>{{ __('Select Operation') }}</label>
-                            <select class="form-control" id="bulkOperation">
-                                <option value="approve">{{ __('Approve Pending Courses') }}</option>
-                                <option value="publish">{{ __('Publish Draft Courses') }}</option>
-                                <option value="archive">{{ __('Archive Old Courses') }}</option>
-                                <option value="update_tags">{{ __('Update Course Tags') }}</option>
-
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Filter Criteria') }}</label>
-                            <input type="text" class="form-control" id="filterCriteria" placeholder="{{ __('Enter filter criteria (optional)') }}">
-                        </div>
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: '{{ __('Execute Operation') }}',
-                cancelButtonText: '{{ __('Cancel') }}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '{{ __('Operation Completed!') }}',
-                        text: '{{ __('Bulk operation has been executed successfully.') }}'
-                    });
-                }
-            });
-        }
-        
-        function exportAnalytics() {
-            Swal.fire({
-                title: '{{ __('Export Analytics') }}',
-                html: `
-                    <div class="text-left">
-                        <div class="form-group">
-                            <label>{{ __('Report Type') }}</label>
-                            <select class="form-control" id="reportType">
-                                <option value="comprehensive">{{ __('Comprehensive Report') }}</option>
-                                <option value="user_analytics">{{ __('User Analytics') }}</option>
-                                <option value="course_performance">{{ __('Course Performance') }}</option>
-                                <option value="financial">{{ __('Financial Report') }}</option>
-                                <option value="engagement">{{ __('Engagement Metrics') }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Date Range') }}</label>
-                            <select class="form-control" id="dateRange">
-                                <option value="last_week">{{ __('Last Week') }}</option>
-                                <option value="last_month">{{ __('Last Month') }}</option>
-                                <option value="last_quarter">{{ __('Last Quarter') }}</option>
-                                <option value="last_year">{{ __('Last Year') }}</option>
-                                <option value="custom">{{ __('Custom Range') }}</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ __('Export Format') }}</label>
-                            <select class="form-control" id="exportFormat">
-                                <option value="pdf">{{ __('PDF Report') }}</option>
-                                <option value="excel">{{ __('Excel Spreadsheet') }}</option>
-                                <option value="csv">{{ __('CSV Data') }}</option>
-                                <option value="json">{{ __('JSON Data') }}</option>
-                            </select>
-                        </div>
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: '{{ __('Generate Report') }}',
-                cancelButtonText: '{{ __('Cancel') }}'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '{{ __('Report Generated!') }}',
-                        text: '{{ __('Your analytics report is being prepared and will be downloaded shortly.') }}'
-                    });
-                    // Simulate file download
-                    setTimeout(() => {
-                        const link = document.createElement('a');
-                        link.href = '#';
-                        link.download = 'analytics_report.pdf';
-                        link.click();
-                    }, 2000);
-                }
-            });
-        }
-        
-        function initializeLearningAnalyticsChart() {
-            var learningData = @json($data['learning_analytics']['weekly_progress']);
-            
-            var ctx = document.createElement('canvas');
-            ctx.id = 'learningProgressChart';
-            
-            // Add chart to a container if needed
-            var chartContainer = document.querySelector('.learning-chart-container');
-            if (chartContainer) {
-                chartContainer.appendChild(ctx);
-                
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: learningData.map(item => item.date),
-                        datasets: [{
-                            label: '{{ __('Completed Lessons') }}',
-                            data: learningData.map(item => item.completed_lessons),
-                            borderColor: 'rgb(99, 102, 241)',
-                            backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                            tension: 0.4
-                        }, {
-                            label: '{{ __('Active Learners') }}',
-                            data: learningData.map(item => item.active_learners),
-                            borderColor: 'rgb(34, 197, 94)',
-                            backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                            tension: 0.4
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-                });
-            }
-        }
-        
-        function refreshActivityFeed() {
-            // Simulate real-time activity updates
-            console.log('Refreshing activity feed...');
-            // In a real implementation, this would make an AJAX call to get new activities
-        }
-
-    </script>
-    <script>
-        $(document).ready(function() {
-            "use strict";
-            var alertKey = 'updateAvailablityAlert';
-            var dismissedTimestamp = localStorage.getItem(alertKey);
-
-            if (!dismissedTimestamp || Date.now() - dismissedTimestamp > 24 * 60 * 60 * 1000) {
-                $('#updateAvailablityAlert').removeClass('d-none');
-                $('#updateAvailablityAlert').show();
-            } else {
-                $('#updateAvailablityAlert').hide();
-            }
-
-            $('#updateAvailablityAlertClose').on('click', function() {
-                $('#updateAvailablityAlert').hide();
-                localStorage.setItem(alertKey, Date.now());
-            });
-        });
-    </script>
+    });
+</script>
 @endpush
+@endsection

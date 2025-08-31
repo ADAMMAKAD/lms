@@ -9,6 +9,8 @@ use App\Traits\RedirectHelperTrait;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
 use Modules\Blog\app\Models\BlogCategory;
 use Modules\Course\app\Http\Requests\CourseCategoryStoreRequest;
 use Modules\Course\app\Http\Requests\CourseCategoryUpdateRequest;
@@ -25,22 +27,32 @@ class CourseCategoryController extends Controller
      */
     public function index(Request $request)
     {
+        // Validate and sanitize input parameters
+        $validated = $request->validate([
+            'keyword' => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s\-_.,!?]+$/',
+            'parent_id' => 'nullable|integer|exists:course_categories,id',
+            'status' => 'nullable|in:0,1',
+            'order_by' => 'nullable|in:0,1',
+            'par-page' => 'nullable|string|in:all,10,20,50,100'
+        ]);
+        
         $query = CourseCategory::query();
-        $query->when($request->keyword, function ($q) {
-            $q->whereHas('translations', function ($q) {
-                $q->where('name', 'like', '%' . request('keyword') . '%');
+        $query->when($validated['keyword'] ?? null, function ($q) use ($validated) {
+            $sanitizedKeyword = strip_tags(trim($validated['keyword']));
+            $q->whereHas('translations', function ($q) use ($sanitizedKeyword) {
+                $q->where('name', 'like', '%' . $sanitizedKeyword . '%');
             });
         });
-        $query->where('parent_id', $request->parent_id);
+        $query->where('parent_id', $validated['parent_id'] ?? null);
         $query->when(
-            $request->status !== null && $request->status !== '',
-            fn ($q) => $q->where('status', $request->status)
+            ($validated['status'] ?? null) !== null,
+            fn ($q) => $q->where('status', $validated['status'])
         );
-        $orderBy = $request->order_by == 1 ? 'asc' : 'desc';
-        $categories = $request->get('par-page') == 'all' ?
+        $orderBy = ($validated['order_by'] ?? 0) == 1 ? 'asc' : 'desc';
+        $categories = ($validated['par-page'] ?? null) == 'all' ?
             $query->orderBy('id', $orderBy)->get() :
-            $query->orderBy('id', $orderBy)->paginate($request->get('par-page') ?? null)->withQueryString();
-        $parentCategory = CourseCategory::find($request->parent_id);
+            $query->orderBy('id', $orderBy)->paginate($validated['par-page'] ?? null)->withQueryString();
+        $parentCategory = CourseCategory::find($validated['parent_id'] ?? null);
         return view('course::course-category.index', compact('categories'));
     }
 
@@ -130,7 +142,7 @@ class CourseCategoryController extends Controller
         }
         
         if ($category->icon) {
-            if (\File::exists(public_path($category->icon))) {
+            if (File::exists(public_path($category->icon))) {
                 unlink(public_path($category->icon));
             }
         }

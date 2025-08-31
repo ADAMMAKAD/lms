@@ -83,10 +83,10 @@
         <div class="row">
             <ul class="progressbar">
                 <ul class="progressbar">
-                    <li class="@if (request()->routeIs('setup.verify') || (session()->has('step-1-complete') && session()->get('step-1-complete'))) active @endif"><a href="{{route('setup.verify')}}">Verification</a></li>
+    
 
                     <li class="@if (request()->routeIs('setup.requirements') ||
-                            (session()->has('step-2-complete') && session()->get('step-2-complete'))) active @endif"><a href="@if ((session()->has('step-1-complete') && session()->get('step-1-complete'))) {{route('setup.requirements')}} @else # @endif" class="@if (!session()->has('step-1-complete')) text-muted @endif">Requirements</a></li>
+(session()->has('step-2-complete') && session()->get('step-2-complete'))) active @endif"><a href="{{route('setup.requirements')}}">Requirements</a></li>
 
                     <li class="@if (request()->routeIs('setup.database') || (session()->has('step-3-complete') && session()->get('step-3-complete'))) active @endif"><a href="@if ((session()->has('step-2-complete') && session()->get('step-2-complete') && session()->has('requirements-complete') && session()->get('requirements-complete'))) {{route('setup.database')}} @else # @endif" class="@if (!session()->has('requirements-complete')) text-muted @endif">Database Setup</a></li>
 

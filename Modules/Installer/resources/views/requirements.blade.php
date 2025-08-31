@@ -4,7 +4,6 @@
         <div class="card-header d-flex justify-content-between">
             <p>Minimum Requirements</p>
             <div>
-                <a class="btn btn-outline-primary" href="{{route('setup.verify')}}">&laquo; Back</a>
                 <a class="btn btn-outline-primary @if (!session()->has('requirements-complete')) disabled @endif" href="{{route('setup.database')}}">Next &raquo;</a>
             </div>
         </div>

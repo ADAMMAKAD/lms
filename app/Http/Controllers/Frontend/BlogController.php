@@ -12,17 +12,27 @@ use Modules\Blog\app\Models\BlogComment;
 
 class BlogController extends Controller
 {
-    function index() {
+    function index(Request $request) {
+        // Validate and sanitize input parameters
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s\-_.,!?]+$/',
+            'category' => 'nullable|string|max:100|alpha_dash'
+        ]);
+        
+        $search = $validated['search'] ?? null;
+        $category = $validated['category'] ?? null;
+        
         $query = Blog::query();
-        $query->when(request('search'), function($query) {
-            $query->whereHas('translation', function($query) {
-                $query->where('title', 'like', '%' . request('search') . '%')
-                    ->orWhere('description', 'like', '%' . request('search') . '%');
+        $query->when($search, function($query) use ($search) {
+            $sanitizedSearch = strip_tags(trim($search));
+            $query->whereHas('translation', function($query) use ($sanitizedSearch) {
+                $query->where('title', 'like', '%' . $sanitizedSearch . '%')
+                    ->orWhere('description', 'like', '%' . $sanitizedSearch . '%');
             });
         });
-        $query->when(request('category'), function($query) {
-            $query->whereHas('category', function($query) {
-                $query->where('slug', request('category'));
+        $query->when($category, function($query) use ($category) {
+            $query->whereHas('category', function($query) use ($category) {
+                $query->where('slug', $category);
             });
         });
         $query->whereHas('category', function($q) { $q->where('status', 1); });

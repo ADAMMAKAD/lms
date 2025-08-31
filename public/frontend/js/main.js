@@ -56,11 +56,10 @@
     =============================================*/
     $(window).on('scroll', function () {
         var scroll = $(window).scrollTop();
-        if (scroll < 245) {
+        if (scroll < 100) {
             $("#sticky-header").removeClass("sticky-menu");
             $('.scroll-to-target').removeClass('open');
             $("#header-fixed-height").removeClass("active-height");
-
         } else {
             $("#sticky-header").addClass("sticky-menu");
             $('.scroll-to-target').addClass('open');

@@ -2,17 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Modules\Installer\app\Http\Controllers\InstallerController;
-use Modules\Installer\app\Http\Controllers\PuchaseVerificationController;
-use Modules\Installer\app\Http\Middleware\PurchaseVerifyMiddleware;
 use Modules\Installer\app\Http\Middleware\SetupMiddleware;
 
-//all setup route - purchase verification bypassed
-Route::prefix('setup')->withoutMiddleware(PurchaseVerifyMiddleware::class)->group(function () {
-    // Purchase verification routes - now bypassed but kept for compatibility
-    Route::controller(PuchaseVerificationController::class)->group(function () {
-        Route::get('verify', 'index')->name('setup.verify');
-        Route::post('verify', 'validatePurchase')->name('setup.checkParchase');
-    });
+//all setup routes
+Route::prefix('setup')->group(function () {
     Route::controller(InstallerController::class)->withoutMiddleware('demo')->group(function () {
         Route::get('requirements', 'requirements')->name('setup.requirements');
         Route::get('database', 'database')->name('setup.database');

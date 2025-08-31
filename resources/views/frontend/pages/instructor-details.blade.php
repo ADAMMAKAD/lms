@@ -280,13 +280,7 @@
                                                                     </a>
                                                                 </div>
                                                             @endif
-                                                            @if ($course->price == 0)
-                                                                <h5 class="price">{{ __('Free') }}</h5>
-                                                            @elseif ($course->price > 0 && $course->discount > 0)
-                                                                <h5 class="price">{{ currency($course->discount) }}</h5>
-                                                            @else
-                                                                <h5 class="price">{{ currency($course->price) }}</h5>
-                                                            @endif
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -342,11 +336,11 @@
     @push('scripts')
         <script>
             $(function() {
-                if (typeof dataLayer !== 'undefined') {
+                if (typeof dataLayer != 'undefined') {
                     var contactInfo = {!! json_encode($instructorQuickContact ?? []) !!};
                     dataLayer.push({
-                        event: 'instructorQuickContact',
-                        contact_info: contactInfo
+                        'event': 'instructorQuickContact',
+                        'contact_info': contactInfo
                     });
                 }
             });

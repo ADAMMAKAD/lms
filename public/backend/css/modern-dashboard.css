@@ -1,103 +1,129 @@
-/* Modern Dashboard Mobile Navigation Fix */
+/* Modern Dashboard Styles */
 
-/* Mobile Sidebar Styles - Align with modern-admin.js logic */
-@media (max-width: 992px) {
-    .main-sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        z-index: 1000;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        width: 260px;
-        background: #fff;
-    }
-    
-    .main-sidebar:not(.sidebar-hidden) {
-        transform: translateX(0);
-    }
-    
-    .sidebar-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .sidebar-overlay.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .main-content {
-        margin-left: 0 !important;
-        max-width: 100vw !important;
-    }
-    
-    .navbar.sidebar-hidden {
-        margin-left: 0;
-    }
+/* Dashboard statistics cards */
+.dashboard-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 32px;
 }
 
-/* Ensure sidebar is visible on desktop */
-@media (min-width: 993px) {
-    .main-sidebar {
-        transform: translateX(0) !important;
-        position: relative;
-    }
-    
-    .sidebar-overlay {
-        display: none !important;
-    }
+.dashboard-stats .col-lg-3,
+.dashboard-stats .col-md-6 {
+    flex: 1;
+    min-width: 250px;
 }
 
-/* Sidebar Toggle Button Styles */
-.sidebar-toggle-btn,
-[data-toggle="sidebar"] {
-    background: none;
-    border: none;
+/* Statistics card styling */
+.card-statistic-1 {
+    background: linear-gradient(135deg, #4787ed 0%, #4787ed 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 32px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-statistic-1:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+}
+
+.card-statistic-1 .card-icon {
+    font-size: 48px;
+    opacity: 0.8;
+}
+
+.card-statistic-1 .card-body {
+    text-align: right;
+}
+
+.card-statistic-1 .card-body .card-title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.card-statistic-1 .card-body .card-text {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Chart cards */
+.chart-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 24px;
+}
+
+.chart-card .card-header {
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.chart-card .card-title {
     font-size: 18px;
-    color: #374151;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
 }
 
-.sidebar-toggle-btn:hover,
-[data-toggle="sidebar"]:hover {
-    background: #f3f4f6;
-    color: #1f2937;
+/* Analytics cards */
+.analytics-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
+    margin-bottom: 24px;
 }
 
-.sidebar-toggle-btn:focus,
-[data-toggle="sidebar"]:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+/* Activity feed */
+.activity-feed {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
 }
 
-/* Fix for blue background issue */
-.main-sidebar .sidebar-menu {
-    background: transparent !important;
+/* Recent activity */
+.recent-activity {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f1f5f9;
 }
 
-.main-sidebar .sidebar-menu .nav-item {
-    background: transparent !important;
-}
-
-.main-sidebar .sidebar-menu .nav-link {
-    background: transparent !important;
-    color: #374151;
-}
-
-.main-sidebar .sidebar-menu .nav-link:hover {
-    background: #f3f4f6 !important;
-    color: #1f2937;
+/* Responsive dashboard */
+@media (max-width: 767.99px) {
+    .dashboard-stats {
+        flex-direction: column;
+        gap: 16px;
+    }
+    
+    .dashboard-stats .col-lg-3,
+    .dashboard-stats .col-md-6 {
+        min-width: 100%;
+    }
+    
+    .card-statistic-1 {
+        height: 120px;
+        padding: 20px;
+    }
+    
+    .card-statistic-1 .card-body .card-text {
+        font-size: 28px;
+    }
 }
