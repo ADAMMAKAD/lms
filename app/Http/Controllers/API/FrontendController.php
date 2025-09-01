@@ -375,8 +375,8 @@ class FrontendController extends Controller {
     public function on_boarding_screen(): JsonResponse {
         $screens = [
             [
-                'title'       => 'Welcome to UNDO',
-                'description' => 'Discover a world of knowledge and unlock your potential with our curated courses.',
+                'title'       => 'Welcome to UNDO Leaning Management System',
+                'description' => 'learn What you want to learn.',
             ],
             [
                 'title'       => 'Learn at Your Pace',

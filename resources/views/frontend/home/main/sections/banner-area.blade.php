@@ -8,8 +8,8 @@
     
     <div class="container position-relative" style="z-index: 2;">
         <div class="row align-items-center g-5">
-            <!-- Content Section - Left Side -->
-            <div class="col-lg-6 order-lg-1 order-2">
+            <!-- Content Section - Full Width -->
+            <div class="col-lg-12 order-1">
                 <div class="ultra-modern-content" style="color: white;">
                     <!-- Animated Badge -->
                     <div style="display: inline-flex; align-items: center; background: rgba(255,255,255,0.15); border-radius: 50px; padding: 0.9rem 1.8rem; margin-bottom: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);">
@@ -25,7 +25,7 @@
                     </h2>
                     
                     <!-- Description -->
-                    <p style="font-size: 1.35rem; line-height: 1.7; margin-bottom: 3rem; opacity: 0.95; color: white; font-weight: 400; max-width: 550px;">
+                    <p style="font-size: 1.35rem; line-height: 1.7; margin-bottom: 3rem; opacity: 0.95; color: white; font-weight: 400; max-width: 650px;">
                         {!! clean(processText($aboutSection?->content?->description ?: 'Empower your career with United Nations Development Programme\'s world-class learning platform. Join a global community of professionals advancing sustainable development goals through innovative digital solutions.')) !!}
                     </p>
                     
@@ -72,63 +72,7 @@
                 </div>
             </div>
             
-            <!-- Visual Section - Right Side -->
-            <div class="col-lg-6 order-lg-2 order-1">
-                <div class="ultra-modern-visual" style="position: relative; padding: 2rem;">
-                    <!-- Main Visual Container -->
-                    <div style="position: relative; max-width: 550px; margin: 0 auto;">
-                        <!-- Central Hub -->
-                        <div style="position: relative; background: rgba(255,255,255,0.95); border-radius: 24px; padding: 2.5rem; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.3); box-shadow: 0 30px 80px rgba(0,0,0,0.2);">
-                            
-                            <!-- Main Image with Modern Frame -->
-                            <div style="position: relative; border-radius: 20px; overflow: hidden; margin-bottom: 2rem;">
-                                <img src="{{ asset($aboutSection?->global_content?->image) }}" 
-                                     alt="UNCO LMS - Empowering SME Training" 
-                                     style="width: 100%; height: 300px; object-fit: cover; border-radius: 20px;">
-                                
-                                @if($aboutSection?->global_content?->video_url)
-                                <!-- Ultra Modern Play Button -->
-                                <a href="{{ $aboutSection?->global_content?->video_url }}" 
-                                   class="ultra-play-btn popup-video" 
-                                   style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 70px; height: 70px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 15px 40px rgba(30, 64, 175, 0.4); transition: all 0.3s ease; text-decoration: none;">
-                                    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                </a>
-                                @endif
-                                
-                                <!-- Overlay Badge -->
-                                <div style="position: absolute; top: 15px; left: 15px; background: rgba(16, 185, 129, 0.9); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; backdrop-filter: blur(10px);">
-                                    ✓ SME Certified
-                                </div>
-                            </div>
-                            
 
-                        </div>
-                        
-                        <!-- Floating Achievement Cards -->
-                        <div style="position: absolute; top: -10px; right: -20px; background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1rem; box-shadow: 0 15px 40px rgba(0,0,0,0.1); animation: floatGentle 6s ease-in-out infinite; backdrop-filter: blur(10px); min-width: 140px;">
-                            <div style="text-align: center;">
-                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #10B981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
-                                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                                </div>
-                                <div style="font-size: 0.8rem; color: #1f2937; font-weight: 600;">Excellence Award</div>
-                                <div style="font-size: 0.7rem; color: #6b7280;">Top Performer</div>
-                            </div>
-                        </div>
-                        
-                        <div style="position: absolute; bottom: -10px; left: -20px; background: rgba(255,255,255,0.95); border-radius: 16px; padding: 1rem; box-shadow: 0 15px 40px rgba(0,0,0,0.1); animation: floatGentle 8s ease-in-out infinite reverse; backdrop-filter: blur(10px); min-width: 140px;">
-                            <div style="text-align: center;">
-                                <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #60a5fa, #3b82f6); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
-                                    <svg width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
-                                </div>
-                                <div style="font-size: 0.8rem; color: #1f2937; font-weight: 600;">Skill Certified</div>
-                                <div style="font-size: 0.7rem; color: #6b7280;">Verified Skills</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
