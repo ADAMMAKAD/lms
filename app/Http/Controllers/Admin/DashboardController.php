@@ -38,7 +38,7 @@ class DashboardController extends Controller
         $data['latestYear'] = $chartData['latestYear'];
         // Order statistics removed for free learning system
         $data['total_course'] = Course::count();
-        $data['total_instructor'] = User::where('role', 'instructor')->count();
+
         $data['total_pending_course'] = Course::where('is_approved', 'pending')->count();
         $data['total_student'] = User::where('role', 'student')->count();
         $data['users_online'] = User::where('updated_at', '>=', Carbon::now()->subMinutes(15))->count();

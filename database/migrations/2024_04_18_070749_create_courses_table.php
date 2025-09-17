@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('instructor_id');
             $table->foreignId('category_id')->nullable();
             $table->enum('type', ['course', 'webinar'])->default('course');
             $table->string('title');
@@ -31,7 +30,6 @@ return new class extends Migration
             $table->double('discount')->nullable();
             $table->boolean('certificate')->default(0);
             $table->boolean('downloadable')->default(0);
-            $table->boolean('partner_instructor')->default(0);
             $table->boolean('qna')->default(0);
             $table->text('message_for_reviewer')->nullable();
             $table->enum('status', ['active', 'is_draft', 'inactive'])->default('is_draft');

@@ -1,8 +1,8 @@
 {
     "name": "InstructorRequest",
     "alias": "instructorrequest",
-    "description": "",
-    "keywords": [],
+    "description": "Module for handling instructor registration requests",
+    "keywords": ["instructor", "request", "registration"],
     "priority": 0,
     "providers": [
         "Modules\\InstructorRequest\\app\\Providers\\InstructorRequestServiceProvider"

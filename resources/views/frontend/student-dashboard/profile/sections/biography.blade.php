@@ -15,7 +15,7 @@
         }
         
         .bio-header h3 {
-            color: #0066cc;
+            color: #282f76;
             font-weight: 700;
             margin: 0;
             font-size: 1.5rem;
@@ -51,7 +51,7 @@
         
         .modern-bio-input:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #282f76;
             background: white;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
@@ -71,13 +71,13 @@
         
         .modern-bio-textarea:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #282f76;
             background: white;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
         
         .modern-bio-submit {
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
             color: white;
             border: none;
             padding: 1rem 2rem;
@@ -100,7 +100,7 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
             border-radius: 50%;
             color: white;
             margin-bottom: 1rem;

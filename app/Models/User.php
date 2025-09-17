@@ -5,7 +5,13 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserStatus;
+use App\Models\Cart;
+use App\Models\Course;
+use App\Models\CourseAssignment;
+use App\Models\CourseProgress;
 use App\Models\JitsiSetting;
+use App\Models\SocialiteCredential;
+use App\Models\ZoomCredential;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Modules\InstructorRequest\app\Models\InstructorRequest;
+
 use Modules\Location\app\Models\Country;
 // use Modules\Order\app\Models\Order; // Order functionality removed
 
@@ -84,13 +90,9 @@ class User extends Authenticatable {
         return $this->hasMany(SocialiteCredential::class, 'user_id');
     }
 
-    function instructorInfo(): HasOne {
-        return $this->hasOne(InstructorRequest::class, 'user_id', 'id');
-    }
 
-    public function courses() {
-        return $this->hasMany(Course::class, 'instructor_id');
-    }
+
+
     // Enrollment functionality removed - system is now free
 
     function country(): BelongsTo {
@@ -119,15 +121,30 @@ class User extends Authenticatable {
         return $this->carts()->join('courses', 'courses.id', '=', 'carts.course_id')->selectRaw('SUM(carts.qty * IFNULL(NULLIF(courses.discount, 0), courses.price)) as total')->value('total') ?? 0;
     }
 
-    /**
-     * Boot the model.
-     */
-    protected static function boot() {
-        parent::boot();
-
-        static::deleting(function ($user) {
-            // Delete related instructor request
-            $user->instructorInfo()->delete();
-        });
+    public function progresses(): HasMany {
+        return $this->hasMany(CourseProgress::class, 'user_id', 'id');
     }
+
+    /**
+     * Get courses assigned to this user.
+     */
+    public function assignedCourses(): HasMany {
+        return $this->hasMany(CourseAssignment::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get courses assigned by this user (if admin).
+     */
+    public function coursesAssignedByMe(): HasMany {
+        return $this->hasMany(CourseAssignment::class, 'assigned_by', 'id');
+    }
+
+    /**
+     * Check if user has access to a specific course.
+     */
+    public function hasAccessToCourse($courseId): bool
+    {
+        return $this->assignedCourses()->where('course_id', $courseId)->exists();
+    }
+
 }

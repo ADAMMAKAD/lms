@@ -24,6 +24,23 @@
                     <span>{{ __('Enrolled Courses') }}</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('student.chat') }}" class="sidebar-link {{ Route::is('student.chat') ? 'active' : '' }}">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    <span>{{ __('Chat with Instructor') }}</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('student.meetings') }}" class="sidebar-link {{ Route::is('student.meetings') ? 'active' : '' }}">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 7V3a1 1 0 012 0v4h4V3a1 1 0 012 0v4h2a3 3 0 013 3v8a3 3 0 01-3 3H6a3 3 0 01-3-3v-8a3 3 0 013-3h2z"/>
+                        <path d="M6 11h12v6H6z"/>
+                    </svg>
+                    <span>{{ __('Meetings') }}</span>
+                </a>
+            </li>
             <!-- <li>
                 <a href="{{ route('student.wishlist') }}" class="sidebar-link {{ Route::is('student.wishlist') ? 'active' : '' }}">
                     <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
@@ -76,11 +93,12 @@
 </div>
 
 <style>
+/* Coursera-Inspired Modern Sidebar */
 .modern-sidebar {
     background: white;
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     border: 1px solid #e5e7eb;
     position: static !important;
     width: 100% !important;
@@ -88,19 +106,41 @@
     transform: none !important;
     margin-left: 0 !important;
     z-index: auto !important;
+    overflow: hidden;
 }
 
 .sidebar-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f3f4f6;
+    background: #0056d3;
+    padding: 1.5rem;
+    margin-bottom: 0;
+    border-bottom: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
 }
 
 .sidebar-header h3 {
-    color:rgb(0, 0, 0);
+    color: white;
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.sidebar-menu {
+    padding: 1rem 0;
 }
 
 .sidebar-menu ul {
@@ -110,35 +150,102 @@
 }
 
 .sidebar-menu li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .sidebar-link {
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
+    padding: 0.875rem 1.5rem;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 0.9rem;
     transition: all 0.2s ease;
-    color:rgb(0, 0, 0);
+    color: #374151;
+    border-left: 3px solid transparent;
+    position: relative;
 }
 
 .sidebar-link:hover {
-    background: #f8fafc;
-    color:rgb(0, 1, 2);
+    background: #f8f9fa;
+    color: #0056d3;
     text-decoration: none;
+    border-left-color: #0056d3;
 }
 
 .sidebar-link.active {
-    background: #3b82f6;
+    background: #eff6ff;
+    color: #0056d3;
+    border-left-color: #0056d3;
+    font-weight: 600;
+}
+
+.sidebar-link svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.sidebar-link:hover svg,
+.sidebar-link.active svg {
+    color: #0056d3;
+}
+
+.sidebar-section {
+    border-top: 1px solid #f3f4f6;
+    padding: 1rem 0 0.5rem 0;
+    margin-top: 0.5rem;
+}
+
+.logout-link {
+    color: #dc2626 !important;
+}
+
+.logout-link:hover {
+    background: #fef2f2 !important;
+    color: #dc2626 !important;
+    border-left-color: #dc2626 !important;
+}
+
+.logout-link svg {
+    color: #dc2626 !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .modern-sidebar {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    
+    .sidebar-header {
+        padding: 1rem 1.5rem;
+    }
+    
+    .sidebar-header h3 {
+        font-size: 1rem;
+    }
+    
+    .sidebar-link {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.875rem;
+    }
+    
+    .sidebar-link svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.sidebar-link.active {
+    background: #282f76;
     color: white;
     box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
 }
 
 .sidebar-link.active:hover {
-    background: #3b82f6;
+    background: #282f76;
     color: white;
 }
 

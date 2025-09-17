@@ -13,7 +13,7 @@
                 <div style="display: inline-block; padding: 8px 24px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(16, 185, 129, 0.2)); border-radius: 50px; margin-bottom: 1rem; border: 1px solid rgba(255, 255, 255, 0.2);">
                     <span style="color: #e2e8f0; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Our Global Impact</span>
                 </div>
-                <h2 style="font-size: 3rem; font-weight: 700; color: white; margin-bottom: 1rem; line-height: 1.2;">Transforming Lives Through <span style="background: linear-gradient(135deg, #3b82f6, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Education</span></h2>
+                <h2 style="font-size: 3rem; font-weight: 700; color: white; margin-bottom: 1rem; line-height: 1.2;">Transforming Lives Through <span style="background: linear-gradient(135deg, #282f76, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Education</span></h2>
                 <p style="font-size: 1.2rem; color: #cbd5e1; max-width: 600px; margin: 0 auto; line-height: 1.6;">Join a global community of learners and educators making a difference in sustainable development and professional growth.</p>
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <div style="
                         width: 80px;
                         height: 80px;
-                        background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                        background: linear-gradient(135deg, #282f76, #1d4ed8);
                         border-radius: 20px;
                         display: flex;
                         align-items: center;
@@ -148,7 +148,7 @@
                     <div style="
                         width: 80px;
                         height: 80px;
-                        background: linear-gradient(135deg, #4787ed, #4787ed);
+                        background: linear-gradient(135deg, #282f76, #282f76);
                         border-radius: 20px;
                         display: flex;
                         align-items: center;
@@ -267,7 +267,7 @@
 }
 
 .stat-card:hover .stat-number {
-    color: #3b82f6 !important;
+    color: #282f76 !important;
 }
 
 /* Counter Animation */

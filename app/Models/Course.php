@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Models\CourseAssignment;
+use App\Models\CourseLiveClass;
+use App\Models\CourseChapterLesson;
 
 class Course extends Model {
     use HasFactory, SoftDeletes;
@@ -28,9 +31,7 @@ class Course extends Model {
         return $this->belongsToMany(User::class, 'favorite_course_user')->withTimestamps();
     }
 
-    public function partnerInstructors(): HasMany {
-        return $this->hasMany(CoursePartnerInstructor::class, 'course_id', 'id');
-    }
+
 
     public function levels(): HasMany {
         return $this->hasMany(CourseSelectedLevel::class, 'course_id', 'id');
@@ -50,6 +51,8 @@ class Course extends Model {
     public function instructor(): BelongsTo {
         return $this->belongsTo(User::class, 'instructor_id', 'id')->withDefault();
     }
+
+
 
     public function chapters(): HasMany {
         return $this->hasMany(CourseChapter::class, 'course_id', 'id');
@@ -80,8 +83,45 @@ class Course extends Model {
     public function quizzes(): HasMany {
         return $this->hasMany(Quiz::class, 'course_id', 'id');
     }
+
+    /**
+     * Get assignments for this course.
+     */
+    public function assignments(): HasMany {
+        return $this->hasMany(CourseAssignment::class, 'course_id', 'id');
+    }
+
+    /**
+     * Get users assigned to this course.
+     */
+    public function assignedUsers(): HasMany {
+        return $this->hasMany(CourseAssignment::class, 'course_id', 'id');
+    }
+
+    /**
+     * Check if a user is assigned to this course.
+     */
+    public function isAssignedToUser($userId): bool
+    {
+        return $this->assignments()->where('user_id', $userId)->exists();
+    }
     public function carts() {
         return $this->hasMany(Cart::class);
+    }
+
+    public function partnerInstructors(): HasMany {
+        return $this->hasMany(CoursePartnerInstructor::class, 'course_id', 'id');
+    }
+
+    public function liveClasses(): HasManyThrough {
+        return $this->hasManyThrough(
+            CourseLiveClass::class,
+            CourseChapterLesson::class,
+            'course_id', // Foreign key on lessons table
+            'lesson_id', // Foreign key on live_classes table
+            'id', // Local key on courses table
+            'id' // Local key on lessons table
+        );
     }
     /**
      * Boot method to handle model events.
@@ -95,10 +135,7 @@ class Course extends Model {
                 $chapter->delete();
             });
 
-            // Delete related partner instructors
-            $course->partnerInstructors()->each(function ($instructor) {
-                $instructor->delete();
-            });
+
 
             // Delete related levels
             $course->levels()->each(function ($level) {

@@ -39,11 +39,11 @@
                     {{ __('Course Reviews') }}
                 </a>
             </li>
-            <li class="{{ isRoute('admin.course-delete-request.*', 'active') }}">
+            <!-- <li class="{{ isRoute('admin.course-delete-request.*', 'active') }}">
                 <a class="nav-link" href="{{ route('admin.course-delete-request.index') }}">
                     {{ __('Course Delete Requests') }}
                 </a>
-            </li>
+            </li> -->
         </ul>
     </li>
 @endif

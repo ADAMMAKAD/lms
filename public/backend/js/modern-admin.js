@@ -1458,7 +1458,7 @@ const toastStyles = `
 }
 
 .toast-info {
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid #282f76;
 }
 
 .toast-success i {
@@ -1470,7 +1470,7 @@ const toastStyles = `
 }
 
 .toast-info i {
-    color: #3b82f6;
+    color: #282f76;
 }
 
 .form-group-focused .form-control {

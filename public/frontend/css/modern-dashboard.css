@@ -16,8 +16,8 @@ body {
 
 /* Color Variables */
 :root {
-    --primary-blue: #3b82f6;
-    --primary-blue-dark: #2563eb;
+    --primary-blue: #282f76;
+    --primary-blue-dark: #282f76;
     --primary-blue-light: #dbeafe;
     --sidebar-bg: #1e293b;
     --sidebar-hover: #334155;

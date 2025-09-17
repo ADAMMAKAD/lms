@@ -308,7 +308,7 @@
 
 .chat-item.active {
     background-color: #e3f2fd;
-    border-left: 3px solid #2196f3;
+    border-left: 3px solid #282f76;
 }
 
 .chat-item-subject {

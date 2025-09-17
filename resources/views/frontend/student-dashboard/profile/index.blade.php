@@ -18,7 +18,7 @@
     }
     
     .settings-header {
-        background: #4787ed;
+        background: #282f76;
         color: white;
         padding: 2rem;
         text-align: center;
@@ -73,15 +73,15 @@
     
     .modern-nav-tabs .nav-link:hover {
         background: #f1f5f9;
-        border-color: #0066cc;
-        color: #0066cc;
+        border-color: #282f76;
+        color: #282f76;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
     }
     
     .modern-nav-tabs .nav-link.active {
-        background: #0066cc;
-        border-color: #0066cc;
+        background: #282f76;
+        border-color: #282f76;
         color: white;
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 102, 204, 0.3);

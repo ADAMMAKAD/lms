@@ -47,7 +47,7 @@
 
 /* Icon Colors */
 .icon-primary {
-    background: linear-gradient(135deg, #4787ed 0%, #4787ed 100%);
+    background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
     color: #fff;
 }
 
@@ -72,7 +72,7 @@
 }
 
 .icon-info {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
     color: #fff;
 }
 
@@ -93,8 +93,8 @@
 }
 
 .icon-outline.icon-primary {
-    color: #4787ed;
-  border-color: #4787ed;
+    color: #282f76;
+  border-color: #282f76;
 }
 
 .icon-outline.icon-secondary {
@@ -103,8 +103,8 @@
 }
 
 .icon-outline.icon-success {
-    color: #4787ed;
-    border-color: #4787ed;
+    color: #282f76;
+    border-color: #282f76;
 }
 
 .icon-outline.icon-danger {
@@ -219,11 +219,11 @@
 }
 
 .icon-badge.badge-primary::after {
-    background: #4787ed;
+    background: #282f76;
 }
 
 .icon-badge.badge-success::after {
-    background: #4787ed;
+    background: #282f76;
 }
 
 .icon-badge.badge-warning::after {

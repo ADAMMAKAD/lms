@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Quiz;
 use Firebase\JWT\JWT;
 use App\Models\Course;
+use App\Models\CourseAssignment;
 use App\Models\QuizResult;
 use App\Models\Announcement;
 use App\Models\CourseReview;
@@ -13,6 +14,8 @@ use App\Models\JitsiSetting;
 use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
 use App\Models\CourseProgress;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Rules\CustomRecaptcha;
 use App\Models\CourseChapterItem;
 use App\Models\CourseChapterLesson;
@@ -20,7 +23,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use App\Traits\GenerateSecureLinkTrait;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 
 class LearningController extends Controller {
     use GenerateSecureLinkTrait;
@@ -35,6 +37,13 @@ class LearningController extends Controller {
         if(!$course){
             abort(404);
         }
+        
+        // Check if user has access to this course
+        if (!$this->hasAccessToCourse($user, $course)) {
+            return redirect()->route('course.show', $course->slug)
+                ->with('error', 'You do not have access to this course. Please contact an administrator.');
+        }
+        
         Session::put('course_slug', $slug);
         Session::put('course_title', $course->title);
 
@@ -60,6 +69,15 @@ class LearningController extends Controller {
 
         $announcements = Announcement::where('course_id', $course->id)->orderBy('id', 'desc')->get();
 
+        // Get course reviews for the reviews tab
+        $reviews = CourseReview::where('course_id', $course->id)
+            ->where('status', 1)
+            ->whereHas('course')
+            ->whereHas('user')
+            ->with(['user:id,name,image'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
         $courseLectureCount = CourseChapterItem::whereHas('chapter', function ($q) use ($course) {
             $q->where('course_id', $course->id);
         })->count();
@@ -84,6 +102,7 @@ class LearningController extends Controller {
             'course',
             'currentProgress',
             'announcements',
+            'reviews',
             'courseCompletedPercent',
             'courseLectureCount',
             'courseLectureCompletedByUser',
@@ -111,7 +130,8 @@ class LearningController extends Controller {
         if ($request->type == 'lesson') {
             $fileInfo = array_merge(CourseChapterLesson::select(['id', 'file_path', 'storage', 'file_type', 'downloadable', 'description'])->findOrFail($request->lessonId)->toArray(), ['type' => 'lesson']);
             if (in_array($fileInfo['storage'], ['wasabi', 'aws'])) {
-                $fileInfo['file_path'] = Storage::disk($fileInfo['storage'])->temporaryUrl($fileInfo['file_path'], now()->addSeconds(30));
+                // Use public URL for cloud storage
+                $fileInfo['file_path'] = config('filesystems.disks.' . $fileInfo['storage'] . '.url') . '/' . $fileInfo['file_path'];
             }
             if($fileInfo['storage'] == 'upload'){
                 $fileInfo['file_path'] = $this->generateSecureLink($fileInfo['file_path']);
@@ -195,7 +215,7 @@ class LearningController extends Controller {
 
     function downloadResource(string $lessonId) {
         $resource = CourseChapterLesson::findOrFail($lessonId);
-        if (!\File::exists(public_path($resource->file_path))) {
+        if (!File::exists(public_path($resource->file_path))) {
             return redirect()->back()->with(['alert-type' => 'error', 'messege' => __('Links is broke or some thing went wrong')]);
         }
         return response()->download(public_path($resource->file_path));
@@ -212,19 +232,17 @@ class LearningController extends Controller {
     }
 
     function quizStore(Request $request, string $id) {
-        $grad = 0;
         $result = [];
         $quiz = Quiz::findOrFail($id);
+        
+        // Store user responses without validation or grading
         foreach ($request->question ?? [] as $key => $questionAns) {
             $question = QuizQuestion::findOrFail($key);
-            $answer = $question->answers->where('correct', 1)->pluck('id')->toArray();
-
-            if (in_array($questionAns, $answer)) {
-                $grad += $question->grade;
-            }
+            $selectedAnswer = $question->answers->where('id', $questionAns)->first();
+            
             $result[$key] = [
                 "answer"  => $questionAns,
-                "correct" => in_array($questionAns, $answer),
+                "answer_text" => $selectedAnswer ? $selectedAnswer->answer : '',
             ];
         }
 
@@ -232,8 +250,8 @@ class LearningController extends Controller {
             'user_id'    => userAuth()->id,
             'quiz_id'    => $id,
             'result'     => json_encode($result),
-            'user_grade' => $grad,
-            'status'     => $grad >= $quiz->pass_mark ? 'pass' : 'failed',
+            'user_grade' => 0, // No grading for assessment
+            'status'     => 'completed', // Just mark as completed
         ]);
         return redirect()->route('student.quiz.result', ['id' => $id, 'result_id' => $quizResult->id]);
     }
@@ -366,5 +384,33 @@ class LearningController extends Controller {
         ];
 
         return JWT::encode($payload, $private_key, "RS256", $api_key);
+    }
+    
+    /**
+     * Check if user has access to a specific course.
+     */
+    private function hasAccessToCourse($user, $course)
+    {
+        // Admin and instructors have access to all courses
+        if (in_array($user->role, ['admin', 'instructor'])) {
+            return true;
+        }
+        
+        // Check if course is assigned to the user
+        $assignment = CourseAssignment::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->where('status', '!=', 'revoked')
+            ->first();
+            
+        if ($assignment) {
+            return true;
+        }
+        
+        // For backward compatibility, allow access if user has progress in the course
+        $hasProgress = CourseProgress::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->exists();
+            
+        return $hasProgress;
     }
 }

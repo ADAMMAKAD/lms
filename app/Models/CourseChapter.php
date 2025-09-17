@@ -2,29 +2,47 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+class CourseChapter extends Model
+{
+    use HasFactory, SoftDeletes;
 
-class CourseChapter extends Model {
-    use HasFactory;
+    protected $fillable = [
+        'course_id',
+        'title',
+        'description',
+        'order',
+        'status',
+        'is_free'
+    ];
 
-    protected $fillable = ['order', 'id'];
+    protected $casts = [
+        'is_free' => 'boolean',
+        'order' => 'integer'
+    ];
 
-    public function chapterItems(): HasMany {
-        return $this->hasMany(CourseChapterItem::class, 'chapter_id', 'id')->orderBy('order');
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
-    /**
-     * Boot method to handle model events.
-     */
-    protected static function boot() {
-        parent::boot();
 
-        static::deleting(function ($courseChapter) {
-            $courseChapter->chapterItems()->each(function ($chapterItem) {
-                $chapterItem->delete();
-            });
-        });
+    public function items(): HasMany
+    {
+        return $this->hasMany(CourseChapterItem::class, 'chapter_id', 'id');
+    }
+
+    public function lessons(): HasMany
+    {
+        return $this->hasMany(CourseChapterLesson::class, 'chapter_id', 'id');
+    }
+
+    public function chapterItems(): HasMany
+    {
+        return $this->hasMany(CourseChapterItem::class, 'chapter_id', 'id');
     }
 }

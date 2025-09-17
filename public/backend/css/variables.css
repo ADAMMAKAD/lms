@@ -1,7 +1,7 @@
 :root {
   /* Primary Colors */
-  --primary-blue: #4787ed;
-  --primary-purple: #6777ef;
+  --primary-blue: #282f76;
+  --primary-purple: #282f76;
   --primary-success: #47c363;
   --primary-danger: #fc544b;
   --primary-warning: #ffa426;
@@ -42,11 +42,11 @@
   --gradient-success: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
   --gradient-danger: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
   --gradient-warning: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  --gradient-info: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-info: linear-gradient(135deg, #282f76 0%, #282f76 100%);
   
   /* Hover States */
   --hover-primary: #3bb557;
-  --hover-secondary: #394eea;
+  --hover-secondary: #282f76;
   --hover-danger: #fb160a;
   --hover-warning: #ff990d;
   --hover-info: #0da8ee;

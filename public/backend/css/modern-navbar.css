@@ -2,7 +2,7 @@
 
 /* Main Navbar */
 .navbar {
-    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    background: linear-gradient(135deg, #282f76 0%, #1d4ed8 100%);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);

@@ -8,7 +8,7 @@
       <div class="row justify-content-center">
           <div class="col-xl-8 col-lg-10">
               <div class="section__title text-center mb-5">
-                  <span class="sub-title d-inline-block px-4 py-2 mb-4 fw-semibold" style="background: linear-gradient(135deg, #1e40af, #3b82f6); color: white; border-radius: 25px; font-size: 0.9rem; letter-spacing: 0.5px; box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3); animation: pulse 2s infinite;">✨ {{ __("Why Choose UNDO LMS") }}</span>
+                  <span class="sub-title d-inline-block px-4 py-2 mb-4 fw-semibold" style="background: linear-gradient(135deg, #1e40af, #282f76); color: white; border-radius: 25px; font-size: 0.9rem; letter-spacing: 0.5px; box-shadow: 0 6px 20px rgba(30, 64, 175, 0.3); animation: pulse 2s infinite;">✨ {{ __("Why Choose IFL LMS") }}</span>
                   <h2 class="title fw-bold text-dark mb-4" style="font-size: 3.2rem; line-height: 1.1; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e293b, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">{{ __("Empowering SME Growth Through Learning") }}</h2>
                   <p class="lead text-muted mx-auto" style="max-width: 700px; line-height: 1.7; font-size: 1.25rem; font-weight: 400;">{{ __("Transform your organization with our comprehensive learning management system designed specifically for Small and Medium Enterprises. Build skills, drive growth, and achieve success.") }}</p>
               </div>
@@ -23,7 +23,7 @@
                 <!-- Decorative Elements -->
                 <div style="position: absolute; top: -20px; right: -20px; width: 40px; height: 40px; background: linear-gradient(135deg, rgba(30, 64, 175, 0.2), rgba(59, 130, 246, 0.1)); border-radius: 50%; animation: pulse 3s infinite;"></div>
                 
-                <div class="features__icon mb-4 d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 24px; margin: 0 auto; box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4); transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 2;">
+                <div class="features__icon mb-4 d-flex align-items-center justify-content-center" style="width: 90px; height: 90px; background: linear-gradient(135deg, #1e40af, #282f76); border-radius: 24px; margin: 0 auto; box-shadow: 0 10px 30px rgba(30, 64, 175, 0.4); transition: all 0.4s ease; position: relative; overflow: hidden; z-index: 2;">
                     <img src="{{ asset($ourFeatures?->global_content?->image_one) }}" alt="SME Training" class="img-fluid" style="max-width: 45px; filter: brightness(0) invert(1); position: relative; z-index: 2;">
                     <!-- Icon Shimmer Effect -->
                     <div style="position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 2s infinite;"></div>
@@ -33,10 +33,10 @@
                     <p class="text-muted mb-0" style="line-height: 1.7; font-size: 1rem; font-weight: 400;">{{ $ourFeatures?->content?->sub_title_one ?: 'Learn at your own pace with our adaptive learning platform designed for busy professionals.' }}</p>
                     
                     <!-- Progress Indicator -->
-                    <div style="width: 60px; height: 3px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 2px; margin: 1.5rem auto 0; opacity: 0; transition: opacity 0.3s ease;"></div>
+                    <div style="width: 60px; height: 3px; background: linear-gradient(135deg, #1e40af, #282f76); border-radius: 2px; margin: 1.5rem auto 0; opacity: 0; transition: opacity 0.3s ease;"></div>
                 </div>
                 <div class="position-absolute top-0 end-0 p-4">
-                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #1e40af, #3b82f6); border-radius: 50%; opacity: 0.1;"></div>
+                    <div style="width: 35px; height: 35px; background: linear-gradient(135deg, #1e40af, #282f76); border-radius: 50%; opacity: 0.1;"></div>
                 </div>
             </div>
         </div>

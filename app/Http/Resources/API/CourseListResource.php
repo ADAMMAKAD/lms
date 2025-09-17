@@ -12,9 +12,9 @@ class CourseListResource extends JsonResource {
      * @return array<string, mixed>
      */
     public function toArray(Request $request): array {
-        $currency = strtoupper($request->query('currency'));
-        $price = $this->price == 0 ? (int) $this->price : (string) apiCurrency($this->price, $currency);
-        $discount = $this->discount == 0 ? (int) $this->discount : (string) apiCurrency($this->discount, $currency);
+        // System is now free, hardcode price and discount to 0
+        $price = 0;
+        $discount = 0;
         return [
             'slug'           => (string) $this->slug,
             'title'          => (string) $this->title,

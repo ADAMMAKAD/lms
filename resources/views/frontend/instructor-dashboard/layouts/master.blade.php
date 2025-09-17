@@ -1,70 +1,130 @@
 @extends('frontend.layouts.master')
 
-<!-- meta -->
-@section('meta_title', __('Instructor Dashboard'))
-<!-- end meta -->
+@section('meta_title')
+    {{ __('Instructor Dashboard') }}
+@endsection
 
-@push('styles')
-<link rel="stylesheet" href="{{ asset('frontend/css/modern-dashboard.css') }}">
+@push('style')
+    <link rel="stylesheet" href="{{ asset('frontend/css/modern-dashboard.css') }}">
 @endpush
 
 @section('contents')
-    <!-- breadcrumb-area -->
-    <x-frontend.breadcrumb :title="__('')" :links="[]" />
-    <!-- breadcrumb-area-end -->
-
-    <!-- dashboard-area -->
-    <section class="dashboard__area">
+    <!-- Breadcrumb Area -->
+    <div class="breadcrumb-area" style="background: linear-gradient(135deg, #282f76); padding: 60px 0;">
         <div class="container">
-            <div class="dashboard__top">
-                <div class="dashboard__instructor-info">
-                    <div class="dashboard__instructor-info-left">
-                        <div class="thumb">
-                            <img src="{{ asset(auth()->user()->image) }}" alt="img">
-                        </div>
-                        <div class="content">
-                            <h4 class="title">{{ auth()->user()->name }}</h4>
-                            <ul class="list-wrap">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    {{ auth()->user()->email }}
-                                </li>
-                                @if (auth()->user()->phone)
-                                    <li>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        {{ auth()->user()->phone }}
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content text-center">
+                        <h2 class="text-white mb-3">{{ __('Instructor Dashboard') }}</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center mb-0">
+                                <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white-50">{{ __('Home') }}</a></li>
+                                <li class="breadcrumb-item active text-white" aria-current="page">{{ __('Instructor Dashboard') }}</li>
+                            </ol>
+                        </nav>
                     </div>
-                    <div class="dashboard__instructor-info-right">
-                        <a href="{{ route('student.dashboard') }}" class="btn btn-primary">{{ __('Student Dashboard') }}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="dashboard__content">
-                <div class="dashboard__sidebar-wrap">
-                    @include('frontend.instructor-dashboard.layouts.sidebar')
-                </div>
-                <div class="dashboard__main-content">
-                    {{-- <div class="preloader d-none">
-                        <div class="loader-icon"><img src="{{ asset(Cache::get('setting')->preloader) }}" alt="Preloader">
-                        </div>
-                    </div> --}} {{-- Removed preloader functionality --}}
-
-                    @yield('dashboard-contents')
                 </div>
             </div>
         </div>
-    </section>
-    <!-- dashboard-area-end -->
+    </div>
+
+    <!-- Modern Header -->
+    <div class="modern-header" style="background: linear-gradient(135deg, #282f76); padding: 40px 0; margin-top: -1px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="user-profile-section d-flex align-items-center">
+                        <div class="user-avatar me-4">
+                            @if(auth()->user()->image)
+                                <img src="{{ asset(auth()->user()->image) }}" alt="Profile" class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover; border: 4px solid rgba(255,255,255,0.3);">
+                            @else
+                                <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border: 4px solid rgba(255,255,255,0.3);">
+                                    <i class="fas fa-user text-white" style="font-size: 30px;"></i>
+                                </div>
+                            @endif
+                        </div>
+                        <div class="user-info text-white">
+                            <h3 class="mb-1" style="font-weight: 600;">{{ auth()->user()->name }}</h3>
+                            <p class="mb-1 opacity-75">{{ auth()->user()->email }}</p>
+                            @if(auth()->user()->phone)
+                                <p class="mb-0 opacity-75"><i class="fas fa-phone me-2"></i>{{ auth()->user()->phone }}</p>
+                            @endif
+                            <span class="badge bg-success mt-2">{{ __('Instructor') }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <div class="quick-actions">
+                        <a href="{{ route('instructor.chat') }}" class="btn btn-light btn-sm me-2">
+                            <i class="fas fa-comments me-1"></i> {{ __('Chat') }}
+                        </a>
+                        <a href="{{ route('instructor.meetings') }}" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-calendar me-1"></i> {{ __('Meetings') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard-area py-5">
+        <div class="container">
+            <div class="dashboard-inner-wrap">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-lg-3 col-md-4">
+                        <div class="sidebar-wrapper">
+                            @include('frontend.instructor-dashboard.layouts.sidebar')
+                        </div>
+                    </div>
+                    <!-- Main Content -->
+                    <div class="col-lg-9 col-md-8">
+                        <div class="dashboard-content">
+                            @yield('dashboard-content')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .dashboard-area {
+            background-color: #f8f9fa;
+            min-height: 70vh;
+        }
+        
+        .dashboard-inner-wrap {
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .sidebar-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .dashboard-content {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 30px;
+            min-height: 600px;
+        }
+        
+        .modern-header .quick-actions .btn {
+            border-radius: 25px;
+            padding: 8px 20px;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-item + .breadcrumb-item::before {
+            color: rgba(255,255,255,0.5);
+        }
+    </style>
 @endsection
-@push('scripts')
-<script src="{{ asset('frontend/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
-<script src="{{ asset('frontend/js/custom-tinymce.js') }}"></script>
-@endpush

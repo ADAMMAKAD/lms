@@ -8,11 +8,14 @@ use App\Models\CourseChapterItem;
 use App\Models\CourseProgress;
 use App\Models\CourseReview;
 use App\Models\QuizResult;
+use App\Models\User;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Carbon\Carbon;
 use Modules\CertificateBuilder\app\Models\CertificateBuilder;
 use Modules\CertificateBuilder\app\Models\CertificateBuilderItem;
 
@@ -59,17 +62,28 @@ class StudentDashboardController extends Controller {
                 });
         }
         
+        // Get available courses for Browse All Courses button
+        $availableCourses = Course::where(['is_approved' => 'approved', 'status' => 'active'])
+            ->whereHas('category', function($q) {
+                $q->where('status', 1);
+            })
+            ->with(['instructor:id,name', 'category.translation'])
+            ->orderBy('created_at', 'desc')
+            ->limit(12) // Show up to 12 courses on dashboard
+            ->get();
+        
         return view('frontend.student-dashboard.index', compact(
             'totalEnrolledCourses',
             'totalQuizAttempts',
             'totalReviews',
-            'recentLearningActivity'
+            'recentLearningActivity',
+            'availableCourses'
         ));
     }
 
     function enrolledCourses() {
         // Since system is free, show all available courses
-        $courses = Course::select('id', 'instructor_id', 'category_id', 'title', 'slug', 'thumbnail', 'price', 'discount')
+        $courses = Course::select('id', 'instructor_id', 'category_id', 'title', 'slug', 'thumbnail')
             ->with([
                 'instructor:id,name,image',
                 'category.translation'
@@ -235,5 +249,96 @@ class StudentDashboardController extends Controller {
             'message' => 'Successfully enrolled in course!',
             'learning_url' => $learningUrl
         ]);
+    }
+
+    /**
+     * Display the chat page for students
+     */
+    public function chat(): View
+    {
+        $student = Auth::user();
+        
+        // Get students from courses where the current student is enrolled (from session)
+        $enrolledCourseIds = session('enrolled_courses', []);
+        
+        // Get other students from enrolled courses
+        $students = collect();
+        if (!empty($enrolledCourseIds)) {
+            // Get students who are also enrolled in the same courses
+            $students = User::where('role', 'student')
+                ->where('status', 'active')
+                ->where('id', '!=', $student->id) // Exclude current student
+                ->orderBy('name')
+                ->get();
+        }
+        
+        // If no enrolled courses, get all active students as potential contacts
+        if ($students->isEmpty()) {
+            $students = User::where('role', 'student')
+                ->where('status', 'active')
+                ->where('id', '!=', $student->id) // Exclude current student
+                ->orderBy('name')
+                ->get();
+        }
+        
+        return view('frontend.student-dashboard.chat', compact('students'));
+    }
+
+    /**
+     * Show student meetings page
+     */
+    public function meetings()
+    {
+        // Get enrolled course IDs from session (since system is free, all courses are accessible)
+        $enrolledCourseIds = session('enrollments', []);
+        
+        // Get enrolled courses
+        $enrolledCourses = Course::whereIn('id', $enrolledCourseIds)
+            ->with(['instructor', 'liveClasses'])
+            ->where('status', 'active')
+            ->get();
+        
+        // Get upcoming live classes for enrolled courses
+        $upcomingMeetings = collect();
+        
+        foreach ($enrolledCourses as $course) {
+            $courseMeetings = $course->liveClasses()
+                ->where('start_time', '>=', now()->format('Y-m-d H:i:s'))
+                ->orderBy('start_time', 'asc')
+                ->with('lesson')
+                ->get()
+                ->map(function ($liveClass) use ($course) {
+                    $startTime = Carbon::parse($liveClass->start_time);
+                    return [
+                        'id' => $liveClass->id,
+                        'title' => 'Live Class - ' . ($liveClass->lesson->title ?? 'Untitled'),
+                        'course' => $course->title,
+                        'instructor' => $course->instructor->name ?? 'Unknown',
+                        'instructor_image' => $course->instructor->image ?? null,
+                        'date' => $startTime->format('Y-m-d'),
+                        'time' => $startTime->format('H:i'),
+                        'duration' => 60, // Default duration
+                        'meeting_link' => $liveClass->join_url ?? '#',
+                        'description' => 'Live class session for ' . $course->title,
+                        'start_time' => $startTime,
+                        'end_time' => $startTime->copy()->addMinutes(60),
+                        'type' => $liveClass->type ?? 'zoom',
+                        'meeting_id' => $liveClass->meeting_id,
+                    ];
+                });
+            
+            $upcomingMeetings = $upcomingMeetings->merge($courseMeetings);
+        }
+        
+        // Sort by start time
+        $upcomingMeetings = $upcomingMeetings->sortBy('start_time')->values();
+        
+        // Get meetings for current month (for calendar view)
+        $currentMonth = now()->format('Y-m');
+        $monthlyMeetings = $upcomingMeetings->filter(function ($meeting) use ($currentMonth) {
+            return $meeting['start_time']->format('Y-m') === $currentMonth;
+        });
+        
+        return view('frontend.student-dashboard.meetings', compact('upcomingMeetings', 'monthlyMeetings'));
     }
 }

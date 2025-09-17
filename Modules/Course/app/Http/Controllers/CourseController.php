@@ -86,8 +86,6 @@ class CourseController extends Controller {
         $course->thumbnail = $request->thumbnail;
         $course->demo_video_storage = $request->demo_video_storage;
         $course->demo_video_source = $request->demo_video_storage == 'upload' ? $request->upload_path : $request->external_path;
-        $course->price = $request->price ?? 0;
-        $course->discount = $request->discount_price ?? 0;
         $course->description = $request->description;
         $course->instructor_id = $request->instructor;
         $course->save();
@@ -303,5 +301,32 @@ class CourseController extends Controller {
         $course->delete();
 
         return response()->json(['status' => 'success', 'message' => __('Course deleted successfully')]);
+    }
+
+    /**
+     * Show course enrollments - users who have taken the course
+     */
+    public function showEnrollments($courseId)
+    {
+        $course = Course::findOrFail($courseId);
+        
+        // Get all users who have progress in this course (indicating enrollment)
+        $enrolledUsers = User::whereHas('progresses', function($query) use ($courseId) {
+            $query->where('course_id', $courseId);
+        })->with(['progresses' => function($query) use ($courseId) {
+            $query->where('course_id', $courseId);
+        }])->paginate(20);
+        
+        // Calculate progress for each user
+        $totalChapterItems = $course->chapterItems()->count();
+        
+        foreach ($enrolledUsers as $user) {
+            $completedItems = $user->progresses->where('watched', 1)->count();
+            $user->progress_percentage = $totalChapterItems > 0 ? round(($completedItems / $totalChapterItems) * 100, 2) : 0;
+            $user->completed_items = $completedItems;
+            $user->total_items = $totalChapterItems;
+        }
+        
+        return view('course::course.enrollments', compact('course', 'enrolledUsers', 'totalChapterItems'));
     }
 }

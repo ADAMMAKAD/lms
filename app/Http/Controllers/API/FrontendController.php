@@ -140,9 +140,15 @@ class FrontendController extends Controller {
     public function popular_courses(Request $request): JsonResponse {
         $limit = $request->filled('limit') && is_numeric($request->limit) ? (int) $request->limit : 2;
 
-        $courses = Course::select('slug', 'title', 'instructor_id', 'thumbnail', 'price', 'discount')->active()->with(['instructor:id,name,image'])
-            ->whereHas('category.parentCategory', fn($q) => $q->where('status', 1))
-            ->whereHas('category', fn($q) => $q->where('status', 1))
+        // Price and discount fields removed as system is now free
+        $courses = Course::select('slug', 'title', 'instructor_id', 'thumbnail')->active()->with(['instructor:id,name,image'])
+            ->whereHas('category', function($q) {
+                $q->where('status', 1)
+                  ->where(function($subQ) {
+                      $subQ->whereNull('parent_id') // Main category
+                           ->orWhereHas('parentCategory', fn($parentQ) => $parentQ->where('status', 1)); // Subcategory with active parent
+                  });
+            })
             ->withCount(['reviews as average_rating' => function ($q) {
                 $q->select(DB::raw('coalesce(avg(rating), 0) as average_rating'))->where('status', 1);
             }])->orderByDesc('average_rating')->take($limit)->get();
@@ -157,8 +163,13 @@ class FrontendController extends Controller {
         $limit = $request->filled('limit') && is_numeric($request->limit) ? (int) $request->limit : 2;
 
         $courses = Course::select('slug', 'title', 'instructor_id', 'thumbnail', 'price', 'discount')->active()->with(['instructor:id,name,image'])
-            ->whereHas('category.parentCategory', fn($q) => $q->where('status', 1))
-            ->whereHas('category', fn($q) => $q->where('status', 1))
+            ->whereHas('category', function($q) {
+                $q->where('status', 1)
+                  ->where(function($subQ) {
+                      $subQ->whereNull('parent_id') // Main category
+                           ->orWhereHas('parentCategory', fn($parentQ) => $parentQ->where('status', 1)); // Subcategory with active parent
+                  });
+            })
             ->withCount(['reviews as average_rating' => function ($q) {
                 $q->select(DB::raw('coalesce(avg(rating), 0) as average_rating'))->where('status', 1);
             }])->latest()->take($limit)->get();
@@ -172,10 +183,16 @@ class FrontendController extends Controller {
     public function search_courses(Request $request): JsonResponse {
         $limit = $request->filled('limit') && is_numeric($request->limit) ? (int) $request->limit : 6;
 
-        $query = Course::select('id', 'slug', 'title', 'instructor_id', 'thumbnail', 'price', 'discount')
+        // Price and discount fields removed as system is now free
+        $query = Course::select('id', 'slug', 'title', 'instructor_id', 'thumbnail')
             ->active()->with(['instructor:id,name,image'])
-            ->whereHas('category.parentCategory', fn($q) => $q->where('status', 1))
-            ->whereHas('category', fn($q) => $q->where('status', 1))
+            ->whereHas('category', function($q) {
+                $q->where('status', 1)
+                  ->where(function($subQ) {
+                      $subQ->whereNull('parent_id') // Main category
+                           ->orWhereHas('parentCategory', fn($parentQ) => $parentQ->where('status', 1)); // Subcategory with active parent
+                  });
+            })
             ->withCount(['reviews as average_rating' => fn($q) => $q->select(DB::raw('coalesce(avg(rating), 0)'))->where('status', 1)]);
 
         $query->when($request->filled('search'), fn($q) => $q->where(function ($q) use ($request) {
@@ -183,9 +200,7 @@ class FrontendController extends Controller {
                 ->orWhere('slug', 'like', "%{$request->search}%")
                 ->orWhere('type', 'like', "%{$request->search}%")
                 ->orWhere('seo_description', 'like', "%{$request->search}%")
-                ->orWhere('description', 'like', "%{$request->search}%")
-                ->orWhere('price', 'like', "%{$request->search}%")
-                ->orWhere('discount', 'like', "%{$request->search}%");
+                ->orWhere('description', 'like', "%{$request->search}%");
         }));
 
         $query->when($request->filled('main_category'), function ($q) use ($request) {
@@ -255,7 +270,8 @@ class FrontendController extends Controller {
     }
     public function course_details(string $slug): JsonResponse {
         $user_id = request('user_id', 0);
-        $course = Course::active()->where('slug', $slug)->select('id', 'instructor_id', 'demo_video_source', 'demo_video_storage', 'thumbnail', 'title', 'slug', 'price', 'discount', 'description', 'updated_at')->with([
+        // Price and discount fields removed as system is now free
+        $course = Course::active()->where('slug', $slug)->select('id', 'instructor_id', 'demo_video_source', 'demo_video_storage', 'thumbnail', 'title', 'slug', 'description', 'updated_at')->with([
             'instructor:id,name,image',
             'chapters'                           => function ($query) {
                 $query->where('status', 'active')->select('id', 'course_id', 'title')->orderBy('order', 'asc')->with([
@@ -265,8 +281,13 @@ class FrontendController extends Controller {
                 ]);
             },
             'languages:id,course_id,language_id' => ['language:id,name'],
-        ])->whereHas('category.parentCategory', fn($q) => $q->where('status', 1))
-            ->whereHas('category', fn($q) => $q->where('status', 1))->withCount([
+        ])->whereHas('category', function($q) {
+            $q->where('status', 1)
+              ->where(function($subQ) {
+                  $subQ->whereNull('parent_id') // Main category
+                       ->orWhereHas('parentCategory', fn($parentQ) => $parentQ->where('status', 1)); // Subcategory with active parent
+              });
+        })->withCount([
             'reviews as average_rating' => fn($q) => $q->select(DB::raw('coalesce(avg(rating), 0)'))->where('status', 1),
             'reviews'                   => fn($q)                   => $q->where('status', 1),
             'lessons', 'quizzes',
@@ -375,7 +396,7 @@ class FrontendController extends Controller {
     public function on_boarding_screen(): JsonResponse {
         $screens = [
             [
-                'title'       => 'Welcome to UNDO Leaning Management System',
+                'title'       => 'Welcome to IFL Leaning Management System',
                 'description' => 'learn What you want to learn.',
             ],
             [

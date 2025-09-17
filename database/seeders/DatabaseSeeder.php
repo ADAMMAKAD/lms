@@ -18,7 +18,7 @@ use Modules\GlobalSetting\database\seeders\GlobalSettingInfoSeeder;
 use Modules\PageBuilder\database\seeders\PageBuilderDatabaseSeeder;
 
 use Modules\Frontend\database\seeders\FeaturedInstructorSectionSeeder;
-use Modules\InstructorRequest\database\seeders\InstructorRequestSeeder;
+
 use Modules\CertificateBuilder\database\seeders\CertificateBuilderSeeder;
 use Modules\CertificateBuilder\database\seeders\CertificateBuilderItemSeeder;
 
@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
             CertificateBuilderItemSeeder::class,
             FeaturedInstructorSectionSeeder::class,
             MenubuilderSeeder::class,
-            InstructorRequestSeeder::class,
+
             BadgeSeeder::class
         ]);
     }

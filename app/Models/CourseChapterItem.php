@@ -2,53 +2,49 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
-class CourseChapterItem extends Model {
-    use HasFactory;
+class CourseChapterItem extends Model
+{
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'instructor_id',
         'chapter_id',
+        'title',
+        'description',
         'type',
+        'content',
         'order',
+        'status',
+        'duration'
     ];
 
-    function lesson(): HasOne {
-        return $this->hasOne(CourseChapterLesson::class, 'chapter_item_id', 'id');
-    }
+    protected $casts = [
+        'order' => 'integer',
+        'duration' => 'integer'
+    ];
 
-    function chapter(): BelongsTo {
+    public function chapter(): BelongsTo
+    {
         return $this->belongsTo(CourseChapter::class, 'chapter_id', 'id');
     }
 
-    function quiz(): HasOne {
-        return $this->hasOne(Quiz::class, 'chapter_item_id', 'id');
+    public function course(): BelongsTo
+    {
+        return $this->belongsTo(Course::class, 'course_id', 'id');
     }
 
-    function quizzes(): HasMany {
-        return $this->hasMany(Quiz::class, 'chapter_item_id', 'id');
+    public function lesson(): HasOne
+    {
+        return $this->hasOne(CourseChapterLesson::class, 'chapter_item_id', 'id');
     }
-    /**
-     * Boot method to handle model events.
-     */
-    protected static function boot() {
-        parent::boot();
-        static::deleting(function ($courseChapterItem) {
-            $courseChapterItem->quizzes()->each(function ($quiz) {
-                $quiz->delete();
-            });
-            if ($courseChapterItem->lesson) {
-                $courseChapterItem->lesson->delete();
-            }
-            if ($courseChapterItem->live) {
-                $courseChapterItem->live->delete();
-            }
-        });
+
+    public function quiz(): HasOne
+    {
+        return $this->hasOne(Quiz::class, 'chapter_item_id', 'id');
     }
 }

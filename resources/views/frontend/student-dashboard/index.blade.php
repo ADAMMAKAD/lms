@@ -10,46 +10,39 @@
                 <h1 style="color: #1f2937; font-size: 2rem; font-weight: 700; margin: 0;">{{ __('Dashboard') }}</h1>
             </div>
             
-            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-                <div class="stat-card" style="background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 30px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.08)';">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 12px; padding: 0.75rem; display: flex; align-items: center; justify-content: center;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
-                                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                            </svg>
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="stat-card" style="background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)';">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="background: #0056d3; border-radius: 8px; padding: 0.625rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-graduation-cap" style="color: white; font-size: 1.125rem;"></i>
                         </div>
                         <div>
-                            <div style="font-size: 2rem; font-weight: 700; color: #1f2937; margin-bottom: 0.25rem;">{{ $totalEnrolledCourses }}</div>
-                            <div style="color: #6b7280; font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('ENROLLED COURSES') }}</div>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: #1f2937; margin-bottom: 0.125rem;">{{ $totalEnrolledCourses }}</div>
+                            <div style="color: #6b7280; font-weight: 500; font-size: 0.8rem;">{{ __('Enrolled Courses') }}</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="stat-card" style="background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 30px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.08)';">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 12px; padding: 0.75rem; display: flex; align-items: center; justify-content: center;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                <div class="stat-card" style="background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)';">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="background: #10b981; border-radius: 8px; padding: 0.625rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-clipboard-check" style="color: white; font-size: 1.125rem;"></i>
                         </div>
                         <div>
-                            <div style="font-size: 2rem; font-weight: 700; color: #1f2937; margin-bottom: 0.25rem;">{{ $totalQuizAttempts }}</div>
-                            <div style="color: #6b7280; font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('QUIZ ATTEMPTS') }}</div>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: #1f2937; margin-bottom: 0.125rem;">{{ $totalQuizAttempts }}</div>
+                            <div style="color: #6b7280; font-weight: 500; font-size: 0.8rem;">{{ __('Quiz Attempts') }}</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="stat-card" style="background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 30px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 20px rgba(0, 0, 0, 0.08)';">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); border-radius: 12px; padding: 0.75rem; display: flex; align-items: center; justify-content: center;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
-                            </svg>
+                <div class="stat-card" style="background: white; border-radius: 8px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); border: 1px solid #e5e7eb; transition: all 0.2s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)';">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="background: #f59e0b; border-radius: 8px; padding: 0.625rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-star" style="color: white; font-size: 1.125rem;"></i>
                         </div>
                         <div>
-                            <div style="font-size: 2rem; font-weight: 700; color: #1f2937; margin-bottom: 0.25rem;">{{ $totalReviews }}</div>
-                            <div style="color: #6b7280; font-weight: 500; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('YOUR TOTAL REVIEWS') }}</div>
+                            <div style="font-size: 1.75rem; font-weight: 700; color: #1f2937; margin-bottom: 0.125rem;">{{ $totalReviews }}</div>
+                            <div style="color: #6b7280; font-weight: 500; font-size: 0.8rem;">{{ __('Reviews Given') }}</div>
                         </div>
                     </div>
                 </div>
@@ -58,70 +51,273 @@
     </div>
 
     <div class="dashboard__content-wrap" style="background: #ffffff; border-radius: 12px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-        <div class="dashboard__content-title" style="margin-bottom: 2rem;">
-            <h4 class="title" style="color: #1f2937; font-size: 1.8rem; font-weight: 700; margin: 0;">{{ __('Recent Learning Activity') }}</h4>
+        <div class="dashboard__content-title" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center;">
+            <h4 class="title" style="color: #1f2937; font-size: 1.8rem; font-weight: 700; margin: 0;">{{ __('Available Courses') }}</h4>
+            <a href="{{ route('student.enrolled-courses') }}" style="background: #282f76; color: white; padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#1e40af';" onmouseout="this.style.background='#282f76';">
+                <i class="fas fa-list"></i>
+                {{ __('View All Courses') }}
+            </a>
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="dashboard__content-table" style="background: #ffffff; border-radius: 12px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-                    @if($recentLearningActivity && count($recentLearningActivity) > 0)
-                        <div class="learning-activity-list">
-                            @foreach($recentLearningActivity as $course)
-                                <div class="activity-item" style="display: flex; align-items: center; padding: 1.5rem; border: 1px solid #e5e7eb; border-radius: 12px; margin-bottom: 1rem; background: #f8fafc; transition: all 0.3s ease;" onmouseover="this.style.background='#f1f5f9'; this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)';" onmouseout="this.style.background='#f8fafc'; this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                    <div class="course-thumbnail" style="flex-shrink: 0; margin-right: 1.5rem;">
-                                        <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid #e5e7eb;">
+                <div class="courses-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem;">
+                    @forelse($availableCourses as $course)
+                        <div class="course-card" style="background: white; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb; transition: all 0.2s ease; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0, 0, 0, 0.12)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 1px 3px rgba(0, 0, 0, 0.08)';">
+                            <div class="course-thumbnail" style="height: 140px; background: linear-gradient(135deg, #0056d3 0%, #004bb5 100%); position: relative; overflow: hidden;">
+                                @if($course->thumbnail)
+                                    <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                @else
+                                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: white;">
+                                        <i class="fas fa-graduation-cap" style="font-size: 2.5rem; opacity: 0.8;"></i>
                                     </div>
-                                    <div class="course-info" style="flex-grow: 1;">
-                                        <h6 style="color: #1f2937; font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem;">{{ $course->title }}</h6>
-                                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem;">
-                                            <span style="color: #6b7280; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem;">
-                                                <i class="fas fa-user" style="color: #9ca3af;"></i>
-                                                {{ $course->instructor->name ?? 'Instructor' }}
-                                            </span>
-                                            <span style="color: #6b7280; font-size: 0.875rem; display: flex; align-items: center; gap: 0.25rem;">
-                                                <i class="fas fa-clock" style="color: #9ca3af;"></i>
-                                                {{ $course->last_accessed->diffForHumans() }}
-                                            </span>
-                                        </div>
-                                        <div class="progress-info" style="display: flex; align-items: center; gap: 1rem;">
-                                            <div class="progress-bar-container" style="flex-grow: 1; background: #e5e7eb; border-radius: 10px; height: 8px; overflow: hidden;">
-                                                <div class="progress-bar" style="background: linear-gradient(135deg, #10b981, #059669); height: 100%; border-radius: 10px; transition: width 0.3s ease;" data-width="{{ $course->progress_percent }}"></div>
-                                                <script>document.currentScript.previousElementSibling.style.width = document.currentScript.previousElementSibling.getAttribute('data-width') + '%';</script>
-                                            </div>
-                                            <span style="color: #059669; font-weight: 600; font-size: 0.875rem;">{{ $course->progress_percent }}%</span>
-                                        </div>
-                                        <div style="color: #6b7280; font-size: 0.8rem; margin-top: 0.5rem;">
-                                            {{ $course->completed_lectures }}/{{ $course->total_lectures }} {{ __('lessons completed') }}
-                                        </div>
+                                @endif
+                                
+                                <!-- Course Level Badge -->
+                                <div style="position: absolute; top: 0.5rem; left: 0.5rem; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-radius: 12px; padding: 0.25rem 0.5rem; font-size: 0.7rem; font-weight: 600; color: #0056d3; border: 1px solid rgba(255, 255, 255, 0.3);">
+                                    {{ $course->category->translation->name ?? 'General' }}
+                                </div>
+                            </div>
+                            
+                            <div class="course-content" style="padding: 1rem;">
+                                <h6 style="color: #1f2937; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 2.6rem;">
+                                    {{ $course->title }}
+                                </h6>
+                                
+                                <div class="instructor-info" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                    <div class="instructor-avatar" style="width: 24px; height: 24px; border-radius: 50%; overflow: hidden; border: 1px solid #e5e7eb;">
+                                        <img src="{{ $course->instructor->image ? asset('uploads/users/' . $course->instructor->image) : asset('frontend/assets/images/default-avatar.png') }}" alt="{{ $course->instructor->name }}" style="width: 100%; height: 100%; object-fit: cover;">
                                     </div>
-                                    <div class="course-actions" style="flex-shrink: 0;">
-                                        <a href="{{ route('student.learning.index', $course->slug) }}" style="background: linear-gradient(135deg, #0066cc, #004499); color: white; padding: 0.75rem 1.25rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(0, 102, 204, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                            <i class="fas fa-play"></i>
-                                            {{ __('Continue') }}
-                                        </a>
+                                    <div style="color: #6b7280; font-size: 0.75rem; font-weight: 500;">{{ $course->instructor->name }}</div>
+                                </div>
+                                
+                                <div class="course-meta" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; font-size: 0.75rem; color: #6b7280;">
+                                    <div style="display: flex; align-items: center; gap: 0.25rem;">
+                                        <i class="fas fa-play-circle" style="color: #0056d3; font-size: 0.7rem;"></i>
+                                        <span>{{ $course->chapterItems()->count() }} {{ __('Lessons') }}</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.25rem;">
+                                        <i class="fas fa-star" style="color: #fbbf24; font-size: 0.7rem;"></i>
+                                        <span>{{ number_format($course->reviews()->avg('rating') ?? 0, 1) }}</span>
                                     </div>
                                 </div>
-                            @endforeach
-                            <div style="text-align: center; margin-top: 1.5rem;">
-                                <a href="{{ route('student.enrolled-courses') }}" style="color: #0066cc; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease;" onmouseover="this.style.color='#004499';" onmouseout="this.style.color='#0066cc';">
-                                    {{ __('View All Enrolled Courses') }}
-                                    <i class="fas fa-arrow-right"></i>
-                                </a>
+                                
+                                <div class="course-footer" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    @if($course->price > 0)
+                                        <div style="color: #0056d3; font-weight: 700; font-size: 0.9rem;">
+                                            @if($course->discount > 0)
+                                                <span style="text-decoration: line-through; color: #9ca3af; font-size: 0.75rem; margin-right: 0.25rem;">${{ number_format($course->price, 2) }}</span>
+                                                ${{ number_format($course->price - $course->discount, 2) }}
+                                            @else
+                                                ${{ number_format($course->price, 2) }}
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div style="color: #0056d3; font-weight: 700; font-size: 0.9rem;">{{ __('Free') }}</div>
+                                    @endif
+                                </div>
+                                
+                                <div class="course-actions">
+                                     <a href="{{ route('student.learning.index', $course->slug) }}" style="width: 100%; background: #0056d3; color: white; padding: 0.625rem 0.75rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-align: center; transition: all 0.2s ease; display: block;" onmouseover="this.style.background='#004bb5';" onmouseout="this.style.background='#0056d3';">
+                                          {{ __('Enroll Now') }}
+                                      </a>
+                                </div>
                             </div>
                         </div>
-                    @else
-                        <div class="empty-state" style="text-align: center; padding: 3rem 1rem; color: #6b7280;">
+                    @empty
+                        <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: #6b7280;">
                             <i class="fas fa-graduation-cap" style="font-size: 4rem; color: #d1d5db; margin-bottom: 1rem;"></i>
-                            <h5 style="color: #6b7280; margin-bottom: 0.5rem;">{{ __('No Learning Activity Yet') }}</h5>
-                            <p style="margin-bottom: 1.5rem;">{{ __('Start learning to see your progress here.') }}</p>
-                            <a href="{{ route('courses') }}" style="background: #0066cc; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; transition: all 0.3s ease;" onmouseover="this.style.background='#0052a3';" onmouseout="this.style.background='#0066cc';">
-                                <i class="fas fa-search" style="margin-right: 0.5rem;"></i>
-                                {{ __('Browse Courses') }}
-                            </a>
+                            <h5 style="color: #6b7280; margin-bottom: 0.5rem;">{{ __('No Courses Available') }}</h5>
+                            <p style="margin-bottom: 1.5rem;">{{ __('Check back later for new courses.') }}</p>
                         </div>
-                    @endif
+                    @endforelse
+                </div>
+                
+                @if($availableCourses->count() >= 6)
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <a href="{{ route('courses') }}" style="background: #282f76; color: white; padding: 1rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease;" onmouseover="this.style.background='#1e40af';" onmouseout="this.style.background='#282f76';">
+                            <i class="fas fa-search"></i>
+                            {{ __('Browse All Courses') }}
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Box Widget -->
+    <div class="dashboard__content-wrap" style="background: #ffffff; border-radius: 12px; padding: 2rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); margin-top: 2rem;">
+        <div class="chat-widget-header" style="margin-bottom: 2rem; display: flex; justify-content: between; align-items: center;">
+            <h4 class="title" style="color: #1f2937; font-size: 1.8rem; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 0.75rem;">
+                <div style="background: linear-gradient(135deg, #282f76, #1e40af); border-radius: 12px; padding: 0.75rem; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-comments" style="color: white; font-size: 1.2rem;"></i>
+                </div>
+                {{ __('Chat Box') }}
+            </h4>
+        </div>
+
+        <div class="row">
+            <!-- Communication Section -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="communication-section" style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; border: 1px solid #e5e7eb; height: 100%;">
+                    <div class="section-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 8px; padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-users" style="color: white; font-size: 1rem;"></i>
+                        </div>
+                        <h5 style="color: #1f2937; font-weight: 600; margin: 0; font-size: 1.1rem;">{{ __('Communicate with Students') }}</h5>
+                    </div>
+
+                    <!-- Recent Messages Preview -->
+                    <div class="recent-messages" style="margin-bottom: 1.5rem;">
+                        <div class="message-item" style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: white; font-size: 0.875rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #1f2937; font-size: 0.875rem;">{{ __('Study Group Chat') }}</div>
+                                    <div style="color: #6b7280; font-size: 0.75rem;">{{ __('3 new messages') }}</div>
+                                </div>
+                                <div style="color: #6b7280; font-size: 0.75rem;">{{ __('2 min ago') }}</div>
+                            </div>
+                            <div style="color: #4b5563; font-size: 0.875rem; line-height: 1.4;">{{ __('Hey everyone! Anyone up for a study session this evening?') }}</div>
+                        </div>
+
+                        <div class="message-item" style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #7c3aed); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-user" style="color: white; font-size: 0.875rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #1f2937; font-size: 0.875rem;">{{ __('Sarah Johnson') }}</div>
+                                    <div style="color: #6b7280; font-size: 0.75rem;">{{ __('Online') }}</div>
+                                </div>
+                                <div style="color: #6b7280; font-size: 0.75rem;">{{ __('5 min ago') }}</div>
+                            </div>
+                            <div style="color: #4b5563; font-size: 0.875rem; line-height: 1.4;">{{ __('Thanks for sharing those notes! Really helpful.') }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions" style="display: flex; gap: 0.75rem;">
+                        <a href="{{ route('student.chat') }}" style="flex: 1; background: linear-gradient(135deg, #282f76, #1e40af); color: white; padding: 0.75rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.875rem; text-align: center; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(40, 47, 118, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <i class="fas fa-comment-dots"></i>
+                            {{ __('Open Chat') }}
+                        </a>
+                        <button onclick="startNewChat()" style="background: #f8fafc; color: #282f76; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #e5e7eb; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.background='#e5e7eb';" onmouseout="this.style.background='#f8fafc';">
+                            <i class="fas fa-plus"></i>
+                            {{ __('New Chat') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meeting Scheduling Section -->
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="meeting-section" style="background: #f8fafc; border-radius: 12px; padding: 1.5rem; border: 1px solid #e5e7eb; height: 100%;">
+                    <div class="section-header" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <div style="background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 8px; padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-calendar-alt" style="color: white; font-size: 1rem;"></i>
+                        </div>
+                        <h5 style="color: #1f2937; font-weight: 600; margin: 0; font-size: 1.1rem;">{{ __('Schedule Meeting') }}</h5>
+                    </div>
+
+                    <!-- Upcoming Meetings -->
+                    <div class="upcoming-meetings" style="margin-bottom: 1.5rem;">
+                        <div class="meeting-item" style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <div style="background: linear-gradient(135deg, #10b981, #059669); border-radius: 8px; padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-video" style="color: white; font-size: 0.875rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #1f2937; font-size: 0.875rem;">{{ __('Study Group Session') }}</div>
+                                    <div style="color: #6b7280; font-size: 0.75rem;">{{ __('Today at 3:00 PM') }}</div>
+                                </div>
+                                <div style="background: #dcfce7; color: #166534; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                    {{ __('Soon') }}
+                                </div>
+                            </div>
+                            <div style="color: #4b5563; font-size: 0.875rem; line-height: 1.4;">{{ __('Weekly study session with classmates') }}</div>
+                        </div>
+
+                        <div class="meeting-item" style="background: white; border-radius: 8px; padding: 1rem; margin-bottom: 0.75rem; border: 1px solid #e5e7eb; transition: all 0.3s ease;" onmouseover="this.style.boxShadow='0 2px 8px rgba(0, 0, 0, 0.1)';" onmouseout="this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+                                <div style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: 8px; padding: 0.5rem; display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-users" style="color: white; font-size: 0.875rem;"></i>
+                                </div>
+                                <div style="flex: 1;">
+                                    <div style="font-weight: 600; color: #1f2937; font-size: 0.875rem;">{{ __('Project Discussion') }}</div>
+                                    <div style="color: #6b7280; font-size: 0.75rem;">{{ __('Tomorrow at 10:00 AM') }}</div>
+                                </div>
+                                <div style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                    {{ __('Tomorrow') }}
+                                </div>
+                            </div>
+                            <div style="color: #4b5563; font-size: 0.875rem; line-height: 1.4;">{{ __('Team meeting for final project') }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Meeting Actions -->
+                    <div class="meeting-actions" style="display: flex; gap: 0.75rem;">
+                        <a href="{{ route('student.meetings') }}" style="flex: 1; background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 0.75rem 1rem; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.875rem; text-align: center; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 12px rgba(245, 158, 11, 0.3)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <i class="fas fa-calendar-check"></i>
+                            {{ __('View All') }}
+                        </a>
+                        <button onclick="scheduleNewMeeting()" style="background: #f8fafc; color: #f59e0b; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid #e5e7eb; font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.background='#e5e7eb';" onmouseout="this.style.background='#f8fafc';">
+                            <i class="fas fa-plus"></i>
+                            {{ __('Schedule') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Row -->
+        <div class="chat-stats" style="background: linear-gradient(135deg, #f8fafc, #e5e7eb); border-radius: 12px; padding: 1.5rem; margin-top: 1rem;">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div style="color: #282f76; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;">12</div>
+                    <div style="color: #6b7280; font-size: 0.875rem; font-weight: 500;">{{ __('Active Chats') }}</div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div style="color: #10b981; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;">3</div>
+                    <div style="color: #6b7280; font-size: 0.875rem; font-weight: 500;">{{ __('Upcoming Meetings') }}</div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div style="color: #f59e0b; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem;">8</div>
+                    <div style="color: #6b7280; font-size: 0.875rem; font-weight: 500;">{{ __('Study Groups') }}</div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- JavaScript for Chat Widget Functionality -->
+    <script>
+        function startNewChat() {
+            // Show a modal or redirect to create new chat
+            alert('{{ __("Starting new chat...") }}');
+            // In a real implementation, this would open a modal to select students
+            window.location.href = '{{ route("student.chat") }}';
+        }
+
+        function scheduleNewMeeting() {
+            // Show a modal or redirect to schedule meeting
+            alert('{{ __("Opening meeting scheduler...") }}');
+            // In a real implementation, this would open a meeting scheduling modal
+            window.location.href = '{{ route("student.meetings") }}';
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add pulse animation to new message indicators
+            const newMessageIndicators = document.querySelectorAll('.message-item');
+            newMessageIndicators.forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
 @endsection

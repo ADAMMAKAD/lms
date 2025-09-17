@@ -3,7 +3,7 @@
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.08) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.08) 0%, transparent 50%), linear-gradient(45deg, transparent 40%, rgba(255, 255, 255, 0.1) 50%, transparent 60%); pointer-events: none;"></div>
     
     <!-- Floating Elements -->
-    <div style="position: absolute; top: 20%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #3b82f6, #1d4ed8); border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite;"></div>
+    <div style="position: absolute; top: 20%; left: 10%; width: 60px; height: 60px; background: linear-gradient(45deg, #282f76, #282f76); border-radius: 50%; opacity: 0.1; animation: float 6s ease-in-out infinite;"></div>
     <div style="position: absolute; bottom: 30%; right: 15%; width: 40px; height: 40px; background: linear-gradient(45deg, #10b981, #059669); border-radius: 50%; opacity: 0.1; animation: float 8s ease-in-out infinite reverse;"></div>
     
     <div class="container">
@@ -11,9 +11,9 @@
         <div class="row mb-5">
             <div class="col-12 text-center">
                 <div style="display: inline-block; padding: 8px 24px; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1)); border-radius: 50px; margin-bottom: 1rem; border: 1px solid rgba(59, 130, 246, 0.2);">
-                    <span style="color: #1e40af; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Transform Your Journey</span>
+                    <span style="color: #282f76; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Transform Your Journey</span>
                 </div>
-                <h2 style="font-size: 3rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; line-height: 1.2;">Choose Your Path to <span style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Excellence</span></h2>
+                <h2 style="font-size: 3rem; font-weight: 700; color: #1e293b; margin-bottom: 1rem; line-height: 1.2;">Choose Your Path to <span style="background: linear-gradient(135deg, #282f76, #282f76); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Excellence</span></h2>
                 <p style="font-size: 1.2rem; color: #64748b; max-width: 600px; margin: 0 auto; line-height: 1.6;">Whether you're looking to advance your skills or share your expertise, we provide the perfect platform for your professional growth.</p>
             </div>
         </div>
@@ -60,7 +60,7 @@
                         justify-content: center;
                         transition: all 0.3s ease;
                     ">
-                        <i class="fas fa-graduation-cap" style="color: #3b82f6; font-size: 1.5rem;"></i>
+                        <i class="fas fa-graduation-cap" style="color: #282f76; font-size: 1.5rem;"></i>
                     </div>
                     
                     <div class="card-content" style="position: relative; z-index: 2;">
@@ -69,7 +69,7 @@
                                 display: inline-block;
                                 padding: 6px 16px;
                                 background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
-                                color: #1e40af;
+                                color: #282f76;
                                 border-radius: 20px;
                                 font-size: 0.85rem;
                                 font-weight: 600;
@@ -85,7 +85,7 @@
                             color: #1e293b;
                             margin-bottom: 1.2rem;
                             line-height: 1.2;
-                        ">Level Up Your <span style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Skills</span></h3>
+                        ">Level Up Your <span style="background: linear-gradient(135deg, #282f76, #282f76); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Skills</span></h3>
                         
                         <p style="
                             color: #64748b;
@@ -98,7 +98,7 @@
                             display: inline-flex;
                             align-items: center;
                             gap: 0.75rem;
-                            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+                            background: linear-gradient(135deg, #282f76, #282f76);
                             color: white;
                             padding: 14px 28px;
                             border-radius: 12px;

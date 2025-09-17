@@ -20,7 +20,7 @@
 .settings-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #4787ed 0%, #667eea 100%);
+    background: linear-gradient(135deg, #282f76 0%, #667eea 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -60,7 +60,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #4787ed 0%, #667eea 50%, #764ba2 100%);
+    background: linear-gradient(90deg, #282f76 0%, #667eea 50%, #764ba2 100%);
     border-radius: 20px 20px 0 0;
 }
 
@@ -74,7 +74,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #4787ed 0%, #667eea 100%);
+    background: linear-gradient(135deg, #282f76 0%, #667eea 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,7 +113,7 @@
     display: block;
     width: 100%;
     padding: 0.75rem 1.5rem;
-    background: linear-gradient(135deg, #4787ed 0%, #667eea 100%);
+    background: linear-gradient(135deg, #282f76 0%, #667eea 100%);
     color: white;
     text-decoration: none;
     border-radius: 12px;

@@ -1,4 +1,4 @@
-<section class="breadcrumb__area" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); padding: 40px 0; position: relative; margin-bottom: 0;">
+<section class="breadcrumb__area" style="background: linear-gradient(135deg, #1e40af 0%, #282f76 50%, #60a5fa 100%); padding: 40px 0; position: relative; margin-bottom: 0;">
     <div class="container">
         <div class="row">
             <div class="col-12">

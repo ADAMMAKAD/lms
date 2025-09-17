@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{{ __('Learnings') }} | {{ Cache::get('setting')?->app_name }}</title>
-    <meta name="description" content="UNDO - Online Courses & Education Template">
+    <meta name="description" content="IFL - Online Courses & Education Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="course-id" content="{{ @$course->id }}">
@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/video_player.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/learning-player.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/tg-cursor.css') }}">
     <link rel="stylesheet" href="{{ asset('global/toastr/toastr.min.css') }}">
@@ -118,6 +119,12 @@
     @if (Cache::get('setting')->recaptcha_status === 'active')
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     @endif
+    
+    <!-- Original Learning Player JavaScript -->
+    <script src="{{ asset('frontend/js/default/learning-player.js') }}"></script>
+    
+    <!-- Modern Learning Player JavaScript -->
+    <script src="{{ asset('frontend/js/learning-player-modern.js') }}"></script>
     @stack('scripts')
 </body>
 

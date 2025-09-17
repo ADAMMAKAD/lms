@@ -62,9 +62,9 @@ class CourseDetailsCollection extends JsonResource {
                 'already_completed_quiz'   => (array) $alreadyCompletedQuiz,
             ];
         }
-        $currency = strtoupper($request->query('currency'));
-        $price = $this->price == 0 ? (int) $this->price : (string) apiCurrency($this->price, $currency);
-        $discount = $this->discount == 0 ? (int) $this->discount : (string) apiCurrency($this->discount, $currency);
+        // Since the system is free, price and discount should always be 0
+        $price = 0;
+        $discount = 0;
         return [
             'demo_video_source'     => (string) $this->demo_video_storage,
             'demo_video'     => (string) generateVideoEmbedUrl($this->demo_video_source, $this->demo_video_storage),

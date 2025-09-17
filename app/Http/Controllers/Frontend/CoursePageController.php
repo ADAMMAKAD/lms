@@ -9,6 +9,8 @@ use App\Models\CourseChapterItem;
 use App\Models\CourseChapterLesson;
 use App\Models\CourseReview;
 use App\Models\Quiz;
+use App\Models\CourseAssignment;
+use App\Models\CourseProgress;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Modules\Course\app\Models\CourseCategory;
@@ -85,7 +87,7 @@ class CoursePageController extends Controller
 
         $lastPage = $courses->lastPage();
         $page = $request->page ?? 1;
-        $itemCount = $courses->count();
+        $itemCount = $courses->total();
         $data = [
             'items' => view('frontend.partials.course-card', compact('courses'))->render(),
             'lastPage' => $lastPage,
@@ -106,16 +108,53 @@ class CoursePageController extends Controller
     }
 
     function show(string $slug) {
-        $course = Course::active()->with(['chapters' => function($query) {
-            $query->orderBy('order', 'asc')->with(['chapterItems', 'chapterItems.lesson', 'chapterItems.quiz']);
-        }])
+        $course = Course::active()->with([
+            'chapters' => function($query) {
+                $query->orderBy('order', 'asc')->with(['chapterItems', 'chapterItems.lesson', 'chapterItems.quiz']);
+            },
+            'instructor',
+            'partnerInstructors.instructor',
+            'levels',
+            'languages'
+        ])
         ->withCount(['reviews' => function($query) {
             $query->where('status', 1)->whereHas('course')->whereHas('user');
         }])
         ->where('slug', $slug)->firstOrFail();
+        
         $courseLessonCount = CourseChapterLesson::where('course_id', $course->id)->count();
         $courseQuizCount = Quiz::where('course_id', $course->id)->count();
         $reviews = CourseReview::where('course_id', $course->id)->where('status', 1)->whereHas('course')->whereHas('user')->orderBy('created_at', 'desc')->paginate(20);
-        return view('frontend.pages.course-details', compact('course', 'courseLessonCount', 'courseQuizCount', 'reviews'));
+        
+        // Check user access to course
+        $userHasAccess = false;
+        if (auth()->check()) {
+            $user = auth()->user();
+            
+            // Admin and instructors have access to all courses
+            if ($user->role === 'admin' || $user->role === 'instructor') {
+                $userHasAccess = true;
+            } else {
+                // Check if user is specifically assigned to this course
+                $assignment = CourseAssignment::where('user_id', $user->id)
+                    ->where('course_id', $course->id)
+                    ->first();
+                
+                if ($assignment) {
+                    $userHasAccess = true;
+                } else {
+                    // Backward compatibility: check if user has course progress
+                    $progress = CourseProgress::where('user_id', $user->id)
+                        ->where('course_id', $course->id)
+                        ->first();
+                    
+                    if ($progress) {
+                        $userHasAccess = true;
+                    }
+                }
+            }
+        }
+        
+        return view('frontend.pages.course-details', compact('course', 'courseLessonCount', 'courseQuizCount', 'reviews', 'userHasAccess'));
     }
 }

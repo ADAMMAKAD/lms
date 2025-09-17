@@ -133,8 +133,8 @@
                                                 <th>{{ __('SN') }}</th>
                                                 <th class="course-table-title">{{ __('Title') }}</th>
                                                 <th>{{ __('Instructor') }}</th>
-                                                <th>{{ __('Price') }}</th>
-                                                <th>{{ __('Students') }}</th>
+                                                <!-- <th>{{ __('Price') }}</th>
+                                                <th>{{ __('Students') }}</th> -->
                                                 <th>{{ __('Created Date') }}</th>
                                                 <th>{{ __('Update Date') }}</th>
                                                 <th>{{ __('Status') }}</th>
@@ -152,7 +152,7 @@
                                                         <small>{{ $course->category->translation->name ?? '' }}</small>
                                                     </td>
                                                     <td>{{ $course->instructor->name ?? '' }}</td>
-                                                    <td>
+                                                    <!-- <td>
                                                         @if ($course->price == 0)
                                                             <span>{{ __('Free') }}</span>
                                                         @elseif($course->discount > 0)
@@ -160,8 +160,8 @@
                                                         @else
                                                             {{ currency($course->price) }}
                                                         @endif
-                                                    </td>
-                                                    <td>{{ $course->enrollments_count }}</td>
+                                                    </td> -->
+                                                    <!-- <td>{{ $course->enrollments_count }}</td> -->
                                                     <td><small>{{ formatDate($course->created_at) }}</small>
                                                         <br>
                                                         <small>{{ formatDate($course->created_at, 'H:i') }}</small>
@@ -204,6 +204,11 @@
                                                                     <a href="{{ route('admin.courses.edit-view', $course->id) }}"
                                                                         class="dropdown-item"
                                                                         target="_blank">{{ __('Edit') }}</a>
+
+                                                                    <a href="{{ route('admin.courses.enrollments', $course->id) }}"
+                                                                        class="dropdown-item">
+                                                                        <i class="fas fa-users mr-1"></i>{{ __('View Enrollments') }}
+                                                                    </a>
 
                                                                     <a href="{{ route('admin.courses.destroy', $course->id) }}"
                                                                         class="dropdown-item text-danger delete-item">{{ __('Delete') }}</a>

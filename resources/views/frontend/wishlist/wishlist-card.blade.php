@@ -1,7 +1,7 @@
 @php
     $wishlistCourses = userAuth()
         ->favoriteCourses()
-        ->with('category.translation', 'instructor:id,name')
+        ->with('category.translation')
         ->withCount([
             'reviews as avg_rating' => function ($query) {
                 $query->select(DB::raw('coalesce(avg(rating), 0)'));

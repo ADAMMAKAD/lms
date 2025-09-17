@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-xl-8 col-lg-10">
                 <div class="section__title text-center mb-5">
-                    <span class="sub-title d-inline-block px-4 py-2 mb-4 fw-semibold" style="background: linear-gradient(135deg, #3b82f6, #60a5fa); color: white; border-radius: 25px; font-size: 0.9rem; letter-spacing: 0.5px;">{{ __("Course Categories") }}</span>
+                    <span class="sub-title d-inline-block px-4 py-2 mb-4 fw-semibold" style="background: linear-gradient(135deg, #282f76, #60a5fa); color: white; border-radius: 25px; font-size: 0.9rem; letter-spacing: 0.5px;">{{ __("Course Categories") }}</span>
                     <h2 class="title fw-bold text-dark mb-4" style="font-size: 3rem; line-height: 1.2; font-family: 'Inter', sans-serif;">{{ __('Courses Categories') }}</h2>
                     <p class="lead text-muted mx-auto" style="max-width: 650px; line-height: 1.7; font-size: 1.1rem;">{{ __('Organize courses by subject areas, helping learners quickly find content relevant to their interests or needs.') }}</p>
                 </div>
@@ -56,14 +56,14 @@
     box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
 }
 .category-purple .category-icon {
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    background: linear-gradient(135deg, #282f76, #60a5fa);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
 }
 .category-purple .course-count {
-    color: #3b82f6;
+    color: #282f76;
 }
 .category-purple .category-accent {
-    background: #3b82f6;
+    background: #282f76;
 }
 
 .category-cyan {

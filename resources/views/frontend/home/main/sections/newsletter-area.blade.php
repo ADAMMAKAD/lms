@@ -1,4 +1,4 @@
-<section class="newsletter__area py-5" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); position: relative; overflow: hidden;">
+<section class="newsletter__area py-5" style="background: linear-gradient(135deg, #282f76 0%, #282f76 100%); position: relative; overflow: hidden;">
     <!-- Background Pattern -->
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="20" fill="white"/></svg>'); background-size: 60px 60px;"></div>
     

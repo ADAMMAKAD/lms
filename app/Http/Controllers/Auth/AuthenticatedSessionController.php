@@ -91,16 +91,11 @@ class AuthenticatedSessionController extends Controller
 
         $intendedUrl = session()->get('url.intended');
         if ($intendedUrl && Str::contains($intendedUrl, '/admin')) {
-            if($user->role == 'instructor')  return redirect()->route('instructor.dashboard')->with($notification);
             return redirect()->route('student.dashboard')->with($notification);
         }
 
-        // Always redirect to appropriate dashboard based on user role
-        if ($user->role === 'instructor') {
-            return redirect()->route('instructor.dashboard')->with($notification);
-        } else {
-            return redirect()->route('student.dashboard')->with($notification);
-        }
+        // Always redirect to student dashboard
+        return redirect()->route('student.dashboard')->with($notification);
     }
 
     /**

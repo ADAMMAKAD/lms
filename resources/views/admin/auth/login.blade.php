@@ -118,7 +118,7 @@
         }
         
         .brand-logo {
-            color: #3b82f6;
+            color: #282f76;
             font-size: 1.8rem;
             font-weight: 700;
             text-decoration: none;
@@ -176,7 +176,7 @@
         
         .form-input:focus {
             outline: none;
-            border-color: #3b82f6;
+            border-color: #282f76;
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
@@ -190,20 +190,20 @@
         }
         
         .forgot-link a {
-            color: #3b82f6;
+            color: #282f76;
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
         }
         
         .forgot-link a:hover {
-            color: #2563eb;
+            color: #282f76;
         }
         
         .login-button {
             width: 100%;
             padding: 12px 24px;
-            background: #3b82f6;
+            background: #282f76;
             border: none;
             border-radius: 8px;
             color: white;
@@ -215,7 +215,7 @@
         }
         
         .login-button:hover {
-            background: #2563eb;
+            background: #282f76;
             transform: translateY(-1px);
             box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
         }
@@ -276,7 +276,7 @@
         <!-- Left Panel -->
         <div class="left-panel">
             <div class="welcome-content">
-                <h1 class="welcome-title">Welcome to {{ config('app.name', 'UNDP LMS') }} Learning Management System</h1>
+                <h1 class="welcome-title">Welcome to {{ config('app.name', 'IFL LMS') }} Learning Management System</h1>
                 <p class="welcome-subtitle">Learn what ever you want.</p>
                 
                 <ul class="feature-list">
@@ -306,7 +306,7 @@
         <div class="right-panel">
             <div class="login-card">
                 <div class="brand-section">
-                    <a href="{{ route('home') }}" class="brand-logo">UNDP LMS</a>
+                    <a href="{{ route('home') }}" class="brand-logo">IFL LMS</a>
                     <p class="brand-tagline">Admin Portal</p>
                 </div>
                 
@@ -361,7 +361,7 @@
                 </form>
                 
                 <div class="footer-text">
-                    © 2025 UNDP LMS - Admin Portal
+                    © 2025 IFL LMS - Admin Portal
                 </div>
             </div>
         </div>

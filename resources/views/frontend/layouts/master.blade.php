@@ -17,7 +17,7 @@
     @include('frontend.layouts.styles')
     <!-- CustomCSS here -->
     @stack('styles')
-    @if (customCode()?->css)
+    @if (customCode() && customCode()->css)
         <style>
             {!! customCode()->css !!}
         </style>
@@ -44,9 +44,9 @@
 
     <!-- Scroll-top -->
     <button class="scroll__top scroll-to-target modern-scroll-top" data-target="html" aria-label="Scroll Top" 
-            style="position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: linear-gradient(135deg, #0066cc, #004499); border: none; border-radius: 50%; color: white; font-size: 20px; cursor: pointer; z-index: 9999; box-shadow: 0 4px 20px rgba(0,102,204,0.3); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; visibility: hidden; transform: translateY(20px);" 
-            onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 30px rgba(0,102,204,0.5)'; this.style.background='linear-gradient(135deg, #ffd700, #ffed4e)'; this.style.color='#0066cc'" 
-            onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 20px rgba(0,102,204,0.3)'; this.style.background='linear-gradient(135deg, #0066cc, #004499)'; this.style.color='white'">
+            style="position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: linear-gradient(135deg, #282f76, #282f76); border: none; border-radius: 50%; color: white; font-size: 20px; cursor: pointer; z-index: 9999; box-shadow: 0 4px 20px rgba(0,102,204,0.3); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; visibility: hidden; transform: translateY(20px);" 
+            onmouseover="this.style.transform='translateY(-5px) scale(1.1)'; this.style.boxShadow='0 8px 30px rgba(0,102,204,0.5)'; this.style.background='linear-gradient(135deg, #ffd700, #ffed4e)'; this.style.color='#282f76'" 
+            onmouseout="this.style.transform='translateY(0) scale(1)'; this.style.boxShadow='0 4px 20px rgba(0,102,204,0.3)'; this.style.background='linear-gradient(135deg, #282f76, #282f76)'; this.style.color='white'">
         <i class="fas fa-arrow-up" style="font-size: 18px;"></i>
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; border-radius: 50%; background: rgba(255,255,255,0.1); opacity: 0; transition: all 0.3s ease;" class="ripple-effect"></div>
     </button>
@@ -100,9 +100,7 @@
     </script>
     <!-- Scroll-top-end-->
 
-    <!-- header-area -->
-    @include('frontend.layouts.header')
-    <!-- header-area-end -->
+
 
     <!-- main-area -->
     <main class="main-area fix">
@@ -112,12 +110,10 @@
 
     <!-- modal-area -->
     @include('frontend.partials.modal')
-    @include('frontend.instructor-dashboard.course.partials.add-new-section-modal')
+
     <!-- modal-area -->
 
-    <!-- footer-area -->
-    @include('frontend.layouts.footer')
-    <!-- footer-area-end -->
+
 
 
     <!-- JS here -->
@@ -142,15 +138,14 @@
         </script>
     @endif
     @stack('scripts')
-    @if (customCode()?->javascript)
+    @if (customCode() && customCode()->javascript)
         <script>
             "use strict";
             {!! customCode()->javascript !!}
         </script>
     @endif
 
-    <!-- Chat Widget -->
-    @include('chat::components.chat-widget', ['isAdmin' => false])
+    @stack('js')
 
 </body>
 

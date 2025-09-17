@@ -23,7 +23,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="contact-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%230066cc" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23contact-dots)"/></svg>') repeat;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="contact-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23282f76" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23contact-dots)"/></svg>') repeat;
             animation: float 20s ease-in-out infinite;
         }
         
@@ -53,7 +53,7 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #0066cc 0%, #ffd700 50%, #0066cc 100%);
+            background: linear-gradient(90deg, #282f76 0%, #ffd700 50%, #282f76 100%);
             border-radius: 24px 24px 0 0;
         }
         
@@ -94,7 +94,7 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #0066cc 0%, #ffd700 30%, #0066cc 60%, #ffd700 100%);
+            background: linear-gradient(90deg, #282f76 0%, #ffd700 30%, #282f76 60%, #ffd700 100%);
             border-radius: 28px 28px 0 0;
         }
         
@@ -155,7 +155,7 @@
         .contact-info-icon {
             width: 70px;
             height: 70px;
-            background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002266 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 50%, #002266 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -174,7 +174,7 @@
             left: -2px;
             right: -2px;
             bottom: -2px;
-            background: linear-gradient(45deg, #0066cc, #ffd700, #0066cc);
+            background: linear-gradient(45deg, #282f76, #ffd700, #282f76);
             border-radius: 50%;
             z-index: -1;
             opacity: 0;
@@ -197,7 +197,7 @@
         }
         
         .contact-info-content h4 {
-            color: #0066cc;
+            color: #282f76;
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -213,11 +213,11 @@
         }
         
         .contact-info-content a:hover {
-            color: #0066cc;
+            color: #282f76;
         }
         
         .modern-form-title {
-            color: #0066cc;
+            color: #282f76;
             font-size: 36px;
             font-weight: 800;
             margin-bottom: 50px;
@@ -234,7 +234,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(90deg, #0066cc, #ffd700);
+            background: linear-gradient(90deg, #282f76, #ffd700);
             border-radius: 2px;
         }
         
@@ -265,7 +265,7 @@
         }
         
         .modern-form-input:focus {
-            border-color: #0066cc;
+            border-color: #282f76;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
         
@@ -285,7 +285,7 @@
         .modern-form-input:not(:placeholder-shown) + .modern-form-label {
             top: -8px;
             font-size: 12px;
-            color: #0066cc;
+            color: #282f76;
             font-weight: 600;
         }
         
@@ -303,12 +303,12 @@
         }
         
         .modern-form-textarea:focus {
-            border-color: #0066cc;
+            border-color: #282f76;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
         
         .modern-submit-btn {
-            background: linear-gradient(135deg, #0066cc 0%, #004499 50%, #002266 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 50%, #002266 100%);
             color: white;
             border: none;
             padding: 20px 50px;
@@ -341,7 +341,7 @@
         }
         
         .modern-submit-btn:hover {
-            background: linear-gradient(135deg, #004499 0%, #002266 50%, #001133 100%);
+            background: linear-gradient(135deg, #282f76 0%, #002266 50%, #001133 100%);
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 15px 40px rgba(0,102,204,0.4);
         }

@@ -98,8 +98,8 @@
                     <div class="tgmenu__wrap">
                         <nav class="tgmenu__nav">
                             <div class="logo">
-                                <a href="{{ route('home') }}" style="text-decoration: none;">
-                                    <h2 style="color: #4787ed; font-weight: 800; margin: 0; font-size: 1.8rem; letter-spacing: -0.5px;">UNDP LMS</h2>
+                                <a href="{{ route('login') }}" style="text-decoration: none;">
+                                    <img src="{{ asset('uploads/website-images/logo IFL.svg') }}" alt="IFL Logo" style="height: 50px; width: auto;">
                                 </a>
                             </div>
                             <div class="tgmenu__navbar-wrap tgmenu__main-menu d-none d-xl-flex">
@@ -138,32 +138,12 @@
                                 @endif
 
                             </div>
-                            <div class="tgmenu__search d-none d-md-block">
-                                <form action="{{ route('courses') }}" class="tgmenu__search-form">
-                                    <div class="select-grp">
-                                        <i class="fas fa-th-large" style="color: #4787ed; font-size: 16px;"></i>
-
-                                        <select class="form-select select_js w_150px"
-                                            aria-label="Default select example" name="main_category" style="color: #333; font-weight: 500;">
-                                            <option selected disabled>{{ __('Categories') }}</option>
-                                            @foreach ($categories as $category)
-                                                <option @selected(request('main_category') == $category->slug) value="{{ $category->slug }}">
-                                                    {{ $category?->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="input-grp">
-                                        <input type="text" placeholder="{{ __('Search For Course') }} . . ."
-                                            name="search" value="{{ request('search') }}" style="color: #333; font-weight: 500;">
-                                        <button type="submit" aria-label="Search" style="background: #4787ed; border: none; color: white;"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
+                            {{-- Removed course search form since courses route no longer exists --}}
+                            {{-- In login-first system, users access enrolled courses through dashboard --}}
                             <div class="tgmenu__action">
                                 <ul class="list-wrap">
                                     <li class="mini-cart-icon user_icon">
-                                        <a href="javascript:;" class="cart-count" style="color: #4787ed; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(30, 64, 175, 0.1); transition: all 0.3s ease;">
+                                        <a href="javascript:;" class="cart-count" style="color: #282f76; font-size: 20px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(30, 64, 175, 0.1); transition: all 0.3s ease;">
                                             <i class="fas fa-user"></i>
                                         </a>
                                         <ul class="menu_user_list" style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
@@ -177,19 +157,14 @@
                                                 <li><a href="{{ route('register') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Sign Up') }}</a></li>
                                             @else
                                                 @if (Auth::guard('web')->user())
-                                                    @if (instructorStatus() == 'approved')
-                                                        <li><a
-                                                                href="{{ route('instructor.dashboard') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Instructor Dashboard') }}</a>
-                                                        </li>
-                                                    @endif
                                                     <li><a
                                                             href="{{ route('student.dashboard') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Student Dashboard') }}</a>
                                                     </li>
                                                     <li><a
-                                                            href="{{ userAuth()->role == 'instructor' ? route('instructor.setting.index') : route('student.setting.index') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Profile') }}</a>
+                                                            href="{{ route('student.setting.index') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Profile') }}</a>
                                                     </li>
                                                     <li><a
-                                                            href="{{ userAuth()->role == 'instructor' ? route('instructor.courses.index') : route('student.enrolled-courses') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Courses') }}</a>
+                                                            href="{{ route('student.enrolled-courses') }}" style="color: #333; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Courses') }}</a>
                                                     </li>
                                                     <li><a href=""
                                                             class="text-danger logout-btn" style="color: #dc3545; font-weight: 500; padding: 10px 15px; display: block; text-decoration: none;">{{ __('Logout') }}</a>
@@ -210,7 +185,7 @@
                             <div class="close-btn"><i class="tg-flaticon-close-1"></i></div>
                             <div class="nav-logo">
                                 <a href="{{ route('home') }}" style="text-decoration: none;">
-                                    <h2 style="color: #4787ed; font-weight: 800; margin: 0; font-size: 1.5rem; letter-spacing: -0.5px;">UNDP LMS</h2>
+                                    <img src="{{ asset('uploads/website-images/logo IFL.svg') }}" alt="IFL Logo" style="height: 40px; width: auto;">
                                 </a>
                             </div>
 
@@ -269,17 +244,8 @@
                                 @endguest
 
                                 @auth('web')
-                                    @php
-                                        $user = Auth::guard('web')->user();
-                                        $dashboardRoute =
-                                            $user->role == 'instructor' ? 'instructor.dashboard' : 'student.dashboard';
-                                        $coursesRoute =
-                                            $user->role == 'instructor'
-                                                ? 'instructor.courses.index'
-                                                : 'student.enrolled-courses';
-                                    @endphp
-                                    <li><a href="{{ route($dashboardRoute) }}" style="color: #333; font-weight: 600; text-decoration: none;">{{ __('Dashboard') }}</a></li>
-                                    <li><a href="{{ route($coursesRoute) }}" style="color: #333; font-weight: 600; text-decoration: none;">{{ __('Courses') }}</a></li>
+                                    <li><a href="{{ route('student.dashboard') }}" style="color: #333; font-weight: 600; text-decoration: none;">{{ __('Dashboard') }}</a></li>
+                                    <li><a href="{{ route('student.enrolled-courses') }}" style="color: #333; font-weight: 600; text-decoration: none;">{{ __('Courses') }}</a></li>
                                 @endauth
                             </ul>
 

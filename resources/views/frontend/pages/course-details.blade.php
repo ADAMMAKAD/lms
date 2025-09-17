@@ -11,1277 +11,1033 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('frontend/css/shareon.min.css') }}">
     <style>
-        /* Modern Course Details Page Styling */
-        .courses__details-area {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            min-height: 80vh;
-        }
-        
-        .courses__details-thumb {
+        /* Coursera-Style Course Details Page */
+        .coursera-hero {
+            background: linear-gradient(135deg, #0056d3 0%, #004ba0 100%);
+            color: white;
+            padding: 60px 0 80px;
             position: relative;
-            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
         }
         
-        .courses__details-thumb img {
-            border-radius: 16px;
-            transition: transform 0.3s ease;
+        .coursera-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
         }
         
-        .courses__details-thumb:hover img {
-            transform: scale(1.02);
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         
-        .popup-video {
+        .hero-breadcrumb {
+            margin-bottom: 20px;
+        }
+        
+        .hero-breadcrumb a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .hero-breadcrumb a:hover {
+            color: white;
+        }
+        
+        .hero-breadcrumb span {
+            color: rgba(255,255,255,0.6);
+            margin: 0 8px;
+        }
+        
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+        }
+        
+        .hero-meta-item i {
+            color: #ffd700;
+        }
+        
+        .hero-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hero-rating .stars {
+            color: #ffd700;
+        }
+        
+        .hero-cta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .hero-enroll-btn {
+            background: linear-gradient(135deg, #0056d3, #004ba0);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hero-enroll-btn:hover {
+            background: white;
+            color: #0056d3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .hero-wishlist-btn {
+            background: transparent;
+            color: white;
+            padding: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-wishlist-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: white;
+            color: white;
+        }
+        
+        /* Course Content Area */
+        .course-content-area {
+            background: #f8fafc;
+            padding: 60px 0;
+        }
+        
+        .course-main-content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .course-video-preview {
+            position: relative;
+            background: #000;
+            aspect-ratio: 16/9;
+        }
+        
+        .course-video-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-play-btn {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            background: rgba(0,86,211,0.9);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 24px;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            text-decoration: none;
             transition: all 0.3s ease;
         }
         
-        .popup-video:hover {
+        .video-play-btn:hover {
+            background: #0056d3;
             transform: translate(-50%, -50%) scale(1.1);
-            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.6);
-        }
-        
-        /* Curriculum video link styling */
-        .curriculum-video-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-decoration: none;
-            color: #374151;
-            padding: 0;
-            background: none;
-            border: none;
-            width: 100%;
-        }
-        
-        .curriculum-video-link:hover {
-            color: #3b82f6;
-        }
-        
-        .curriculum-video-link .item-name {
-            font-weight: 600;
-        }
-        
-        .curriculum-video-link .course-item-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.875rem;
-            color: #6b7280;
-        }
-        
-        .courses__details-content {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            margin-bottom: 2rem;
-        }
-        
-        .courses__item-meta {
-            margin-bottom: 1.5rem;
-        }
-        
-        .courses__item-tag a {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
             color: white;
-            padding: 8px 16px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.3s ease;
         }
         
-        .courses__item-tag a:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        /* Course Tabs */
+        .course-tabs {
+            border-bottom: 1px solid #e5e7eb;
         }
         
-        .avg-rating {
-            background: #fef3c7;
-            color: #d97706;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-        
-        .courses__wishlist .wsus-wishlist-btn {
-            width: 45px;
-            height: 45px;
-            background: white;
-            border: 2px solid #e5e7eb;
-            border-radius: 50%;
+        .course-nav-tabs {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            border: none;
+            background: none;
+            margin: 0;
+            padding: 0 30px;
+        }
+        
+        .course-nav-link {
+            padding: 20px 30px;
+            border: none;
+            background: none;
             color: #6b7280;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
         }
         
-        .courses__wishlist .wsus-wishlist-btn:hover {
-            border-color: #ef4444;
-            color: #ef4444;
-            transform: scale(1.1);
+        .course-nav-link:hover {
+            color: #0056d3;
         }
         
-        .courses__details-content .title {
-            font-size: 2.25rem;
+        .course-nav-link.active {
+            color: #0056d3;
+            border-bottom-color: #0056d3;
+        }
+        
+        .course-tab-content {
+            padding: 40px 30px;
+        }
+        
+        .course-tab-pane {
+            display: none;
+        }
+        
+        .course-tab-pane.active {
+            display: block;
+        }
+        
+        /* Overview Tab */
+        .course-overview h3 {
+            font-size: 1.5rem;
             font-weight: 700;
             color: #1f2937;
-            margin: 1.5rem 0;
-            line-height: 1.2;
+            margin-bottom: 20px;
         }
         
-        .courses__details-meta .author-two {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f8fafc;
-            padding: 12px 16px;
-            border-radius: 12px;
-            margin-bottom: 1rem;
+        .course-overview p {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
         
-        .instructor-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #3b82f6;
+        /* Curriculum Tab */
+        .curriculum-section {
+            margin-bottom: 30px;
         }
         
-        .courses__details-meta .author-two a {
-            color: #3b82f6;
-            font-weight: 600;
-            text-decoration: none;
-        }
-        
-        .courses__details-meta .author-two a:hover {
-            color: #2563eb;
-        }
-        
-        .nav-tabs {
-            border: none;
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 8px;
-            margin: 2rem 0;
-        }
-        
-        .nav-tabs .nav-link {
-            border: none;
-            border-radius: 8px;
-            padding: 12px 24px;
-            font-weight: 600;
-            color: #6b7280;
-            transition: all 0.3s ease;
-            margin: 0 4px;
-        }
-        
-        .nav-tabs .nav-link.active {
-            background: linear-gradient(135deg, #0066cc, #004499);
-            color: white;
-            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
-        }
-        
-        .nav-tabs .nav-link:hover:not(.active) {
-            background: #e5e7eb;
-            color: #374151;
-        }
-        
-        .tab-content {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        }
-        
-        .courses__overview-wrap .title,
-         .courses__curriculum-wrap .title,
-         .courses__rating-wrap .title {
-             font-size: 1.5rem;
-             font-weight: 700;
-             color: #1f2937;
-             margin-bottom: 1.5rem;
-             padding-bottom: 0.75rem;
-             border-bottom: 3px solid #3b82f6;
-             display: inline-block;
-         }
-        
-        .accordion-item {
+        .curriculum-chapter {
             border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            margin-bottom: 1rem;
+            border-radius: 8px;
+            margin-bottom: 16px;
             overflow: hidden;
         }
         
-        .accordion-button {
-            background: #f8fafc;
-            border: none;
-            padding: 1.25rem 1.5rem;
-            font-weight: 600;
-            color: #374151;
-        }
-        
-        .accordion-button:not(.collapsed) {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            box-shadow: none;
-        }
-        
-        .accordion-body {
-            padding: 1.5rem;
-            background: white;
-        }
-        
-        .course-item {
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            background: #f8fafc;
-            transition: all 0.3s ease;
-        }
-        
-        .course-item:hover {
-            background: #e5e7eb;
-            transform: translateX(8px);
-        }
-        
-        .course-item-link {
+        .chapter-header {
+            background: #f9fafb;
+            padding: 20px;
+            border-bottom: 1px solid #e5e7eb;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-decoration: none;
-            color: #374151;
+            transition: all 0.3s ease;
         }
         
-        .item-name {
+        .chapter-header:hover {
+            background: #f3f4f6;
+        }
+        
+        .chapter-title {
             font-weight: 600;
+            color: #1f2937;
+            margin: 0;
         }
         
-        .course-item-meta {
+        .chapter-meta {
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .chapter-content {
+            display: none;
+            padding: 0;
+        }
+        
+        .chapter-content.show {
+            display: block;
+        }
+        
+        .lesson-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .lesson-item:hover {
+            background: #f9fafb;
+        }
+        
+        .lesson-item:last-child {
+            border-bottom: none;
+        }
+        
+        .lesson-info {
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 0.875rem;
+        }
+        
+        .lesson-icon {
+            width: 20px;
+            height: 20px;
+            color: #0056d3;
+        }
+        
+        .lesson-title {
+            font-weight: 500;
+            color: #1f2937;
+            text-decoration: none;
+        }
+        
+        .lesson-title:hover {
+            color: #0056d3;
+        }
+        
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
             color: #6b7280;
+            font-size: 14px;
         }
         
-        /* Sidebar Styling */
-        .courses__details-sidebar {
+        /* Sidebar */
+        .course-sidebar {
             background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
             position: sticky;
-            top: 2rem;
+            top: 30px;
         }
         
-        .courses__information-wrap {
-            margin-bottom: 2rem;
+        .sidebar-section {
+            margin-bottom: 30px;
         }
         
-        .courses__information-wrap .title {
+        .sidebar-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .sidebar-title {
             font-size: 1.25rem;
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 20px;
         }
         
-        .courses__information-wrap ul li {
+        .course-info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .course-info-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid #f3f4f6;
-            font-weight: 500;
         }
         
-        .courses__information-wrap ul li:last-child {
+        .course-info-item:last-child {
             border-bottom: none;
         }
         
-        .courses__information-wrap ul li img {
-            width: 20px;
-            height: 20px;
-            margin-right: 8px;
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4b5563;
+            font-weight: 500;
         }
         
-        .courses__information-wrap ul li span {
-            color: #3b82f6;
+        .info-label img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .info-value {
+            color: #0056d3;
             font-weight: 600;
         }
         
-        .level-wrapper .course-level-list,
-        .level-wrapper .course-language-list {
+        .course-levels,
+        .course-languages {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
         
-        .level-wrapper .level,
-        .level-wrapper span {
+        .level-tag,
+        .language-tag {
             background: #dbeafe;
             color: #1e40af;
             padding: 4px 12px;
             border-radius: 16px;
-            font-size: 0.875rem;
+            font-size: 12px;
             font-weight: 600;
         }
         
-        .courses__details-social {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 12px;
+        .access-status {
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
         
-        .courses__details-social .title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #374151;
-            margin-bottom: 1rem;
-        }
-        
-        .shareon {
-            display: flex;
-            gap: 12px;
-        }
-        
-        .shareon a {
-            width: 20px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        .access-granted {
+            background: linear-gradient(135deg, #10b981, #059669);
             color: white;
-            text-decoration: none;
-            font-size: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
-        .shareon .facebook {
-            background-color: #1877f2;
+        .access-restricted {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
         }
         
-        .shareon .linkedin {
-            background-color: #0077b5;
+        .access-status-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
         
-        .shareon .telegram {
-            background-color: #0088cc;
-        }
-        .shareon a:hover {
-            transform: translateY(-2px) scale(1.1);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
+        .access-status-icon {
+            font-size: 24px;
         }
         
-        /* Enhanced Enrollment Button */
-        .courses__details-enroll {
-            margin-top: 2rem;
-        }
-        
-        .btn-two {
-            background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
-            border: none !important;
-            color: white !important;
-            padding: 16px 32px !important;
-            border-radius: 12px !important;
-            font-weight: 700 !important;
-            font-size: 1.125rem !important;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 12px !important;
-            width: 100% !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3) !important;
-        }
-        
-        .btn-two:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4) !important;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8) !important;
-        }
-        
-        .already-enrolled-btn {
-            background: linear-gradient(135deg, #6b7280, #4b5563) !important;
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3) !important;
-        }
-        
-        .already-enrolled-btn:hover {
-            background: linear-gradient(135deg, #4b5563, #374151) !important;
-            box-shadow: 0 12px 35px rgba(107, 114, 128, 0.4) !important;
-        }
-        
-        .btn-four {
-            background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-            border: none !important;
-            color: white !important;
-            padding: 12px 24px !important;
-            border-radius: 10px !important;
-            font-weight: 600 !important;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-            transition: all 0.3s ease !important;
-            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3) !important;
-        }
-        
-        .btn-four:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4) !important;
-            background: linear-gradient(135deg, #d97706, #b45309) !important;
-        }
-        
-        /* Reviews Section */
-        .course-rate-summary {
-            text-align: center;
-            padding: 2rem;
-            background: #f8fafc;
-            border-radius: 12px;
-            margin-bottom: 2rem;
-        }
-        
-        .course-rate-summary-value {
-            font-size: 3rem;
+        .access-status-text h6 {
+            margin: 0 0 4px 0;
             font-weight: 700;
-            color: #3b82f6;
-            margin-bottom: 0.5rem;
         }
         
-        .course-rate-summary-stars {
-            color: #fbbf24;
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .course-rate-details-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-        
-        .course-rate-details-row-star {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            min-width: 60px;
-            font-weight: 600;
-        }
-        
-        .course-rate-details-row-value {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .rating-gray {
-            flex: 1;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            position: relative;
-        }
-        
-        .rating {
-            height: 100%;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
-            border-radius: 4px;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-        
-        .rating-count {
-            min-width: 30px;
-            text-align: right;
-            font-weight: 600;
-            color: #6b7280;
-        }
-        
-        .course-review-head {
-            display: flex;
-            gap: 16px;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-        
-        .review-author-thumb img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
-        .review-author-content {
-            flex: 1;
-        }
-        
-        .author-name .name {
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .author-name span {
-            color: #6b7280;
-            font-size: 0.875rem;
-            font-weight: 400;
-        }
-        
-        .author-rating {
-            color: #fbbf24;
-            margin-bottom: 0.75rem;
-        }
-        
-        .review-author-content p {
-            color: #4b5563;
-            line-height: 1.6;
+        .access-status-text p {
             margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
         }
         
-        /* Instructor Section */
-        .courses__instructors-wrap {
-            display: flex;
-            gap: 20px;
-            padding: 2rem;
-            background: #f8fafc;
-            border-radius: 12px;
-            margin-bottom: 1rem;
-        }
-        
-        .courses__instructors-thumb img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #3b82f6;
-        }
-        
-        .courses__instructors-content .title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 0.5rem;
-        }
-        
-        .courses__instructors-content .designation {
-            color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .instructor__social ul {
-            display: flex;
-            gap: 12px;
-            margin-top: 1rem;
-        }
-        
-        .instructor__social a {
-            width: 36px;
-            height: 36px;
-            background: #3b82f6;
+        .enroll-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0056d3, #004ba0);
             color: white;
-            border-radius: 50%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
             transition: all 0.3s ease;
         }
         
-        .instructor__social a:hover {
+        .enroll-btn:hover {
+            background: linear-gradient(135deg, #004ba0, #003d82);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 25px rgba(0,86,211,0.3);
+            color: white;
         }
         
-        /* Modal Styling */
-        .modal-content {
-            border-radius: 16px;
-            border: none;
-            overflow: hidden;
+        .enroll-btn.enrolled {
+            background: linear-gradient(135deg, #10b981, #059669);
         }
         
-        .modal-header {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            border: none;
-            padding: 1rem 1.5rem;
+        .enroll-btn.restricted {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+            opacity: 0.8;
+            cursor: not-allowed;
         }
         
-        .btn-close {
-            background: white;
-            border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-        }
-        
-        .modal-body {
-            padding: 0;
+        .enroll-btn.restricted:hover {
+            transform: none;
+            box-shadow: none;
         }
         
         /* Responsive Design */
         @media (max-width: 768px) {
-            .courses__details-content .title {
-                font-size: 1.75rem;
+            .hero-title {
+                font-size: 2rem;
             }
             
-            .courses__details-content,
-            .courses__details-sidebar {
-                padding: 1.5rem;
+            .hero-meta {
+                gap: 15px;
             }
             
-            .nav-tabs .nav-link {
-                padding: 10px 16px;
-                font-size: 0.875rem;
-            }
-            
-            .courses__instructors-wrap {
+            .hero-cta {
                 flex-direction: column;
-                text-align: center;
+                align-items: stretch;
             }
             
-            .course-rate-summary-value {
-                font-size: 2.5rem;
+            .course-nav-tabs {
+                flex-direction: column;
+                padding: 0;
+            }
+            
+            .course-nav-link {
+                padding: 15px 20px;
+                border-bottom: 1px solid #e5e7eb;
+                border-right: none;
+            }
+            
+            .course-nav-link.active {
+                border-bottom-color: #e5e7eb;
+                background: #f9fafb;
+            }
+            
+            .course-tab-content {
+                padding: 20px;
+            }
+            
+            .course-sidebar {
+                margin-top: 30px;
             }
         }
     </style>
 @endpush
-@section('contents')
-    <!-- breadcrumb-area -->
-    <x-frontend.breadcrumb :title="__('Course Details')" :links="[
-        ['url' => route('home'), 'text' => __('Home')],
-        ['url' => route('courses'), 'text' => __('Courses')],
-    ]" />
-    <!-- breadcrumb-area-end -->
 
-    <!-- courses-details-area -->
-    <section class="courses__details-area section-py-120">
+@section('contents')
+    <!-- Hero Section -->
+    <section class="coursera-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-breadcrumb">
+                    <a href="{{ route('home') }}">{{ __('Home') }}</a>
+                    <span>/</span>
+                    <a href="{{ route('courses') }}">{{ __('Courses') }}</a>
+                    <span>/</span>
+                    <span>{{ $course->category->translation->name }}</span>
+                </div>
+                
+                <h1 class="hero-title">{{ $course->title }}</h1>
+                
+                <div class="hero-subtitle">
+                    {{ Str::limit(strip_tags($course->description), 150) }}
+                </div>
+                
+                <div class="hero-meta">
+                    <div class="hero-meta-item">
+                        <i class="fas fa-star"></i>
+                        <div class="hero-rating">
+                            <span class="stars">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= floor($course->reviews()->avg('rating')))
+                                        <i class="fas fa-star"></i>
+                                    @else
+                                        <i class="far fa-star"></i>
+                                    @endif
+                                @endfor
+                            </span>
+                            <span>{{ number_format($course->reviews()->avg('rating'), 1) ?? 0 }} ({{ $course->reviews()->count() }} {{ __('reviews') }})</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-meta-item">
+                        <i class="fas fa-users"></i>
+                        <span>{{ $course->assignments()->count() }} {{ __('students') }}</span>
+                    </div>
+                    
+                    <div class="hero-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>{{ minutesToHours($course->duration) }}</span>
+                    </div>
+                    
+                    <div class="hero-meta-item">
+                        <i class="fas fa-play-circle"></i>
+                        <span>{{ $courseLessonCount }} {{ __('lessons') }}</span>
+                    </div>
+                    
+                    <div class="hero-meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>{{ formatDate($course->created_at, 'M Y') }}</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    @if (isset($userHasAccess) && $userHasAccess)
+                        @if (in_array($course->id, session('enrollments') ?? []))
+                            <a href="{{ route('student.enrolled-courses') }}" class="hero-enroll-btn enrolled">
+                                <i class="fas fa-play"></i>
+                                {{ __('Continue Learning') }}
+                            </a>
+                        @else
+                            <a href="javascript:;" class="hero-enroll-btn start-learning-btn" data-id="{{ $course->id }}">
+                                <i class="fas fa-play"></i>
+                                {{ __('Start Learning') }}
+                            </a>
+                        @endif
+                    @else
+                        <a href="javascript:;" class="hero-enroll-btn restricted" onclick="alert('You do not have access to this course. Please contact your administrator.')">
+                            <i class="fas fa-lock"></i>
+                            {{ __('Access Restricted') }}
+                        </a>
+                    @endif
+                    
+                    <a href="javascript:;" class="hero-wishlist-btn wsus-wishlist-btn" data-slug="{{ $course->slug }}">
+                        <i class="{{ $course->favorite_by_client ? 'fas' : 'far' }} fa-heart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Content -->
+    <section class="course-content-area">
         <div class="container">
             <div class="row">
-                <div class="col-xl-9 col-lg-8">
-                    <div class="courses__details-thumb">
-                        <img class="w-100" src="{{ asset($course->thumbnail) }}" alt="img">
-                        @if ($course->demo_video_source)
-                            <a href="{{ $course->demo_video_source }}" class="popup-video"
-                                aria-label="{{ $course?->title }}"><i class="fas fa-play"></i></a>
-                        @endif
-                    </div>
-                    <div class="courses__details-content">
-                        <ul class="courses__item-meta list-wrap">
-                            <li class="courses__item-tag">
-                                <a
-                                    href="{{ route('courses', ['category' => $course->category->id]) }}">{{ $course->category->translation->name }}</a>
-                            </li>
-                            <li class="avg-rating"><i class="fas fa-star"></i>
-                                {{ number_format($course->reviews()->avg('rating'), 1) ?? 0 }} {{ __('Reviews') }}</li>
-                            <li class="courses__wishlist">
-                                <a href="javascript:;" class="wsus-wishlist-btn" aria-label="WishList"
-                                    data-slug="{{ $course?->slug }}">
-                                    <i class="{{ $course?->favorite_by_client ? 'fas' : 'far' }} fa-heart"></i>
+                <div class="col-lg-8">
+                    <div class="course-main-content">
+                        <!-- Video Preview -->
+                        <div class="course-video-preview">
+                            <img src="{{ asset($course->thumbnail) }}" alt="{{ $course->title }}">
+                            @if ($course->demo_video_source)
+                                <a href="{{ $course->demo_video_source }}" class="video-play-btn popup-video">
+                                    <i class="fas fa-play"></i>
                                 </a>
-                            </li>
-                        </ul>
-                        <h2 class="title">{{ $course?->title }}</h2>
-                        <div class="courses__details-meta">
-                            <ul class="list-wrap">
-                                @if($course->instructor && $course->instructor->id && $course->instructor->name)
-                                <li class="author-two">
-                                    <img src="{{ asset($course->instructor->image) }}" alt="img"
-                                        class="instructor-avatar">
-                                    {{ __('By') }}
-                                    <a
-                                        href="{{ route('instructor-details', ['id' => $course->instructor->id, 'slug' => \Illuminate\Support\Str::slug($course->instructor->name)]) }}">{{ $course->instructor->name }}</a>
-                                </li>
-                                @endif
-                                <li class="date"><i
-                                        class="flaticon-calendar"></i>{{ formatDate($course->created_at, 'd/M/Y') }}</li>
-                                <li><i class="flaticon-mortarboard"></i>{{ __('Free Course') }}</li>
-                            </ul>
+                            @endif
                         </div>
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab"
-                                    data-bs-target="#overview-tab-pane" type="button" role="tab"
-                                    aria-controls="overview-tab-pane" aria-selected="true">{{ __('Overview') }}</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="curriculum-tab" data-bs-toggle="tab"
-                                    data-bs-target="#curriculum-tab-pane" type="button" role="tab"
-                                    aria-controls="curriculum-tab-pane"
-                                    aria-selected="false">{{ __('Curriculum') }}</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="instructors-tab" data-bs-toggle="tab"
-                                    data-bs-target="#instructors-tab-pane" type="button" role="tab"
-                                    aria-controls="instructors-tab-pane"
-                                    aria-selected="false">{{ __('Instructors') }}</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="reviews-tab" data-bs-toggle="tab"
-                                    data-bs-target="#reviews-tab-pane" type="button" role="tab"
-                                    aria-controls="reviews-tab-pane" aria-selected="false">{{ __('reviews') }}</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="overview-tab-pane" role="tabpanel"
-                                aria-labelledby="overview-tab" tabindex="0">
-                                <div class="courses__overview-wrap">
-                                    <h3 class="title">{{ __('Course Description') }}</h3>
+                        
+                        <!-- Course Tabs -->
+                        <div class="course-tabs">
+                            <div class="course-nav-tabs">
+                                <a href="#overview" class="course-nav-link active" data-tab="overview">{{ __('Overview') }}</a>
+                                <a href="#curriculum" class="course-nav-link" data-tab="curriculum">{{ __('Curriculum') }}</a>
+                                <a href="#instructors" class="course-nav-link" data-tab="instructors">{{ __('Instructors') }}</a>
+                                <a href="#reviews" class="course-nav-link" data-tab="reviews">{{ __('Reviews') }}</a>
+                            </div>
+                        </div>
+                        
+                        <div class="course-tab-content">
+                            <!-- Overview Tab -->
+                            <div class="course-tab-pane active" id="overview">
+                                <div class="course-overview">
+                                    <h3>{{ __('About this course') }}</h3>
                                     {!! clean($course->description) !!}
-
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="curriculum-tab-pane" role="tabpanel"
-                                aria-labelledby="curriculum-tab" tabindex="0">
-                                <div class="courses__curriculum-wrap">
-                                    <h3 class="title">{{ __('Course Curriculum') }}</h3>
-                                    <p></p>
-                                    <div class="accordion" id="accordionExample">
-                                        @foreach ($course->chapters as $chapter)
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="heading{{ $chapter->id }}">
-                                                    <button class="accordion-button collapsed" type="button"
-                                                        data-bs-toggle="collapse"
-                                                        data-bs-target="#collapse{{ $chapter->id }}"
-                                                        aria-expanded="false"
-                                                        aria-controls="collapse{{ $chapter->id }}">
-                                                        {{ $loop->iteration }}. {{ $chapter?->title }}
-                                                    </button>
-                                                </h2>
-                                                <div id="collapse{{ $chapter->id }}" class="accordion-collapse collapse"
-                                                    aria-labelledby="heading{{ $chapter->id }}"
-                                                    data-bs-parent="#accordionExample">
-                                                    <div class="accordion-body">
-                                                        <ul class="list-wrap">
-                                                            @foreach ($chapter->chapterItems as $chapterItem)
-                                                                @if ($chapterItem?->type == 'lesson')
-                                                                    @if ($chapterItem?->lesson?->is_free == 1)
-                                                                        @if ($chapterItem?->lesson?->file_type == 'video')
-                                                                            @if ($chapterItem?->lesson->storage == 'google_drive')
-                                                                                <li class="course-item open-item">
-                                                                                    <a href="javascript:;"
-                                                                                        data-bs-toggle="modal"
-                                                                                        data-bs-target="#videoModal"
-                                                                                        data-bs-video="https://drive.google.com/file/d/{{ extractGoogleDriveVideoId($chapterItem?->lesson->file_path) }}/preview"
-                                                                                        class="curriculum-video-link">
-                                                                                        <span
-                                                                                            class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                                        <div class="course-item-meta">
-                                                                                            <span
-                                                                                                class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                        </div>
-                                                                                    </a>
-                                                                                </li>
-                                                                            @else
-                                                                                <li class="course-item open-item">
-                                                                                <a href="@if(!in_array($chapterItem?->lesson->storage, ['wasabi', 'aws'])){{ $chapterItem?->lesson->file_path }}@else{{ Storage::disk($chapterItem?->lesson->storage)->temporaryUrl($chapterItem?->lesson->file_path, now()->addHours(1)) }}@endif"
-                                                                                    class="curriculum-video-link">
-                                                                                    <span
-                                                                                        class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                                    <div class="course-item-meta">
-                                                                                        <span
-                                                                                            class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                            @endif
-                                                                        @else
-                                                                            <li class="course-item">
-                                                                                <a href="javascript:;"
-                                                                                    class="course-item-link">
-                                                                                    <span
-                                                                                        class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                                    <div class="course-item-meta">
-                                                                                        <span class="item-meta duration">
-                                                                                            --.-- </span>
-                                                                                        <span
-                                                                                            class="item-meta course-item-status">
-                                                                                            <img src="{{ asset('frontend/img/icons/lock.svg') }}"
-                                                                                                alt="icon">
-                                                                                        </span>
-                                                                                    </div>
-                                                                                </a>
-                                                                            </li>
-                                                                        @endif
-                                                                    @else
-                                                                        <li class="course-item">
-                                                                            <a href="javascript:;"
-                                                                                class="course-item-link">
-                                                                                <span
-                                                                                    class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                                <div class="course-item-meta">
-                                                                                    <span
-                                                                                        class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                    <span
-                                                                                        class="item-meta course-item-status">
-                                                                                        <img src="{{ asset('frontend/img/icons/lock.svg') }}"
-                                                                                            alt="icon">
-                                                                                    </span>
-                                                                                </div>
-                                                                            </a>
-                                                                        </li>
-                                                                    @endif
-                                                                @elseif($chapterItem?->type == 'live')
-                                                                    <li class="course-item">
-                                                                        <a href="javascript:;" class="course-item-link">
-                                                                            <span
-                                                                                class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                            <div class="course-item-meta">
-                                                                                <span
-                                                                                    class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                <span class="item-meta course-item-status">
-                                                                                    <img src="{{ asset('frontend/img/icons/lock.svg') }}"
-                                                                                        alt="icon">
-                                                                                </span>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
-                                                                @elseif($chapterItem?->type == 'document')
-                                                                    <li class="course-item">
-                                                                        <a href="javascript:;" class="course-item-link">
-                                                                            <span
-                                                                                class="item-name">{{ $chapterItem?->lesson?->title }}</span>
-                                                                            <div class="course-item-meta">
-                                                                                <span
-                                                                                    class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                <span class="item-meta course-item-status">
-                                                                                    <img src="{{ asset('frontend/img/icons/lock.svg') }}"
-                                                                                        alt="icon">
-                                                                                </span>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
-                                                                @elseif ($chapterItem->type == 'quiz')
-                                                                    <li class="course-item">
-                                                                        <a href="javascript:;" class="course-item-link">
-                                                                            <span
-                                                                                class="item-name">{{ $chapterItem?->quiz?->title }}</span>
-                                                                            <div class="course-item-meta">
-                                                                                <span
-                                                                                    class="item-meta duration">{{ minutesToHours($chapterItem?->lesson?->duration) }}</span>
-                                                                                <span class="item-meta course-item-status">
-                                                                                    <img src="{{ asset('frontend/img/icons/lock.svg') }}"
-                                                                                        alt="icon">
-                                                                                </span>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
+                            
+                            <!-- Curriculum Tab -->
+                            <div class="course-tab-pane" id="curriculum">
+                                <div class="curriculum-section">
+                                    <h3>{{ __('Course Curriculum') }}</h3>
+                                    <p class="text-muted mb-4">{{ $course->chapters->count() }} {{ __('chapters') }} • {{ $courseLessonCount }} {{ __('lessons') }} • {{ minutesToHours($course->duration) }} {{ __('total length') }}</p>
+                                    
+                                    @foreach ($course->chapters as $chapter)
+                                        <div class="curriculum-chapter">
+                                            <div class="chapter-header" data-chapter="{{ $chapter->id }}">
+                                                <div>
+                                                    <h5 class="chapter-title">{{ $loop->iteration }}. {{ $chapter->title ?? 'Untitled Chapter' }}</h5>
+                                                    <div class="chapter-meta">
+                                                        {{ $chapter->chapterItems->count() }} {{ __('items') }} • 
+                                                        {{ minutesToHours($chapter->chapterItems->sum(function($item) {
+                                                            return $item->lesson ? $item->lesson->duration : 0;
+                                                        })) }}
+                                                    </div>
+                                                </div>
+                                                <i class="fas fa-chevron-down"></i>
+                                            </div>
+                                            <div class="chapter-content" id="chapter-{{ $chapter->id }}">
+                                                @foreach ($chapter->chapterItems as $chapterItem)
+                                                    <div class="lesson-item">
+                                                        <div class="lesson-info">
+                                                            @if ($chapterItem->type == 'lesson' && $chapterItem->lesson)
+                                                                @if ($chapterItem->lesson->file_type == 'video')
+                                                                    <i class="fas fa-play-circle lesson-icon"></i>
+                                                                @elseif ($chapterItem->lesson->file_type == 'document')
+                                                                    <i class="fas fa-file-alt lesson-icon"></i>
+                                                                @else
+                                                                    <i class="fas fa-book lesson-icon"></i>
                                                                 @endif
-                                                            @endforeach
-                                                        </ul>
+                                                                
+                                                                @if ($chapterItem->lesson->is_free == 1)
+                                                                    @if ($chapterItem->lesson->file_type == 'video' && $chapterItem->lesson->storage == 'google_drive')
+                                                                        <a href="javascript:;" 
+                                                                           data-bs-toggle="modal"
+                                                                           data-bs-target="#videoModal"
+                                                                           data-bs-video="https://drive.google.com/file/d/{{ extractGoogleDriveVideoId($chapterItem->lesson->file_path) }}/preview"
+                                                                           class="lesson-title">
+                                                                            {{ $chapterItem->lesson->title ?? 'Untitled Lesson' }}
+                                                                        </a>
+                                                                    @else
+                                                                        <span class="lesson-title">{{ $chapterItem->lesson->title ?? 'Untitled Lesson' }}</span>
+                                                                    @endif
+                                                                @else
+                                                                    <span class="lesson-title">{{ $chapterItem->lesson->title ?? 'Untitled Lesson' }}</span>
+                                                                @endif
+                                                            @elseif ($chapterItem->type == 'quiz' && $chapterItem->quiz)
+                                                                <i class="fas fa-question-circle lesson-icon"></i>
+                                                                <span class="lesson-title">{{ $chapterItem->quiz->title ?? 'Untitled Quiz' }}</span>
+                                                            @else
+                                                                <i class="fas fa-exclamation-triangle lesson-icon"></i>
+                                                                <span class="lesson-title">Content not available</span>
+                                                            @endif
+                                                        </div>
+                                                        
+                                                        <div class="lesson-meta">
+                                                            @if ($chapterItem->type == 'lesson')
+                                                                <span>{{ minutesToHours($chapterItem->lesson->duration) }}</span>
+                                                                @if ($chapterItem->lesson->is_free == 1)
+                                                                    <span class="badge bg-success">{{ __('Free') }}</span>
+                                                                @endif
+                                                            @else
+                                                                <span>{{ __('Quiz') }}</span>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="instructors-tab-pane" role="tabpanel"
-                                aria-labelledby="instructors-tab" tabindex="0">
-
-                                <div class="courses__instructors-wrap">
-                                    <div class="courses__instructors-thumb">
-                                        <img src="{{ asset($course->instructor->image) }}" alt="img"
-                                            class="instructor-thumb">
-                                    </div>
-                                    <div class="courses__instructors-content">
-                                        <h2 class="title">{{ $course->instructor->name }}</h2>
-                                        <span class="designation">{{ $course->instructor->job_title }}</span>
-                                        <p>{{ $course->instructor->short_bio }}</p>
-                                        <div class="instructor__social">
-                                            <ul class="list-wrap justify-content-start">
-                                                @if ($course->instructor->facebook)
-                                                    <li><a href="{{ $course->instructor->facebook }}"
-                                                            aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                                    </li>
-                                                @endif
-                                                @if ($course->instructor->twitter)
-                                                    <li><a href="{{ $course->instructor->twitter }}"
-                                                            aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                                @endif
-                                                @if ($course->instructor->linkedin)
-                                                    <li><a href="{{ $course->instructor->linkedin }}"
-                                                            aria-label="Linkedin"><i class="fab fa-linkedin"></i></a></li>
-                                                @endif
-                                                @if ($course->instructor->github)
-                                                    <li><a href="{{ $course->instructor->github }}"
-                                                            aria-label="Github"><i class="fab fa-github"></i></a></li>
-                                                @endif
-
-                                                @if ($course->instructor->facebook)
-                                                    <li><a href="{{ $course->instructor->facebook }}"
-                                                            aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                                                    </li>
-                                                @endif
-                                                @if ($course->instructor->twitter)
-                                                    <li><a href="{{ $course->instructor->twitter }}"
-                                                            aria-label="Twitter"><i class="fab fa-twitter"></i></a></li>
-                                                @endif
-                                                @if ($course->instructor->website)
-                                                    <li><a href="{{ $course->instructor->website }}"
-                                                            aria-label="Website"><i class="fas fa-link"></i></a></li>
-                                                @endif
-                                                @if ($course->instructor->github)
-                                                    <li><a href="{{ $course->instructor->github }}"
-                                                            aria-label="Github"><i class="fab fa-github"></i></a></li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if ($course->partnerInstructors->count() > 0)
-                                    <h3 class="title mt-3">{{ __('Partner Instructors') }}</h3>
-                                    @foreach ($course->partnerInstructors as $instructor)
-                                        <div class="courses__instructors-wrap">
-                                            <div class="courses__instructors-thumb">
-                                                <img src="{{ asset($instructor->instructor->image) }}" alt="img">
-                                            </div>
-                                            <div class="courses__instructors-content">
-                                                <h2 class="title">{{ $instructor->instructor->name }}</h2>
-                                                <span class="designation">{{ $instructor->instructor->job_title }}</span>
-                                                <p>{{ $instructor->instructor->short_bio }}</p>
-                                                <div class="instructor__social">
-                                                    <ul class="list-wrap justify-content-start">
-                                                        @if ($instructor->instructor->facebook)
-                                                            <li><a href="{{ $instructor->instructor->facebook }}"
-                                                                    aria-label="Facebook"><i
-                                                                        class="fab fa-facebook-f"></i></a></li>
-                                                        @endif
-                                                        @if ($instructor->instructor->twitter)
-                                                            <li><a href="{{ $instructor->instructor->twitter }}"
-                                                                    aria-label="Twitter"><i
-                                                                        class="fab fa-twitter"></i></a></li>
-                                                        @endif
-                                                        @if ($instructor->instructor->website)
-                                                            <li><a href="{{ $instructor->instructor->website }}"
-                                                                    aria-label="Website"><i class="fas fa-link"></i></a>
-                                                            </li>
-                                                        @endif
-                                                        @if ($instructor->instructor->github)
-                                                            <li><a href="{{ $instructor->instructor->github }}"
-                                                                    aria-label="Github"><i class="fab fa-github"></i></a>
-                                                            </li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     @endforeach
-                                @endif
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="reviews-tab-pane" role="tabpanel"
-                                aria-labelledby="reviews-tab" tabindex="0">
-                                <div class="courses__rating-wrap">
-                                    <h2 class="title">{{ __('Reviews') }}</h2>
-                                    <div class="course-rate">
-                                        <div class="course-rate-summary">
-                                            <div class="course-rate-summary-value">
-                                                {{ number_format($course->reviews()->whereHas('course')->whereHas('user')->avg('rating'), 1) ?? 0 }}
-                                            </div>
-                                            <div class="course-rate-summary-stars">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="course-rate-summary-text">
-                                                {{ $course->reviews()->whereHas('course')->whereHas('user')->where('status', 1)->count() }}
-                                                {{ __('Ratings') }}
-                                            </div>
-                                        </div>
-                                        @php
-                                            $totalRating = $course->reviews_count;
-                                            $fiveStar = $course
-                                                ->reviews()
-                                                ->where('rating', 5)
-                                                ->where('status', 1)
-                                                ->whereHas('course')
-                                                ->whereHas('user')
-                                                ->count();
-                                            $fourStar = $course
-                                                ->reviews()
-                                                ->where('rating', 4)
-                                                ->where('status', 1)
-                                                ->whereHas('course')
-                                                ->whereHas('user')
-                                                ->count();
-                                            $threeStar = $course
-                                                ->reviews()
-                                                ->where('rating', 3)
-                                                ->where('status', 1)
-                                                ->whereHas('course')
-                                                ->whereHas('user')
-                                                ->count();
-                                            $twoStar = $course
-                                                ->reviews()
-                                                ->where('rating', 2)
-                                                ->where('status', 1)
-                                                ->whereHas('course')
-                                                ->whereHas('user')
-                                                ->count();
-                                            $oneStar = $course
-                                                ->reviews()
-                                                ->where('rating', 1)
-                                                ->where('status', 1)
-                                                ->whereHas('course')
-                                                ->whereHas('user')
-                                                ->count();
-                                            $totalPercentage = $totalRating > 0 ? ($fiveStar / $totalRating) * 100 : 0;
-                                            $fourPercentage = $totalRating > 0 ? ($fourStar / $totalRating) * 100 : 0;
-                                            $threePercentage = $totalRating > 0 ? ($threeStar / $totalRating) * 100 : 0;
-                                            $twoPercentage = $totalRating > 0 ? ($twoStar / $totalRating) * 100 : 0;
-                                            $onePercentage = $totalRating > 0 ? ($oneStar / $totalRating) * 100 : 0;
-                                        @endphp
-                                        <div class="course-rate-details">
-                                            <div class="course-rate-details-row">
-                                                <div class="course-rate-details-row-star">
-                                                    5
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="course-rate-details-row-value">
-                                                    <div class="rating-gray">
-                                                        <div class="rating" style="width: {{ $totalPercentage ?? 0 }}%" title="{{ $totalPercentage ?? 0 }}%"></div>
-                                                    </div>
-                                                    <span class="rating-count">{{ $fiveStar }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="course-rate-details-row">
-                                                <div class="course-rate-details-row-star">
-                                                    4
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="course-rate-details-row-value">
-                                                    <div class="rating-gray">
-                                                        <div class="rating" style="width: {{ $fourPercentage ?? 0 }}%" title="{{ $fourPercentage ?? 0 }}%"></div>
-                                                    </div>
-                                                    <span class="rating-count">{{ $fourStar }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="course-rate-details-row">
-                                                <div class="course-rate-details-row-star">
-                                                    3
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="course-rate-details-row-value">
-                                                    <div class="rating-gray">
-                                                        <div class="rating" style="width: {{ $threePercentage ?? 0 }}%" title="{{ $threePercentage ?? 0 }}%"></div>
-                                                    </div>
-                                                    <span class="rating-count">{{ $threeStar }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="course-rate-details-row">
-                                                <div class="course-rate-details-row-star">
-                                                    2
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="course-rate-details-row-value">
-                                                    <div class="rating-gray">
-                                                        <div class="rating" style="width: {{ $twoPercentage ?? 0 }}%" title="{{ $twoPercentage ?? 0 }}%"></div>
-                                                    </div>
-                                                    <span class="rating-count">{{ $twoStar }}</span>
-                                                </div>
-                                            </div>
-                                            <div class="course-rate-details-row">
-                                                <div class="course-rate-details-row-star">
-                                                    1
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                                <div class="course-rate-details-row-value">
-                                                    <div class="rating-gray">
-                                                        <div class="rating" style="width: {{ $onePercentage ?? 0 }}%" title="{{ $onePercentage ?? 0 }}%"></div>
-                                                    </div>
-                                                    <span class="rating-count">{{ $oneStar }}</span>
+                            
+                            <!-- Instructors Tab -->
+                            <div class="course-tab-pane" id="instructors">
+                                <div class="instructors-section">
+                                    <h3>{{ __('Meet your instructors') }}</h3>
+                                    
+                                    {{-- Main Instructor --}}
+                                    @if($course->instructor)
+                                        <div class="instructor-card mb-4">
+                                            <div class="d-flex align-items-start gap-3">
+                                                <img src="{{ asset($course->instructor->image) }}" alt="{{ $course->instructor->name }}" 
+                                                     class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                                                <div>
+                                                    <h5 class="mb-1">{{ $course->instructor->name }}</h5>
+                                                    <p class="text-muted mb-2">{{ $course->instructor->designation }}</p>
+                                                    <p class="mb-0">{{ Str::limit($course->instructor->bio, 200) }}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    @foreach ($reviews as $review)
-                                        <div class="course-review-head">
-                                            <div class="review-author-thumb">
-                                                <img src="{{ asset($review?->user?->image) }}" alt="img">
-                                            </div>
-                                            <div class="review-author-content">
-                                                <div class="author-name">
-                                                    <h5 class="name">{{ $review?->user?->name }}
-                                                        <span>{{ formatDate($review->created_at) }}</span>
-                                                    </h5>
-                                                    <div class="author-rating">
-                                                        @for ($i = 1; $i <= $review->rating; $i++)
-                                                            <i class="fas fa-star"></i>
-                                                        @endfor
+                                    @endif
+                                    
+                                    {{-- Partner Instructors --}}
+                                    @foreach ($course->partnerInstructors as $partnerInstructor)
+                                        @if($partnerInstructor->instructor)
+                                            <div class="instructor-card mb-4">
+                                                <div class="d-flex align-items-start gap-3">
+                                                    <img src="{{ asset($partnerInstructor->instructor->image) }}" alt="{{ $partnerInstructor->instructor->name }}" 
+                                                         class="rounded-circle" style="width: 80px; height: 80px; object-fit: cover;">
+                                                    <div>
+                                                        <h5 class="mb-1">{{ $partnerInstructor->instructor->name }}</h5>
+                                                        <p class="text-muted mb-2">{{ $partnerInstructor->instructor->designation }}</p>
+                                                        <p class="mb-0">{{ Str::limit($partnerInstructor->instructor->bio, 200) }}</p>
                                                     </div>
                                                 </div>
-                                                <p>{{ $review->review }}</p>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endforeach
+                                </div>
+                            </div>
+                            
+                            <!-- Reviews Tab -->
+                            <div class="course-tab-pane" id="reviews">
+                                <div class="reviews-section">
+                                    <h3>{{ __('Student reviews') }}</h3>
+                                    
+                                    @if ($course->reviews()->count() > 0)
+                                        <div class="reviews-summary mb-4">
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4 text-center">
+                                                    <div class="rating-summary">
+                                                        <h2 class="display-4 fw-bold text-primary">{{ number_format($course->reviews()->avg('rating'), 1) }}</h2>
+                                                        <div class="stars text-warning mb-2">
+                                                            @for ($i = 1; $i <= 5; $i++)
+                                                                @if ($i <= floor($course->reviews()->avg('rating')))
+                                                                    <i class="fas fa-star"></i>
+                                                                @else
+                                                                    <i class="far fa-star"></i>
+                                                                @endif
+                                                            @endfor
+                                                        </div>
+                                                        <p class="text-muted">{{ $course->reviews()->count() }} {{ __('reviews') }}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <!-- Rating breakdown would go here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="reviews-list">
+                                            @foreach ($reviews as $review)
+                                                <div class="review-item mb-4 pb-4 border-bottom">
+                                                    <div class="d-flex align-items-start gap-3">
+                                                        <img src="{{ asset($review->user->image) }}" alt="{{ $review->user->name }}" 
+                                                             class="rounded-circle" style="width: 50px; height: 50px; object-fit: cover;">
+                                                        <div class="flex-grow-1">
+                                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                                <div>
+                                                                    <h6 class="mb-1">{{ $review->user->name }}</h6>
+                                                                    <div class="stars text-warning">
+                                                                        @for ($i = 1; $i <= $review->rating; $i++)
+                                                                            <i class="fas fa-star"></i>
+                                                                        @endfor
+                                                                    </div>
+                                                                </div>
+                                                                <small class="text-muted">{{ formatDate($review->created_at) }}</small>
+                                                            </div>
+                                                            <p class="mb-0">{{ $review->review }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        <div class="text-center py-5">
+                                            <i class="fas fa-star-half-alt text-muted" style="font-size: 3rem;"></i>
+                                            <h5 class="mt-3 text-muted">{{ __('No reviews yet') }}</h5>
+                                            <p class="text-muted">{{ __('Be the first to review this course') }}</p>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4">
-                    <div class="courses__details-sidebar">
-                        {{-- Course pricing removed for free learning system --}}
-                        <div class="courses__information-wrap">
-                            <h5 class="title">{{ __('Course includes') }}:</h5>
-                            <ul class="list-wrap">
-                                <li class="level-wrapper">
-                                    <b>
-                                        <img src="{{ asset('frontend/img/icons/course_icon01.svg') }}" alt="img"
-                                            class="injectable">
-                                        {{ __('Level') }}
-                                    </b>
-                                    <ul class="course-level-list">
-                                        @foreach ($course->levels as $level)
-                                            <span class="level">{{ @$level->level->translation->name }}</span>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                                <li>
-                                    <img src="{{ asset('frontend/img/icons/course_icon02.svg') }}" alt="img"
-                                        class="injectable">
-                                    {{ __('Duration') }}
-                                    <span>{{ minutesToHours($course->duration) }}</span>
-                                </li>
-                                <li>
-                                    <img src="{{ asset('frontend/img/icons/course_icon03.svg') }}" alt="img"
-                                        class="injectable">
-                                    {{ __('Lessons') }}
-                                    <span>{{ $courseLessonCount }}</span>
-                                </li>
-                                <li>
-                                    <img src="{{ asset('frontend/img/icons/course_icon04.svg') }}" alt="img"
-                                        class="injectable">
-                                    {{ __('Quizzes') }}
-                                    <span>{{ $courseQuizCount }}</span>
-                                </li>
-                                <li>
-                                    <img src="{{ asset('frontend/img/icons/course_icon05.svg') }}" alt="img"
-                                        class="injectable">
-                                    {{ __('Certifications') }}
-                                    @if ($course->certificate)
-                                        <span>{{ __('Yes') }}</span>
-                                    @else
-                                        <span>{{ __('No') }}</span>
-                                    @endif
-                                </li>
-                                <li class="level-wrapper">
-                                    <b>
-                                        <img src="{{ asset('frontend/img/icons/course_icon06.svg') }}" alt="img"
-                                            class="injectable">
-                                        {{ __('Language') }}
-                                    </b>
-
-                                    <ul class="course-language-list">
-                                        @foreach ($course->languages as $language)
-                                            <span>{{ $language->language->name }}</span>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- <div class="courses__details-social">
-                            <h5 class="title">{{ __('Share this course') }}:</h5>
-                            <div class="shareon">
-                                <a class="facebook"></a>
-                                <a class="linkedin"></a>
-                                <a class="pinterest"></a>
-                                <a class="telegram"></a>
-                                <a class="twitter"></a>
-                            </div> -->
-                        </div>
-                        <div class="courses__details-enroll">
-                            <div class="tg-button-wrap">
-                                @if (in_array($course->id, session('enrollments') ?? []))
-                                    <a href="{{ route('student.enrolled-courses') }}"
-                                        class="btn btn-two arrow-btn already-enrolled-btn" data-id="">
-                                        <span class="text">{{ __('Enrolled') }}</span>
-                                        <i class="flaticon-arrow-right"></i>
-                                    </a>
-                                @else
-                                    <a href="javascript:;" class="btn btn-two arrow-btn start-learning-btn"
-                                        data-id="{{ $course->id }}">
-                                        <span class="text">{{ __('Enroll') }}</span>
-                                        <i class="flaticon-arrow-right"></i>
-                                    </a>
-                                @endif
-                            </div>
-                            @if (Module::has('GiftCourse') && Module::isEnabled('GiftCourse'))
-                                <div class="d-block text-center mt-3">
-                                    <a href="{{ route('gift-course', $course->slug) }}" class="btn btn-four arrow-btn">
-                                        <i class="fas fa-gift"></i> {{ __('Gift This Course') }}
-                                    </a>
+                
+                <div class="col-lg-4">
+                    <div class="course-sidebar">
+                        <!-- Access Status -->
+                        <div class="sidebar-section">
+                            @if (isset($userHasAccess) && !$userHasAccess)
+                                <div class="access-status access-restricted">
+                                    <div class="access-status-content">
+                                        <i class="fas fa-lock access-status-icon"></i>
+                                        <div class="access-status-text">
+                                            <h6>{{ __('Access Restricted') }}</h6>
+                                            <p>{{ __('Contact your administrator for enrollment') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="access-status access-granted">
+                                    <div class="access-status-content">
+                                        <i class="fas fa-unlock access-status-icon"></i>
+                                        <div class="access-status-text">
+                                            <h6>{{ __('Course Available') }}</h6>
+                                            <p>{{ __('You can enroll in this course') }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             @endif
+                            
+                            @if (isset($userHasAccess) && $userHasAccess)
+                                @if (in_array($course->id, session('enrollments') ?? []))
+                                    <a href="{{ route('student.enrolled-courses') }}" class="enroll-btn enrolled">
+                                        <i class="fas fa-play"></i>
+                                        {{ __('Continue Learning') }}
+                                    </a>
+                                @else
+                                    <a href="javascript:;" class="enroll-btn start-learning-btn" data-id="{{ $course->id }}">
+                                        <i class="fas fa-play"></i>
+                                        {{ __('Start Learning') }}
+                                    </a>
+                                @endif
+                            @else
+                                <a href="javascript:;" class="enroll-btn restricted" onclick="alert('You do not have access to this course. Please contact your administrator.')">
+                                    <i class="fas fa-lock"></i>
+                                    {{ __('Access Restricted') }}
+                                </a>
+                            @endif
+                        </div>
+                        
+                        <!-- Course Information -->
+                        <div class="sidebar-section">
+                            <h5 class="sidebar-title">{{ __('Course includes') }}</h5>
+                            <ul class="course-info-list">
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon01.svg') }}" alt="Level">
+                                        {{ __('Level') }}
+                                    </div>
+                                    <div class="info-value">
+                                        <div class="course-levels">
+                                            @foreach ($course->levels as $level)
+                                                <span class="level-tag">{{ $level->level->translation->name }}</span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon02.svg') }}" alt="Duration">
+                                        {{ __('Duration') }}
+                                    </div>
+                                    <div class="info-value">{{ minutesToHours($course->duration) }}</div>
+                                </li>
+                                
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon03.svg') }}" alt="Lessons">
+                                        {{ __('Lessons') }}
+                                    </div>
+                                    <div class="info-value">{{ $courseLessonCount }}</div>
+                                </li>
+                                
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon04.svg') }}" alt="Quizzes">
+                                        {{ __('Quizzes') }}
+                                    </div>
+                                    <div class="info-value">{{ $courseQuizCount }}</div>
+                                </li>
+                                
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon05.svg') }}" alt="Certificate">
+                                        {{ __('Certificate') }}
+                                    </div>
+                                    <div class="info-value">
+                                        @if ($course->certificate)
+                                            {{ __('Yes') }}
+                                        @else
+                                            {{ __('No') }}
+                                        @endif
+                                    </div>
+                                </li>
+                                
+                                <li class="course-info-item">
+                                    <div class="info-label">
+                                        <img src="{{ asset('frontend/img/icons/course_icon06.svg') }}" alt="Language">
+                                        {{ __('Language') }}
+                                    </div>
+                                    <div class="info-value">
+                                        <div class="course-languages">
+                                            @foreach ($course->languages as $language)
+                                                <span class="language-tag">{{ $language->language->name }}</span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Google Drive player modal Structure -->
-    <div class="google_drive_modal">
-        <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="fas fa-times"></i></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="ratio ratio-16x9">
-                            <iframe class="iframe-video" src="" width="640" height="680" allow="autoplay"
-                                frameborder="0" allowfullscreen></iframe>
-                        </div>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="ratio ratio-16x9">
+                        <iframe class="iframe-video" src="" width="640" height="680" allow="autoplay" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- courses-details-area-end -->
 @endsection
 
 @push('scripts')
     <script src="{{ asset('frontend/js/default/course-details.js') }}"></script>
     <script src="{{ asset('frontend/js/shareon.iife.js') }}"></script>
     <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabLinks = document.querySelectorAll('.course-nav-link');
+            const tabPanes = document.querySelectorAll('.course-tab-pane');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs and panes
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    tabPanes.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding pane
+                    const targetTab = this.getAttribute('data-tab');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+            
+            // Chapter accordion functionality
+            const chapterHeaders = document.querySelectorAll('.chapter-header');
+            chapterHeaders.forEach(header => {
+                header.addEventListener('click', function() {
+                    const chapterId = this.getAttribute('data-chapter');
+                    const content = document.getElementById('chapter-' + chapterId);
+                    const icon = this.querySelector('i');
+                    
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        // Close all other chapters
+                        document.querySelectorAll('.chapter-content').forEach(c => c.classList.remove('show'));
+                        document.querySelectorAll('.chapter-header i').forEach(i => i.style.transform = 'rotate(0deg)');
+                        
+                        // Open clicked chapter
+                        content.classList.add('show');
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+        
         Shareon.init();
     </script>
 
@@ -1291,9 +1047,8 @@
                 dataLayer.push({
                     'event': 'courseDetails',
                     'courses': {
-                        'name': '{{ $course?->title }}',
+                        'name': '{{ $course->title }}',
                         'price': '{{ currency($course->price) }}',
-                        'instructor': '{{ $course->instructor->name }}',
                         'category': '{{ $course->category->translation->name }}',
                         'lessons': '{{ $courseLessonCount }}',
                         'duration': '{{ minutesToHours($course->duration) }}',

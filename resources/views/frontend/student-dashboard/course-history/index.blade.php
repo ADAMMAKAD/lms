@@ -48,8 +48,8 @@
                                                         <div class="courses__item-content-bottom">
                                                             <div class="author-two">
                                                                 <a href="javascript:;"><img
-                                                                        src="{{ asset($course->instructor->image ?? 'default-avatar.png') }}"
-                                                                        alt="img">{{ $course->instructor->name ?? 'Unknown Instructor' }}</a>
+                                                                        src="{{ asset('default-avatar.png') }}"
+                                                                        alt="img">Instructor</a>
                                                             </div>
                                                             <div class="avg-rating">
                                                                 <i class="fas fa-star"></i>
@@ -138,7 +138,7 @@
         }
         
         .course-status-badge.in-progress {
-            background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+            background: linear-gradient(135deg, #282f76, #1D4ED8);
         }
         
         .progress-bar.bg-success {
@@ -146,7 +146,7 @@
         }
         
         .progress-bar.bg-primary {
-            background: linear-gradient(90deg, #3B82F6, #1D4ED8) !important;
+            background: linear-gradient(90deg, #282f76, #1D4ED8) !important;
         }
     </style>
 @endsection

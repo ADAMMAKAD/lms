@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-header d-flex justify-content-between">
-                                <h4>{{ __('Sales In') }}
+                                <h4>{{ __('Students Who Take the Course In') }}
                                     {{ request()->has('year') ? Carbon\Carbon::createFromFormat('Y', request('year'))->format('Y') : date('Y') }}
                                 </h4>
                                 <div class="form-inline">
@@ -82,27 +82,60 @@
     </style>
 @endpush
 
+@php
+    $translations = [
+        'numberOfStudents' => __('Number of Students'),
+        'completionPercentageRanges' => __('Completion Percentage Ranges'),
+        'courseEnrollments' => __('Course Enrollments'),
+        'totalStudentEnrollments' => __('Total Student Enrollments')
+    ];
+@endphp
+
+<div id="chart-data" 
+     data-progress-ranges="{{ htmlspecialchars(json_encode($progress_ranges)) }}"
+     data-month-labels="{{ htmlspecialchars(json_encode($month_labels)) }}"
+     data-commission-monthly="{{ htmlspecialchars(json_encode($commission_monthly_data)) }}"
+     data-net-monthly="{{ htmlspecialchars(json_encode($net_monthly_data)) }}"
+     data-order-monthly="{{ htmlspecialchars(json_encode($order_monthly_data)) }}"
+     data-translations="{{ htmlspecialchars(json_encode($translations)) }}"
+     style="display: none;"></div>
+
 @push('js')
     <script src="{{ asset('backend/js/default/courses.js') }}"></script>
     <script src="{{ asset('backend/js/chart.umd.min.js') }}"></script>
-    <script>
+    <script type="text/javascript">
+        // Load data from HTML data attributes
+        const chartDataElement = document.getElementById('chart-data');
+        if (chartDataElement) {
+            window.chartConfig = {
+                progressRanges: JSON.parse(chartDataElement.dataset.progressRanges),
+                monthLabels: JSON.parse(chartDataElement.dataset.monthLabels),
+                commissionMonthlyData: JSON.parse(chartDataElement.dataset.commissionMonthly),
+                netMonthlyData: JSON.parse(chartDataElement.dataset.netMonthly),
+                orderMonthlyData: JSON.parse(chartDataElement.dataset.orderMonthly),
+                translations: JSON.parse(chartDataElement.dataset.translations)
+            };
+        } else {
+            console.error('Chart data element not found');
+            window.chartConfig = {};
+        }
+        
         (function($) {
-
             "use strict";
-
-            // Area Chart Example
+            
             $(document).ready(function() {
-
                 renderOrderProgressChart();
                 renderStudentProgressChart();
             });
-
         })(jQuery);
 
         function renderStudentProgressChart() {
-            const progressRanges = @json($progress_ranges);
-            const labels = Object.keys(progressRanges).map(label => label + "%");
-            const data = Object.values(progressRanges);
+            if (!window.chartConfig || !window.chartConfig.progressRanges) {
+                console.error('Chart configuration or progress ranges not available');
+                return;
+            }
+            const labels = Object.keys(window.chartConfig.progressRanges).map(label => label + "%");
+            const data = Object.values(window.chartConfig.progressRanges);
 
             var ctx = document.getElementById('student_progress_chart');
             var myLineChart = new Chart(ctx, {
@@ -110,7 +143,7 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: "{{ __('Number of Students') }}",
+                        label: window.chartConfig.translations.numberOfStudents,
                         lineTension: 0.3,
                         backgroundColor: "rgba(75, 192, 192, 0.2)",
                         borderColor: "rgba(75, 192, 192, 1)",
@@ -140,7 +173,7 @@
                         x: {
                             title: {
                                 display: true,
-                                text: "{{ __('Completion Percentage Ranges') }}"
+                                text: window.chartConfig.translations.completionPercentageRanges
                             }
                         },
                         y: {
@@ -157,14 +190,17 @@
                     }
                 }
             });
-
         }
 
         function renderOrderProgressChart() {
-            const date_labels = @json($month_labels);
-            const commission_monthly_data = @json($commission_monthly_data);
-            const net_monthly_data = @json($net_monthly_data);
-            const order_monthly_data = @json($order_monthly_data);
+            if (!window.chartConfig || !window.chartConfig.monthLabels) {
+                console.error('Chart configuration or month labels not available');
+                return;
+            }
+            const date_labels = window.chartConfig.monthLabels;
+            const commission_monthly_data = window.chartConfig.commissionMonthlyData;
+            const net_monthly_data = window.chartConfig.netMonthlyData;
+            const order_monthly_data = window.chartConfig.orderMonthlyData;
 
             var ctx = document.getElementById('combined_monthly_chart');
             var myChart = new Chart(ctx, {
@@ -172,36 +208,11 @@
                 data: {
                     labels: date_labels,
                     datasets: [{
-                            label: "{{ __('Order Summary') }}",
+                            label: window.chartConfig.translations.totalStudentEnrollments,
                             type: 'bar',
                             backgroundColor: "rgba(78, 115, 223, 0.7)",
                             borderColor: "rgba(78, 115, 223, 1)",
                             data: order_monthly_data,
-                            order: 1,
-                        },
-                        {
-                            label: "{{ __('Total Sales') }}",
-                            type: 'line',
-                            backgroundColor: "rgba(255, 205, 86, 1)",
-                            borderColor: "rgba(255, 205, 86, 1)",
-                            pointBackgroundColor: "rgba(255, 205, 86, 1)",
-                            data: order_monthly_data,
-                        },
-                        {
-                            label: "{{ __('Total Earnings') }}",
-                            type: 'line',
-                            backgroundColor: "rgba(40, 167, 69, 1)",
-                            borderColor: "rgba(40, 167, 69, 1)",
-                            pointBackgroundColor: "rgba(40, 167, 69, 1)",
-                            data: net_monthly_data,
-                        },
-                        {
-                            label: "{{ __('Admin Commission') }}",
-                            type: 'line',
-                            backgroundColor: "rgba(255, 99, 132, 1)",
-                            borderColor: "rgba(255, 99, 132, 1)",
-                            pointBackgroundColor: "rgba(255, 99, 132, 1)",
-                            data: commission_monthly_data,
                         }
                     ],
                 },
@@ -223,7 +234,7 @@
                                 beginAtZero: true,
                                 color: "rgba(78, 115, 223, 1)",
                                 callback: function(value) {
-                                    return "{{ session()->get('currency_icon') }}" + number_format(value);
+                                    return number_format(value, 0);
                                 }
                             },
                         }
@@ -235,33 +246,8 @@
                                     return context[0].label;
                                 },
                                 label: function(context) {
-                                    let currencyIcon = "{{ session()->get('currency_icon') }}";
-                                    let sales = order_monthly_data[context.dataIndex] || 0;
-                                    let commission = commission_monthly_data[context.dataIndex] || 0;
-                                    let revenue = net_monthly_data[context.dataIndex] || 0;
-
-                                    let datasetLabel = context.dataset.label;
-
-                                    if (datasetLabel === "{{ __('Order Summary') }}") {
-                                        return [
-                                            "{{ __('Total Sales') }}: " + currencyIcon + number_format(
-                                                sales),
-                                            "{{ __('Total Earnings') }}: " + currencyIcon + number_format(
-                                                revenue),
-                                            "{{ __('Admin Commission') }}: " + currencyIcon +
-                                            number_format(commission)
-                                        ];
-                                    }
-                                    if (datasetLabel === "{{ __('Total Sales') }}") {
-                                        return "{{ __('Total Sales') }}: " + currencyIcon + number_format(
-                                            sales);
-                                    } else if (datasetLabel === "{{ __('Total Earnings') }}") {
-                                        return "{{ __('Total Earnings') }}: " + currencyIcon + number_format(
-                                            revenue);
-                                    } else if (datasetLabel === "{{ __('Admin Commission') }}") {
-                                        return "{{ __('Admin Commission') }}: " + currencyIcon + number_format(
-                                            commission);
-                                    }
+                                    let enrollments = order_monthly_data[context.dataIndex] || 0;
+                                    return window.chartConfig.translations.totalStudentEnrollments + ": " + number_format(enrollments, 0);
                                 }
                             }
                         }

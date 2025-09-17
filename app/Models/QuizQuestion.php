@@ -4,34 +4,38 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class QuizQuestion extends Model {
+class QuizQuestion extends Model
+{
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'quiz_id',
         'title',
-        'grade',
         'type',
+        'grade',
     ];
 
-    function answers(): HasMany {
-        return $this->hasMany(QuizQuestionAnswer::class, 'question_id', 'id');
-    }
-    /**
-     * Boot method to handle model events.
-     */
-    protected static function boot() {
-        parent::boot();
+    protected $casts = [
+        'quiz_id' => 'integer',
+        'grade' => 'integer',
+    ];
 
-        // Hook into the deleting event to delete related data
-        static::deleting(function ($quizQuestion) {
-            // Delete all related answers
-            $quizQuestion->answers()->each(function ($answer) {
-                $answer->delete();
-            });
-        });
+    /**
+     * Get the quiz that owns the question.
+     */
+    public function quiz(): BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
+    }
+
+    /**
+     * Get the question answers.
+     */
+    public function answers(): HasMany
+    {
+        return $this->hasMany(QuizQuestionAnswer::class, 'question_id');
     }
 }

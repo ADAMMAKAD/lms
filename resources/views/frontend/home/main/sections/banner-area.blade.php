@@ -1,32 +1,35 @@
-<section class="ultra-modern-about py-5" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); position: relative; overflow: hidden; min-height: 75vh; display: flex; align-items: center;">
+<section class="ultra-modern-about py-5" style="background: url('{{ asset('uploads/website-images/Addis_in_night-scaled.jpg') }}') center/cover no-repeat; position: relative; overflow: hidden; min-height: 75vh; display: flex; align-items: center;">
+    <!-- Dark Overlay for Text Readability -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    
     <!-- Dynamic Background Elements -->
-    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: 1;">
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.1; z-index: 2;">
         <div style="position: absolute; top: 20%; left: 10%; width: 300px; height: 300px; background: rgba(255,255,255,0.1); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; animation: morphingAbout 20s ease-in-out infinite;"></div>
         <div style="position: absolute; bottom: 10%; right: 15%; width: 200px; height: 200px; background: rgba(255,255,255,0.08); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; animation: morphingAbout 25s ease-in-out infinite reverse;"></div>
         <div style="position: absolute; top: 50%; right: 5%; width: 150px; height: 150px; background: rgba(255,255,255,0.06); border-radius: 40% 60% 60% 40% / 60% 30% 70% 40%; animation: morphingAbout 18s ease-in-out infinite;"></div>
     </div>
     
-    <div class="container position-relative" style="z-index: 2;">
+    <div class="container position-relative" style="z-index: 3;">
         <div class="row align-items-center g-5">
             <!-- Content Section - Full Width -->
             <div class="col-lg-12 order-1">
                 <div class="ultra-modern-content" style="color: white;">
                     <!-- Animated Badge -->
                     <div style="display: inline-flex; align-items: center; background: rgba(255,255,255,0.15); border-radius: 50px; padding: 0.9rem 1.8rem; margin-bottom: 2.5rem; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 8px 25px rgba(0, 102, 204, 0.4);">
-                        <div style="width: 14px; height: 14px; background: #0066CC; border-radius: 50%; margin-right: 0.9rem; animation: pulseGlow 2s infinite;"></div>
-                        <span style="color: white; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;">{{ $aboutSection?->content?->short_title ?: '🌟 UNDP CERTIFIED EXCELLENCE' }}</span>
+                        <div style="width: 14px; height: 14px; background: #777ec8; border-radius: 50%; margin-right: 0.9rem; animation: pulseGlow 2s infinite;"></div>
+                        <span style="color: white; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;">{{ $aboutSection?->content?->short_title ?: '🌟 IFL CERTIFIED EXCELLENCE' }}</span>
                     </div>
                     
                     <!-- Main Title -->
                     <h2 style="font-size: 3.8rem; font-weight: 900; line-height: 1.05; margin-bottom: 2rem; color: white; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; text-shadow: 0 4px 8px rgba(0,0,0,0.1); letter-spacing: -0.02em;">
                         Transform Your Future with 
-                        <span style="background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">UNDP Learning</span><br>
+                        <span style="background: linear-gradient(135deg, #FFD700, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">IFL</span><br>
                         Excellence
                     </h2>
                     
                     <!-- Description -->
                     <p style="font-size: 1.35rem; line-height: 1.7; margin-bottom: 3rem; opacity: 0.95; color: white; font-weight: 400; max-width: 650px;">
-                        {!! clean(processText($aboutSection?->content?->description ?: 'Empower your career with United Nations Development Programme\'s world-class learning platform. Join a global community of professionals advancing sustainable development goals through innovative digital solutions.')) !!}
+                        {!! clean(processText($aboutSection?->content?->description ?: 'Empower your career with IFL Programme\'s world-class learning platform. Join a global community of professionals advancing sustainable development goals through innovative digital solutions.')) !!}
                     </p>
                     
                     <!-- Interactive Stats Grid -->
@@ -53,7 +56,7 @@
                     <!-- CTA Button -->
                     <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 2rem;">
                         <a href="{{ url($aboutSection?->global_content?->button_url ?: '/courses') }}" 
-                           style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #0066CC, #004499); color: white; padding: 1.2rem 2.5rem; border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 10px 30px rgba(0, 102, 204, 0.4); transition: all 0.3s ease; border: none; cursor: pointer; position: relative; overflow: hidden;" 
+                           style="display: inline-flex; align-items: center; background: linear-gradient(135deg, #777ec8, #777ec8); color: white; padding: 1.2rem 2.5rem; border-radius: 15px; text-decoration: none; font-weight: 700; font-size: 1.15rem; box-shadow: 0 10px 30px rgba(0, 102, 204, 0.4); transition: all 0.3s ease; border: none; cursor: pointer; position: relative; overflow: hidden;" 
                            onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 15px 40px rgba(0, 102, 204, 0.5)'" 
                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0, 102, 204, 0.4)'">
                             <span style="margin-right: 0.75rem; position: relative; z-index: 2;">{{ $aboutSection?->content?->button_text ?: 'Explore Courses' }}</span>

@@ -10,17 +10,12 @@
     "extra": {
         "laravel": {
             "providers": [],
-            "aliases": {
-
-            }
+            "aliases": {}
         }
     },
     "autoload": {
         "psr-4": {
-            "Modules\\InstructorRequest\\": "",
-            "Modules\\InstructorRequest\\App\\": "app/",
-            "Modules\\InstructorRequest\\Database\\Factories\\": "database/factories/",
-            "Modules\\InstructorRequest\\Database\\Seeders\\": "database/seeders/"
+            "Modules\\InstructorRequest\\": "app/"
         }
     },
     "autoload-dev": {

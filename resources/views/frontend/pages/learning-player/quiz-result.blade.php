@@ -17,18 +17,11 @@
                     <div class="col-12 mb-5">
                         <div class="card">
                             <div class="card-body text-center">
-                                @if ($quizResult->status == 'pass')
-                                    <div class="info-col text-center">
-                                        <img src="{{ asset('uploads/website-images/good-score.png') }}">
-                                    </div>
-                                    <h5 class="card-title count">{{ __('You have passed the quiz!') }}</h5>
-                                @else
-                                    <div class="info-col text-center">
-                                        <img src="{{ asset('uploads/website-images/bad-score.png') }}">
-                                    </div>
-                                    <h5 class="card-title count">{{ __('You have failed the quiz!') }}</h5>
-                                    <span>{{ __('Sorry you have failed the quiz better luck next time.') }}</span>
-                                @endif
+                                <div class="info-col text-center">
+                                    <img src="{{ asset('uploads/website-images/good-score.png') }}">
+                                </div>
+                                <h5 class="card-title count">{{ __('Assessment Completed!') }}</h5>
+                                <span>{{ __('Thank you for completing the assessment. Your responses have been recorded.') }}</span>
 
                                 <div class="mt-3 mb-3">
                                     @if (Session::has('course_slug'))
@@ -44,49 +37,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-center">
-                            <div class="info-col text-center">
-                                <img src="{{ asset('uploads/website-images/student-grades.png') }}">
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title count">{{ $quiz->pass_mark }}/{{ $quiz->total_mark }}</h6>
-                                <p class="card-text">{{ __('Minimum Marks') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-6 mb-3">
                         <div class="card text-center">
                             <div class="info-col text-center">
                                 <img src="{{ asset('uploads/website-images/test.png') }}">
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title count">{{ $attempt }}/{{ $quiz->attempt }}</h6>
-                                <p class="card-text">{{ __('Attempts') }}</p>
+                                <h6 class="card-title count">{{ $attempt }}</h6>
+                                <p class="card-text">{{ __('Assessment Attempts') }}</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3 mb-3">
-                        <div class="card text-center">
-                            <div class="info-col text-center">
-                                <img src="{{ asset('uploads/website-images/mark.png') }}">
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title count">{{ $quizResult->user_grade }}</h6>
-                                <p class="card-text">{{ __('Your Marks') }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-6 mb-3">
                         <div class="card text-center">
                             <div class="info-col text-center">
                                 <img src="{{ asset('uploads/website-images/trophy.png') }}">
                             </div>
                             <div class="card-body">
-                                <h6
-                                    class="card-title count text-capitalize {{ $quizResult->status == 'pass' ? 'text-success' : 'text-danger' }}">
-                                    {{ $quizResult->status == 'pass' ? __('Passed') : __('Failed') }}</h6>
-                                <p class="card-text">{{ __('Result') }}</p>
+                                <h6 class="card-title count text-success">{{ __('Completed') }}</h6>
+                                <p class="card-text">{{ __('Status') }}</p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +67,7 @@
                     @csrf
                     <div class="card-body">
                         @php
-                            $result = json_decode($quizResult->result);
+                            $result = $quizResult->result;
                         @endphp
                         @foreach ($quiz->questions as $question)
                             <div class="question-box mt-4">
@@ -106,12 +75,11 @@
                                 <div class="row">
                                     @foreach ($question->answers as $answer)
                                         <div class="col-md-6">
-                                            <div
-                                                class="card ans-body m-2 {{ $answer->correct == 1 ? 'correct-ans' : 'wrong-ans' }}">
+                                            <div class="card ans-body m-2">
                                                 <label for="ans-{{ $answer->id }}" class="box first">
                                                     <div class="course">
                                                         <span class="circle">
-                                                            <input disabled type="radio" @checked(@$result?->{$question->id}?->answer == $answer->id)
+                                                            <input disabled type="radio" @checked(@$result[$question->id]['answer'] ?? null == $answer->id)
                                                                 name="question[{{ $question->id }}]"
                                                                 id="ans-{{ $answer->id }}" value="{{ $answer->id }}">
                                                         </span>

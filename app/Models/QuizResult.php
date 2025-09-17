@@ -15,11 +15,27 @@ class QuizResult extends Model
         'quiz_id',
         'result',
         'user_grade',
-        'status'
+        'status',
     ];
 
-    function quiz() : BelongsTo
+    protected $casts = [
+        'result' => 'array',
+        'user_grade' => 'integer',
+    ];
+
+    /**
+     * Get the user that owns the quiz result.
+     */
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the quiz that this result belongs to.
+     */
+    public function quiz(): BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
     }
 }

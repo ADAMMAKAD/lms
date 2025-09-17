@@ -20,7 +20,7 @@
         </div>
         <div class="card-footer">
             <p>For script support, contact us at <a href="https://elixone.com/page/support"
-                        target="_blank" rel="noopener noreferrer">UNDO</a>. We're here to help. Thank you!</p>
+                        target="_blank" rel="noopener noreferrer">IFL</a>. We're here to help. Thank you!</p>
         </div>
     </div>
 @endsection

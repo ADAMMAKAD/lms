@@ -16,11 +16,8 @@ class Role
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if($request->user()->role !== $role) {
-            if($request->user()->role === 'instructor'){
-                return redirect()->route('instructor.dashboard');
-            }elseif($request->user()->role === 'student'){
-                return redirect()->route('student.dashboard');
-            }
+            // Redirect all users to student dashboard since instructor functionality is removed
+            return redirect()->route('student.dashboard');
         }
         return $next($request);
     }

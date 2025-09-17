@@ -1,7 +1,7 @@
 <div class="tab-pane fade show {{ session('profile_tab') == 'profile' ? 'active': '' }}" id="itemOne-tab-pane" role="tabpanel" aria-labelledby="itemOne-tab" tabindex="0">
     <style>
         .modern-cover-section {
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
             border-radius: 16px;
             padding: 2rem;
             margin-bottom: 2rem;
@@ -124,7 +124,7 @@
         
         .modern-form-input:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #282f76;
             background: white;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
@@ -142,13 +142,13 @@
         
         .modern-form-select:focus {
             outline: none;
-            border-color: #0066cc;
+            border-color: #282f76;
             background: white;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
         }
         
         .modern-submit-btn {
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
             color: white;
             border: none;
             padding: 1rem 2rem;

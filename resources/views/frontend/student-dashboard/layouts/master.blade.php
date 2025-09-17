@@ -20,7 +20,7 @@
     <section class="dashboard__area" style="margin-top: 0 !important; padding-top: 2rem !important;">
         <div class="container-fluid">
             <!-- Modern Header with Gradient Background -->
-            <div class="modern-dashboard-header" style="background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 50%, #60A5FA 100%); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">
+            <div class="modern-dashboard-header" style="background: linear-gradient(135deg, #282f76 100%); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);">
                 <!-- Background Pattern -->
                 <div style="position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Cdefs%3E%3Cpattern id=%22grain%22 width=%22100%22 height=%22100%22 patternUnits=%22userSpaceOnUse%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%221%22 fill=%22%23ffffff%22 opacity=%220.1%22/%3E%3C/pattern%3E%3C/defs%3E%3Crect width=%22100%22 height=%22100%22 fill=%22url(%23grain)%22/%3E%3C/svg%3E'); opacity: 0.3;"></div>
                 
@@ -50,20 +50,7 @@
                         </div>
                     </div>
                     
-                    @if (instructorStatus() == 'approved' || instructorStatus() != 'pending')
-                    <div class="header-actions" style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-                        @if (instructorStatus() == 'approved')
-                        <a href="{{ route('instructor.dashboard') }}" style="background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); color: white; padding: 0.75rem 1.5rem; border-radius: 12px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.3);" onmouseover="this.style.background='rgba(255, 255, 255, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
-                            <span>{{ __('Instructor Dashboard') }}</span>
-                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                            </svg>
-                        </a>
-                        @elseif (instructorStatus() != 'pending')
 
-                        @endif
-                    </div>
-                    @endif
                 </div>
             </div>
             <div class="dashboard__inner-wrap">
@@ -227,7 +214,7 @@ section.dashboard__area {
     top: 1rem;
     left: 1rem;
     z-index: 1001;
-    background: #3b82f6;
+    background: #282f76;
     color: white;
     border: none;
     border-radius: 8px;

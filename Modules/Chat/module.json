@@ -7,5 +7,6 @@
     "providers": [
         "Modules\\Chat\\app\\Providers\\ChatServiceProvider"
     ],
-    "files": []
+    "files": [],
+    "active": false
 }

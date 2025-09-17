@@ -5,28 +5,37 @@ namespace Modules\InstructorRequest\app\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class InstructorRequestSetting extends Model {
+class InstructorRequestSetting extends Model
+{
     use HasFactory;
 
+    protected $fillable = [
+        'need_certificate',
+        'need_identity_scan',
+        'bank_information',
+    ];
+
+    protected $casts = [
+        'need_certificate' => 'boolean',
+        'need_identity_scan' => 'boolean',
+        'bank_information' => 'boolean',
+    ];
+
     /**
-     * The attributes that are mass assignable.
+     * Get the translations for the instructor request setting.
      */
-    protected $fillable = ['id', 'need_certificate', 'need_identity_scan', 'bank_information'];
-    public function getInstructionsAttribute(): ?string {
-        return $this?->translation?->instructions;
-    }
-    public function translation(): ?HasOne {
-        return $this->hasOne(InstructorRequestSettingTranslation::class)->where('lang_code', getSessionLanguage());
+    public function translations(): HasMany
+    {
+        return $this->hasMany(InstructorRequestSettingTranslation::class);
     }
 
-    public function getTranslation($code): ?InstructorRequestSettingTranslation {
-        return $this->hasOne(InstructorRequestSettingTranslation::class)->where('lang_code', $code)->first();
+    /**
+     * Get translation for a specific language code.
+     */
+    public function getTranslation($langCode = null)
+    {
+        $langCode = $langCode ?? app()->getLocale();
+        return $this->translations()->where('lang_code', $langCode)->first();
     }
-
-    public function translations(): ?HasMany {
-        return $this->hasMany(InstructorRequestSettingTranslation::class, 'instructor_request_setting_id');
-    }
-
 }

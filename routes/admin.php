@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AddonsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CourseAssignmentController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -46,6 +47,16 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
         
         // Search route
         Route::post('search', [SearchController::class, 'search'])->name('search');
+        
+        // Course Assignment routes
+        Route::controller(CourseAssignmentController::class)->group(function () {
+            Route::get('course-assignments', 'index')->name('course-assignments.index');
+            Route::get('course-assignments/create', 'create')->name('course-assignments.create');
+            Route::post('course-assignments', 'store')->name('course-assignments.store');
+            Route::put('course-assignments/{assignment}/status', 'updateStatus')->name('course-assignments.update-status');
+            Route::delete('course-assignments/{assignment}', 'destroy')->name('course-assignments.destroy');
+            Route::get('course-assignments/student/{student_id}', 'getStudentAssignments')->name('course-assignments.student');
+        });
 
         Route::get('role/assign', [RolesController::class, 'assignRoleView'])->name('role.assign');
         Route::post('role/assign/{id}', [RolesController::class, 'getAdminRoles'])->name('role.assign.admin');
@@ -59,6 +70,15 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
     Route::get('settings', [SettingController::class, 'settings'])->name('settings');
     Route::post('cloud/store', [CloudStorageController::class, 'store'])->name('cloud.store');
     Route::get('sync-modules', [AddonsController::class, 'syncModules'])->name('addons.sync');
+    
+    // Instructor Request routes
+    Route::get('instructor-request', function() {
+        return redirect()->route('admin.dashboard')->with('error', 'Instructor Request module is not available');
+    })->name('instructor-request.index');
+    
+    Route::get('instructor-request-setting', function() {
+        return redirect()->route('admin.dashboard')->with('error', 'Instructor Request Settings module is not available');
+    })->name('instructor-request-setting.index');
     
     // Payment routes removed - system is now free
 });

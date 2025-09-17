@@ -118,7 +118,7 @@
                                                         <code></code></label>
                                                     <select class="select2 partner_instructor_select"
                                                         name="partner_instructors[]" multiple="multiple">
-                                                        @foreach ($course?->partnerInstructors as $instructor)
+                                                        @foreach ($course?->partnerInstructors ?? [] as $instructor)
                                                             <option value="{{ $instructor->instructor->id }}"
                                                                 selected="selected">
                                                                 {{ $instructor?->instructor->name }}</option>
@@ -133,7 +133,7 @@
                                                             class="text-danger">*</span></label>
                                                     <select class="select2 form-group category" name="category">
                                                         <option value="">{{ __('Select') }}</option>
-                                                        @foreach ($categories as $category)
+                                                        @foreach ($categories ?? [] as $category)
                                                             @if ($category->subCategories->isNotEmpty())
                                                                 <optgroup label="{{ $category->translation?->name }}">
                                                                     @foreach ($category->subCategories as $subCategory)
@@ -164,17 +164,17 @@
                                                             <div class="card-body">
                                                                 <h5 class="card-title">{{ __('Level') }}</h5>
                                                                 @php
-                                                                    $courseLevel = $course->levels
-                                                                        ->pluck('level_id')
-                                                                        ->toArray();
-                                                                    $courseLanguage = $course->languages
-                                                                        ->pluck('language_id')
-                                                                        ->toArray();
-                                                                    $courseFilterOption = $course->filtersOptions
-                                                                        ->pluck('filter_option_id')
-                                                                        ->toArray();
+                                                                    $courseLevel = $course?->levels
+                                                                        ?->pluck('level_id')
+                                                                        ?->toArray() ?? [];
+                                                                    $courseLanguage = $course?->languages
+                                                                        ?->pluck('language_id')
+                                                                        ?->toArray() ?? [];
+                                                                    $courseFilterOption = $course?->filtersOptions
+                                                                        ?->pluck('filter_option_id')
+                                                                        ?->toArray() ?? [];
                                                                 @endphp
-                                                                @foreach ($levels as $level)
+                                                                @foreach ($levels ?? [] as $level)
                                                                     <div class="form-group">
                                                                         <div class="form-check">
                                                                             <input class="form-check-input"
@@ -196,7 +196,7 @@
                                                     <div class="card">
                                                         <div class="card-body">
                                                             <h5 class="card-title">{{ __('Language') }}</h5>
-                                                            @foreach ($languages as $language)
+                                                            @foreach ($languages ?? [] as $language)
                                                                 <div class="form-group">
                                                                     <div class="form-check">
                                                                         <input class="form-check-input"

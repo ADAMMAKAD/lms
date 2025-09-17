@@ -23,7 +23,7 @@
     <style>
     /* Enhanced Top Bar Styles */
     .modern-navbar {
-        background: linear-gradient(135deg, #4787ed 0%, #4787ed 100%);
+        background: linear-gradient(135deg, #282f76 0%, #282f76 100%);
         box-shadow: 0 2px 20px rgba(37, 99, 235, 0.3);
         border: none;
         padding: 1rem 2rem;
@@ -312,7 +312,7 @@
     
     .modern-dropdown-item:hover {
         background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        color: #4787ed;
+        color: #282f76;
         text-decoration: none;
         transform: translateX(4px);
     }
@@ -913,8 +913,8 @@
             });
         }
         
-        // Enhanced dropdown animations
-        const dropdowns = document.querySelectorAll('.dropdown');
+        // Enhanced dropdown animations (exclude action dropdowns)
+        const dropdowns = document.querySelectorAll('.dropdown:not(.action-dropdown)');
         dropdowns.forEach(dropdown => {
             const toggle = dropdown.querySelector('[data-toggle="dropdown"]');
             const menu = dropdown.querySelector('.dropdown-menu');
@@ -930,7 +930,9 @@
                             const otherToggle = otherDropdown.querySelector('[data-toggle="dropdown"]');
                             if (otherMenu) {
                                 otherMenu.classList.remove('show');
-                                otherToggle.setAttribute('aria-expanded', 'false');
+                                if (otherToggle) {
+                                    otherToggle.setAttribute('aria-expanded', 'false');
+                                }
                             }
                         }
                     });
@@ -948,7 +950,7 @@
             }
         });
         
-        // Close dropdowns when clicking outside
+        // Close dropdowns when clicking outside (exclude action dropdowns)
         document.addEventListener('click', function(e) {
             if (!e.target.closest('.dropdown')) {
                 dropdowns.forEach(dropdown => {
@@ -956,18 +958,25 @@
                     const toggle = dropdown.querySelector('[data-toggle="dropdown"]');
                     if (menu) {
                         menu.classList.remove('show');
-                        toggle.setAttribute('aria-expanded', 'false');
+                        if (toggle) {
+                            toggle.setAttribute('aria-expanded', 'false');
+                        }
                     }
                 });
             }
+        });
+        
+        // Handle action dropdowns with Bootstrap's default behavior
+        document.querySelectorAll('.action-dropdown .dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Let Bootstrap handle the dropdown
+            });
         });
     });
     </script>
 
     @stack('js')
-
-    <!-- Chat Widget -->
-    @include('chat::components.chat-widget', ['isAdmin' => true])
 
 </body>
 

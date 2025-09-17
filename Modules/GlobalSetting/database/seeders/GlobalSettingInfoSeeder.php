@@ -14,7 +14,7 @@ class GlobalSettingInfoSeeder extends Seeder
     public function run(): void
     {
         $setting_data = [
-            'app_name' => 'UNDO',
+            'app_name' => 'IFL',
             'version' => '1.0',
             'logo' => 'uploads/website-images/logo.svg',
             'timezone' => 'Asia/Dhaka',
@@ -57,7 +57,7 @@ class GlobalSettingInfoSeeder extends Seeder
             'mail_password' => 'mail_password',
             'mail_port' => 'mail_port',
             'mail_encryption' => 'ssl',
-            'mail_sender_name' => 'UNDO',
+            'mail_sender_name' => 'IFL',
             'contact_message_receiver_mail' => 'receiver@gmail.com',
             'pusher_app_id' => 'pusher_app_id',
             'pusher_app_key' => 'pusher_app_key',
@@ -69,7 +69,7 @@ class GlobalSettingInfoSeeder extends Seeder
             'maintenance_mode' => 0,
             'maintenance_title' => 'Website Under maintenance',
             'maintenance_description' => '<p>We are currently performing maintenance on our website to<br>improve your experience. Please check back later.</p>
-            <p><a title="UNDO" href="https://elixone.com/">UNDO</a></p>',
+            <p><a title="IFL" href="https://elixone.com/">IFL</a></p>',
             'last_update_date' => date('Y-m-d H:i:s'),
             'is_queable' => 'inactive',
             'commission_rate' => 0,
@@ -77,8 +77,8 @@ class GlobalSettingInfoSeeder extends Seeder
             'site_email' => 'test@gmail.com',
             'site_theme' => ThemeList::MAIN->value,
             // 'preloader' => '/frontend/img/logo/preloader.svg', // Removed preloader
-            'primary_color' => '#5751e1',
-            'secondary_color' => '#ffc224',
+            'primary_color' => '#282f76',
+            'secondary_color' => '#777ec8',
 
             'common_color_one' => '#050071',
             'common_color_two' => '#282568',

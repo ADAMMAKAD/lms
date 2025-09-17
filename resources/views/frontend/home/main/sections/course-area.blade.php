@@ -1,11 +1,11 @@
 @php
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\CourseAssignment;
 
 // Get all courses for simple grid display
-$allCourses = App\Models\Course::with('favoriteBy','category.translation', 'instructor')
+$allCourses = App\Models\Course::with('favoriteBy','category.translation')
     ->where('status', 'active')
-    ->whereHas('instructor') // Only get courses that have instructors
     ->withCount([
         'reviews as avg_rating' => function ($query) {
             $query->select(DB::raw('coalesce(avg(rating), 0)'));
@@ -13,6 +13,38 @@ $allCourses = App\Models\Course::with('favoriteBy','category.translation', 'inst
     ])
     ->take(8) // Show 8 courses in grid
     ->get();
+
+// Add access status for each course
+$user = userAuth();
+foreach ($allCourses as $course) {
+    $hasAccess = false;
+    
+    if ($user) {
+        // Admin and instructors have access to all courses
+        if (in_array($user->role, ['admin', 'instructor'])) {
+            $hasAccess = true;
+        } else {
+            // Check if course is assigned to the user
+            $assignment = CourseAssignment::where('user_id', $user->id)
+                ->where('course_id', $course->id)
+                ->where('status', '!=', 'revoked')
+                ->first();
+                
+            if ($assignment) {
+                $hasAccess = true;
+            } else {
+                // For backward compatibility, allow access if user has progress in the course
+                $hasProgress = App\Models\CourseProgress::where('user_id', $user->id)
+                    ->where('course_id', $course->id)
+                    ->exists();
+                    
+                $hasAccess = $hasProgress;
+            }
+        }
+    }
+    
+    $course->user_has_access = $hasAccess;
+}
 @endphp
 
 <section class="py-5" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); position: relative; padding: 5rem 0;">
@@ -22,8 +54,8 @@ $allCourses = App\Models\Course::with('favoriteBy','category.translation', 'inst
     <div class="container" style="position: relative; z-index: 2;">
         <div class="row">
             <div class="col-12 text-center mb-5">
-                <div style="display: inline-block; background: linear-gradient(135deg, #0066CC, #004499); color: white; padding: 0.5rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);">
-                    🎓 UNDP Learning Excellence
+                <div style="display: inline-block; background: linear-gradient(135deg, #777ec8, #777ec8); color: white; padding: 0.5rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3);">
+                    🎓 IFL Learning Excellence
                 </div>
                 <h2 style="font-size: 3rem; font-weight: 800; color: #1e293b; margin-bottom: 1.5rem; line-height: 1.1;">Featured Training Programs</h2>
                 <p style="font-size: 1.2rem; color: #475569; max-width: 700px; margin: 0 auto; line-height: 1.6;">Discover our comprehensive collection of expert-led courses designed to advance your career and contribute to sustainable development goals</p>
@@ -46,30 +78,46 @@ $allCourses = App\Models\Course::with('favoriteBy','category.translation', 'inst
                         
                         
                         <div style="padding: 28px 24px 24px; display: flex; flex-direction: column; flex-grow: 1; background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95));">
+                            <!-- Access Status Badge -->
+                            @if (!$course->user_has_access)
+                                <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #ef4444, #dc2626); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 10; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);">
+                                    <i class="fas fa-lock" style="margin-right: 4px;"></i>
+                                    {{ __('Locked') }}
+                                </div>
+                            @else
+                                <div style="position: absolute; top: 15px; right: 15px; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; z-index: 10; box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);">
+                                    <i class="fas fa-unlock" style="margin-right: 4px;"></i>
+                                    {{ __('Available') }}
+                                </div>
+                            @endif
+                            
                             <h5 style="font-size: 1.3rem; font-weight: 400; color: #2d3748; margin-bottom: 24px; line-height: 1.5; text-align: center; letter-spacing: 0.3px;">
                                 {{ $course->title }}
                             </h5>
                             
-                            @if (in_array($course->id, session('enrollments') ?? []))
-                                <a href="{{ route('student.enrolled-courses') }}" 
-                                   class="modern-course-btn" 
-                                   style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); gap: 8px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';">
-                                    <i class="fas fa-check-circle" style="font-size: 18px;"></i>
-                                    {{ __('Continue Learning') }}
-                                </a>
-                            @elseif ($course->enrollments_count >= $course->capacity && $course->capacity != null)
-                                <a href="javascript:;" 
-                                   class="modern-course-btn" 
-                                   style="display: flex; align-items: center; justify-content: center; width: 100%; background: #6c757d; color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; cursor: not-allowed; gap: 8px;">
-                                    {{ __('Booked') }}
-                                </a>
+                            @if ($course->user_has_access)
+                                @if (in_array($course->id, session('enrollments') ?? []))
+                                    <a href="{{ route('student.enrolled-courses') }}" 
+                                       class="modern-course-btn" 
+                                       style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); gap: 8px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(16, 185, 129, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(16, 185, 129, 0.3)';">
+                                        <i class="fas fa-check-circle" style="font-size: 18px;"></i>
+                                        {{ __('Continue Learning') }}
+                                    </a>
+                                @else
+                                    <a href="javascript:;" 
+                                       class="modern-course-btn start-learning-btn home-start-learning-btn" 
+                                       data-id="{{ $course->id }}"
+                                       style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #0066cc, #004499); color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3); gap: 8px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0, 102, 204, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 102, 204, 0.3)';">
+                                        <i class="fas fa-play-circle" style="font-size: 18px;"></i>
+                                        {{ __('Start Learning') }}
+                                    </a>
+                                @endif
                             @else
-                                <a href="javascript:;" 
-                                   class="modern-course-btn start-learning-btn home-start-learning-btn" 
-                                   data-id="{{ $course->id }}"
-                                   style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #0066cc, #004499); color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3); gap: 8px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0, 102, 204, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 102, 204, 0.3)';">
-                                    <i class="fas fa-play-circle" style="font-size: 18px;"></i>
-                                    {{ __('Enroll') }}
+                                <a href="{{ route('course.show', $course->slug) }}" 
+                                   class="modern-course-btn" 
+                                   style="display: flex; align-items: center; justify-content: center; width: 100%; background: linear-gradient(135deg, #6b7280, #4b5563); color: white; padding: 14px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3); gap: 8px; opacity: 0.8;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(107, 114, 128, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(107, 114, 128, 0.3)';">
+                                    <i class="fas fa-lock" style="font-size: 18px;"></i>
+                                    {{ __('View Details') }}
                                 </a>
                             @endif
                         </div>

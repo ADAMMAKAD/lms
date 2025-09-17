@@ -24,7 +24,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="about-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%230066cc" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23about-dots)"/></svg>') repeat;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="about-dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23282f76" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23about-dots)"/></svg>') repeat;
             animation: float 20s ease-in-out infinite;
         }
         
@@ -69,7 +69,7 @@
         }
         
         .modern-section-title {
-            background: linear-gradient(135deg, #0066cc, #004499);
+            background: linear-gradient(135deg, #282f76, #282f76);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -82,7 +82,7 @@
         }
         
         .modern-section-subtitle {
-            color: #0066cc;
+            color: #282f76;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
@@ -121,7 +121,7 @@
         }
         
         .modern-btn {
-            background: linear-gradient(135deg, #0066cc, #004499);
+            background: linear-gradient(135deg, #282f76, #282f76);
             color: white;
             border: none;
             padding: 18px 40px;
@@ -154,7 +154,7 @@
         }
         
         .modern-btn:hover {
-            background: linear-gradient(135deg, #004499, #002266);
+            background: linear-gradient(135deg, #282f76, #002266);
             transform: translateY(-4px) scale(1.05);
             box-shadow: 0 15px 40px rgba(0, 102, 204, 0.4);
             color: white;
@@ -212,7 +212,7 @@
         .features-icon {
             width: 90px;
             height: 90px;
-            background: linear-gradient(135deg, #0066cc, #004499);
+            background: linear-gradient(135deg, #282f76, #282f76);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -241,7 +241,7 @@
         }
         
         .features-title {
-            color: #0066cc;
+            color: #282f76;
             font-size: 22px;
             font-weight: 700;
             margin-bottom: 18px;
@@ -251,7 +251,7 @@
         }
         
         .features-card:hover .features-title {
-            color: #004499;
+            color: #282f76;
         }
         
         .features-description {
@@ -300,7 +300,7 @@
             text-align: left;
             font-size: 17px;
             font-weight: 700;
-            color: #0066cc;
+            color: #282f76;
             transition: all 0.4s ease;
             position: relative;
         }
@@ -325,7 +325,7 @@
         }
         
         .modern-accordion-button:not(.collapsed) {
-            background: linear-gradient(135deg, #0066cc, #004499);
+            background: linear-gradient(135deg, #282f76, #282f76);
             color: white;
         }
         
@@ -377,7 +377,7 @@
             height: 90px;
             border-radius: 50%;
             margin: 0 auto 25px;
-            border: 4px solid #0066cc;
+            border: 4px solid #282f76;
             transition: all 0.3s ease;
             position: relative;
             z-index: 2;
@@ -385,7 +385,7 @@
         
         .testimonial-card:hover .testimonial-avatar {
             transform: scale(1.1);
-            border-color: #004499;
+            border-color: #282f76;
         }
         
         .testimonial-content {
@@ -410,7 +410,7 @@
         
         .testimonial-author {
             font-weight: 700;
-            color: #0066cc;
+            color: #282f76;
             margin-bottom: 8px;
             font-size: 18px;
             position: relative;
@@ -463,7 +463,7 @@
          .newsletter-title {
              font-size: 32px;
              font-weight: 800;
-             background: linear-gradient(135deg, #0066cc, #004499);
+             background: linear-gradient(135deg, #282f76, #282f76);
              -webkit-background-clip: text;
              -webkit-text-fill-color: transparent;
              background-clip: text;
@@ -505,13 +505,13 @@
         }
         
         .newsletter-input:focus {
-            border-color: #0066cc;
+            border-color: #282f76;
             box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
             background: rgba(255, 255, 255, 1);
         }
         
         .newsletter-btn {
-            background: linear-gradient(135deg, #0066cc, #004499);
+            background: linear-gradient(135deg, #282f76, #282f76);
             color: white;
             border: none;
             padding: 18px 35px;
@@ -542,7 +542,7 @@
         }
         
         .newsletter-btn:hover {
-            background: linear-gradient(135deg, #004499, #002266);
+            background: linear-gradient(135deg, #282f76, #002266);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(0, 102, 204, 0.3);
         }

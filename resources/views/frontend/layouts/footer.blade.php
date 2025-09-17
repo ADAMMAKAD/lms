@@ -184,7 +184,7 @@
     }
 </style>
 
-<footer class="footer__area modern-footer" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); color: white;">
+<footer class="footer__area modern-footer" style="background: #282f76; color: white;">
 
     <div class="footer__top" style="padding: 60px 0 40px;">
         <div class="container">
@@ -193,7 +193,7 @@
                 <div class="col-xl-3 col-lg-6 col-md-6">
                     <div class="footer__widget">
                         <div class="logo mb-35">
-                            <a href="{{ route('home') }}"><img src="{{ !empty($footerSetting?->logo) ? asset($footerSetting?->logo) : asset($setting?->logo) }}" alt="img"></a>
+                            <a href="{{ route('login') }}"><img src="{{ !empty($footerSetting?->logo) ? asset($footerSetting?->logo) : asset($setting?->logo) }}" alt="img"></a>
                         </div>
                         <div class="footer__content">
                             <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px; line-height: 1.6;">{{ $footerSetting?->footer_text ?: 'Empowering SMEs with world-class training programs and professional development opportunities.' }}</p>
@@ -221,30 +221,19 @@
                         <div class="footer__link">
                             <ul class="list-wrap">
                                 <li style="margin-bottom: 10px;">
-                                     <a href="{{ route('home') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
+                                     <a href="{{ route('login') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
                                         onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
-                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-home" style="margin-right: 8px;"></i>{{ __('Home') }}</a>
+                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>{{ __('Login') }}</a>
                                  </li>
                                 <li style="margin-bottom: 10px;">
-                                    <a href="{{ route('courses') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
+                                    <a href="{{ route('register') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
                                        onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
-                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-book" style="margin-right: 8px;"></i>{{ __('Courses') }}</a>
+                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-user-plus" style="margin-right: 8px;"></i>{{ __('Register') }}</a>
                                 </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a href="{{ route('all-instructors') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
-                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-chalkboard-teacher" style="margin-right: 8px;"></i>{{ __('Instructors') }}</a>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a href="{{ route('about-us') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
-                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>{{ __('About Us') }}</a>
-                                </li>
-                                <li style="margin-bottom: 10px;">
-                                    <a href="{{ route('contact.index') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
-                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-envelope" style="margin-right: 8px;"></i>{{ __('Contact') }}</a>
-                                </li>
+                                <!-- Removed public pages - project starts from login -->
+                                <!-- Courses link removed - not available in login-first system -->
+                                <!-- About Us link removed - not available in login-first system -->
+                                <!-- <li><a href="{{ route('contact.index') }}">{{ __('Contact') }}</a></li> -->
                                 @if($footer_menu_one && $footer_menu_one->menuItems && count($footer_menu_one->menuItems) > 0)
                                     @foreach ($footer_menu_one->menuItems as $footerMenuOne)
                                         <li style="margin-bottom: 10px;">

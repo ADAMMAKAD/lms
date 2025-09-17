@@ -2,20 +2,25 @@
 
 namespace Modules\InstructorRequest\app\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Modules\InstructorRequest\Database\factories\InstructorRequestSettingTranslationFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class InstructorRequestSettingTranslation extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'instructor_request_setting_id',
         'lang_code',
-        'instructions'
+        'instructions',
     ];
+
+    /**
+     * Get the instructor request setting that owns the translation.
+     */
+    public function instructorRequestSetting(): BelongsTo
+    {
+        return $this->belongsTo(InstructorRequestSetting::class);
+    }
 }
