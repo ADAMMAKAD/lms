@@ -15,6 +15,7 @@
 @endif
 <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('global/toastr/toastr.min.css') }}">
+<link rel="stylesheet" href="{{ asset('backend/css/responsive-notifications.css') }}?v={{ $setting?->version }}">
 <link rel="stylesheet" href="{{ asset('global/nice-select/nice-select.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/main.min.css') }}?v={{ $setting?->version }}">
 <link rel="stylesheet" href="{{ asset('frontend/css/frontend.min.css') }}?v={{ $setting?->version }}">

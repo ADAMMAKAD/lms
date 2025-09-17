@@ -1,0 +1,11 @@
+{
+    "name": "Chat",
+    "alias": "chat",
+    "description": "Chat module for user-admin communication",
+    "keywords": ["chat", "communication", "support"],
+    "priority": 0,
+    "providers": [
+        "Modules\\Chat\\app\\Providers\\ChatServiceProvider"
+    ],
+    "files": []
+}

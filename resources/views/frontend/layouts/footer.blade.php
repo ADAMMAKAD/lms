@@ -26,7 +26,7 @@
         left: 0;
         width: 40px;
         height: 2px;
-        background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
     }
     
     .footer__widget-desc {
@@ -55,7 +55,7 @@
     }
     
     .footer__widget ul li a:hover {
-        color: #ffd700;
+        color: #60a5fa;
         padding-left: 5px;
     }
     
@@ -69,7 +69,7 @@
     .footer__contact-icon {
         width: 20px;
         height: 20px;
-        background: rgba(139, 92, 246, 0.2);
+        background: rgba(30, 64, 175, 0.2);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -79,7 +79,7 @@
     }
     
     .footer__contact-icon i {
-        color: #8b5cf6;
+        color: #1e40af;
         font-size: 12px;
     }
     
@@ -108,8 +108,8 @@
     
     .footer__newsletter-input:focus {
         outline: none;
-        border-color: #8b5cf6;
-        box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        border-color: #1e40af;
+        box-shadow: 0 0 10px rgba(30, 64, 175, 0.2);
     }
     
     .footer__newsletter-input::placeholder {
@@ -118,7 +118,7 @@
     
     .footer__newsletter-btn {
         padding: 12px 20px;
-        background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
         border: none;
         border-radius: 25px;
         color: white;
@@ -129,7 +129,7 @@
     
     .footer__newsletter-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
     }
     
     .footer__social-links {
@@ -153,9 +153,9 @@
     }
     
     .footer__social-link:hover {
-        background: linear-gradient(135deg, #8b5cf6, #a855f7);
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
         transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
     }
     
     .footer__social-link i {
@@ -184,7 +184,7 @@
     }
 </style>
 
-<footer class="footer__area modern-footer" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%); color: white;">
+<footer class="footer__area modern-footer" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%); color: white;">
 
     <div class="footer__top" style="padding: 60px 0 40px;">
         <div class="container">
@@ -200,11 +200,11 @@
                             <div class="company-stats" style="margin-top: 20px;">
                                 <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                                     <div style="text-align: center;">
-                                        <h5 style="color: #a855f7; font-size: 20px; font-weight: 700; margin: 0;">500+</h5>
+                                        <h5 style="color: #60a5fa; font-size: 20px; font-weight: 700; margin: 0;">500+</h5>
                                         <span style="color: rgba(255,255,255,0.8); font-size: 12px;">{{ __('Courses') }}</span>
                                     </div>
                                     <div style="text-align: center;">
-                                        <h5 style="color: #a855f7; font-size: 20px; font-weight: 700; margin: 0;">10K+</h5>
+                                        <h5 style="color: #60a5fa; font-size: 20px; font-weight: 700; margin: 0;">10K+</h5>
                                         <span style="color: rgba(255,255,255,0.8); font-size: 12px;">{{ __('Students') }}</span>
                                     </div>
                                 </div>
@@ -221,36 +221,36 @@
                         <div class="footer__link">
                             <ul class="list-wrap">
                                 <li style="margin-bottom: 10px;">
-                                    <a href="{{ route('home') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
-                                       onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-home" style="margin-right: 8px;"></i>{{ __('Home') }}</a>
-                                </li>
+                                     <a href="{{ route('home') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
+                                        onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
+                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-home" style="margin-right: 8px;"></i>{{ __('Home') }}</a>
+                                 </li>
                                 <li style="margin-bottom: 10px;">
                                     <a href="{{ route('courses') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
+                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-book" style="margin-right: 8px;"></i>{{ __('Courses') }}</a>
                                 </li>
                                 <li style="margin-bottom: 10px;">
                                     <a href="{{ route('all-instructors') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
+                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-chalkboard-teacher" style="margin-right: 8px;"></i>{{ __('Instructors') }}</a>
                                 </li>
                                 <li style="margin-bottom: 10px;">
                                     <a href="{{ route('about-us') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
+                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>{{ __('About Us') }}</a>
                                 </li>
                                 <li style="margin-bottom: 10px;">
                                     <a href="{{ route('contact.index') }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                       onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
+                                       onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
                                        onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'"><i class="fas fa-envelope" style="margin-right: 8px;"></i>{{ __('Contact') }}</a>
                                 </li>
                                 @if($footer_menu_one && $footer_menu_one->menuItems && count($footer_menu_one->menuItems) > 0)
                                     @foreach ($footer_menu_one->menuItems as $footerMenuOne)
                                         <li style="margin-bottom: 10px;">
                                             <a href="{{ url($footerMenuOne?->link) }}" style="color: rgba(255,255,255,0.8); text-decoration: none; transition: all 0.3s ease; display: inline-block;" 
-                                               onmouseover="this.style.color='#a855f7'; this.style.paddingLeft='5px'" 
-                                               onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'">{{ $footerMenuOne?->label }}</a>
+                                                onmouseover="this.style.color='#60a5fa'; this.style.paddingLeft='5px'" 
+                                                onmouseout="this.style.color='rgba(255,255,255,0.8)'; this.style.paddingLeft='0'">{{ $footerMenuOne?->label }}</a>
                                         </li>
                                     @endforeach
                                 @endif
@@ -267,28 +267,28 @@
                         <div class="contact-info">
                             <div style="margin-bottom: 15px;">
                                 <div style="display: flex; align-items: flex-start; margin-bottom: 12px;">
-                                    <i class="fas fa-map-marker-alt" style="color: #a855f7; margin-right: 12px; margin-top: 4px; font-size: 16px;"></i>
+                                    <i class="fas fa-map-marker-alt" style="color: #60a5fa; margin-right: 12px; margin-top: 4px; font-size: 16px;"></i>
                                     <div>
                                         <strong style="color: white; display: block; margin-bottom: 4px;">{{ __('Address') }}</strong>
                                         <span style="color: rgba(255,255,255,0.8); line-height: 1.5;">{{ $footerSetting?->address ?: 'UNDP Building, Addis Ababa, Ethiopia' }}</span>
                                     </div>
                                 </div>
                                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
-                                    <i class="fas fa-phone" style="color: #a855f7; margin-right: 12px; font-size: 16px;"></i>
+                                    <i class="fas fa-phone" style="color: #60a5fa; margin-right: 12px; font-size: 16px;"></i>
                                     <div>
                                         <strong style="color: white; display: block; margin-bottom: 4px;">{{ __('Phone') }}</strong>
                                         <a href="tel:{{ $footerSetting?->phone }}" style="color: rgba(255,255,255,0.8); text-decoration: none;">{{ $footerSetting?->phone ?: '+251-11-XXX-XXXX' }}</a>
                                     </div>
                                 </div>
                                 <div style="display: flex; align-items: center; margin-bottom: 12px;">
-                                    <i class="fas fa-envelope" style="color: #a855f7; margin-right: 12px; font-size: 16px;"></i>
+                                    <i class="fas fa-envelope" style="color: #60a5fa; margin-right: 12px; font-size: 16px;"></i>
                                     <div>
                                         <strong style="color: white; display: block; margin-bottom: 4px;">{{ __('Email') }}</strong>
                                         <a href="mailto:info@undplms.et" style="color: rgba(255,255,255,0.8); text-decoration: none;">info@undplms.et</a>
                                     </div>
                                 </div>
                                 <div style="display: flex; align-items: flex-start;">
-                                    <i class="fas fa-clock" style="color: #a855f7; margin-right: 12px; margin-top: 4px; font-size: 16px;"></i>
+                                    <i class="fas fa-clock" style="color: #60a5fa; margin-right: 12px; margin-top: 4px; font-size: 16px;"></i>
                                     <div>
                                         <strong style="color: white; display: block; margin-bottom: 4px;">{{ __('Business Hours') }}</strong>
                                         <span style="color: rgba(255,255,255,0.8); line-height: 1.5;">{{ __('Mon - Fri: 8:00 AM - 6:00 PM') }}<br>{{ __('Sat: 9:00 AM - 4:00 PM') }}</span>
@@ -302,7 +302,7 @@
                                     @foreach ($footer_menu_two->menuItems as $footerMenuTwo)
                                         <li>
                                             <a href="{{ url($footerMenuTwo?->link) }}" style="color: rgba(255,255,255,0.8); text-decoration: none; font-size: 13px; transition: all 0.3s ease;" 
-                                               onmouseover="this.style.color='#a855f7'" 
+                                               onmouseover="this.style.color='#60a5fa'" 
                                                onmouseout="this.style.color='rgba(255,255,255,0.8)'">{{ $footerMenuTwo?->label }}</a>
                                         </li>
                                     @endforeach
@@ -327,7 +327,7 @@
                                            onblur="this.style.background='rgba(255,255,255,0.1)'">
                                 </div>
                                 <button type="submit" 
-                                        style="width: 100%; padding: 12px 20px; background: linear-gradient(45deg, #8b5cf6, #a855f7); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" 
+                                        style="width: 100%; padding: 12px 20px; background: linear-gradient(45deg, #3b82f6, #60a5fa); color: white; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" 
                                         onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(139, 92, 246, 0.4)'" 
                                         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                                     {{ __('Subscribe Now') }}
@@ -340,7 +340,7 @@
                                         <li>
                                             <a href="{{ $socialLink->link }}" target="_blank" title="{{ $socialLink->name }}" 
                                                style="display: inline-block; width: 42px; height: 42px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;" 
-                                               onmouseover="this.style.background='linear-gradient(135deg, #8b5cf6, #a855f7)'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 5px 15px rgba(139, 92, 246, 0.3)'" 
+                                               onmouseover="this.style.background='linear-gradient(135deg, #3b82f6, #60a5fa)'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 5px 15px rgba(59, 130, 246, 0.3)'" 
                                                onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='translateY(0)'; this.style.boxShadow='none'">
                                                 <img src="{{ asset($socialLink->icon) }}" alt="{{ $socialLink->name }}" style="width: 22px; height: 22px;">
                                             </a>

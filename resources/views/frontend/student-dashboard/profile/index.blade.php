@@ -6,6 +6,7 @@
         background: #f8fafc;
         min-height: 100vh;
         padding: 2rem 0;
+        margin-top: 16px;
     }
     
     .settings-card {
@@ -13,32 +14,16 @@
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         overflow: hidden;
-        border: none;
+        border: 1px solid rgba(0, 102, 204, 0.08);
     }
     
     .settings-header {
-        background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+        background: #4787ed;
         color: white;
         padding: 2rem;
         text-align: center;
         position: relative;
         overflow: hidden;
-    }
-    
-    .settings-header::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-        animation: float 6s ease-in-out infinite;
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0px) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(180deg); }
     }
     
     .settings-title {
@@ -60,7 +45,8 @@
     .modern-nav-tabs {
         background: #f8fafc;
         border: none;
-        padding: 1rem;
+        border-top: 1px solid #eef2f7;
+        padding: 1rem 1.25rem;
         border-radius: 0;
         display: flex;
         flex-wrap: wrap;
@@ -118,7 +104,7 @@
     }
     
     .modern-tab-content {
-        padding: 2rem;
+        padding: 2.5rem;
         background: white;
     }
     
@@ -134,6 +120,12 @@
         to {
             opacity: 1;
             transform: translateY(0);
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .modern-settings-container .settings-card {
+            border-radius: 24px;
         }
     }
     
@@ -168,9 +160,9 @@
 
 @section('dashboard-contents')
     <div class="modern-settings-container">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-10 col-xl-8">
+        <div class="container-fluid px-0">
+            <div class="row">
+                <div class="col-12">
                     <div class="settings-card">
                         <div class="settings-header">
                             <h1 class="settings-title">{{ __('Profile Settings') }}</h1>

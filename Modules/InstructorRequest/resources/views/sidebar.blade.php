@@ -1,7 +1,7 @@
 @php
     $pendingRequestCount = \Modules\InstructorRequest\app\Models\InstructorRequest::where('status', 'pending')->count();
 @endphp
-<li
+<!-- <li
     class="nav-item dropdown {{ isRoute(['admin.instructor-request-setting.*', 'admin.instructor-request.*'], 'active') }}">
     <a href="javascript:void()" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i><span
             class="{{ $pendingRequestCount > 0 ? 'beep parent' : '' }}">{{ __('Instructor Requests') }}</span></a>
@@ -23,4 +23,4 @@
         </li>
 
     </ul>
-</li>
+</li> -->

@@ -339,6 +339,70 @@ $(document).ready(function () {
         });
     });
 
+    // Handle Start Learning button click
+    $(document).on('click', '.start-learning-btn', function(e) {
+        e.preventDefault();
+        
+        const courseId = $(this).data('id');
+        const button = $(this);
+        const originalText = button.find('.text').text();
+        
+        if (!courseId) {
+            toastr.error('Course ID not found');
+            return;
+        }
+        
+        // Show loading state
+        button.prop('disabled', true);
+        button.find('.text').text('Enrolling...');
+        
+        // Get CSRF token
+        const csrfToken = $('meta[name="csrf-token"]').attr('content');
+        
+        // Make AJAX request to enroll user
+        $.ajax({
+            url: `${base_url}/student/enroll-course`,
+            type: 'POST',
+            data: {
+                course_id: courseId,
+                _token: csrfToken
+            },
+            success: function(response) {
+                if (response.success) {
+                    toastr.success(response.message || 'Successfully enrolled in course!');
+                    
+                    // Redirect to learning page
+                    if (response.learning_url) {
+                        window.location.href = response.learning_url;
+                    } else {
+                        // Fallback: redirect to enrolled courses
+                        window.location.href = `${base_url}/student/enrolled-courses`;
+                    }
+                } else {
+                    toastr.error(response.message || 'Failed to enroll in course');
+                    // Reset button state
+                    button.prop('disabled', false);
+                    button.find('.text').text(originalText);
+                }
+            },
+            error: function(xhr, status, error) {
+                if (xhr.status === 401) {
+                    toastr.error('Please login first to enroll in courses');
+                    // Redirect to login page
+                    window.location.href = `${base_url}/login`;
+                } else if (xhr.responseJSON && xhr.responseJSON.message) {
+                    toastr.error(xhr.responseJSON.message);
+                } else {
+                    toastr.error('An error occurred while enrolling. Please try again.');
+                }
+                
+                // Reset button state
+                button.prop('disabled', false);
+                button.find('.text').text(originalText);
+            }
+        });
+    });
+
 
     if (window.self !== window.top) {
         $('#iframeModal').modal('show');

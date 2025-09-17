@@ -21,23 +21,38 @@ use Modules\Course\app\Models\CourseLevel;
 
 class CourseController extends Controller {
     function index(Request $request): View {
+        // Validate and sanitize input parameters
+        $validated = $request->validate([
+            'keyword' => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\s\-_.,!?]+$/',
+            'category' => 'nullable|integer|exists:course_categories,id',
+            'date' => 'nullable|date',
+            'approve_status' => 'nullable|in:0,1',
+            'status' => 'nullable|in:0,1',
+            'instructor' => 'nullable|integer|exists:users,id',
+            'order_by' => 'nullable|in:0,1',
+            'par_page' => 'nullable|string|in:all,10,20,50,100'
+        ]);
+        
         $query = Course::query();
-        $query->when($request->keyword, fn($q) => $q->where('title', 'like', '%' . request('keyword') . '%'));
-        $query->when($request->category, function ($q) use ($request) {
-            $q->whereHas('category', function ($q) use ($request) {
-                $q->where('id', $request->category);
+        $query->when($validated['keyword'] ?? null, function($q) use ($validated) {
+            $sanitizedKeyword = strip_tags(trim($validated['keyword']));
+            $q->where('title', 'like', '%' . $sanitizedKeyword . '%');
+        });
+        $query->when($validated['category'] ?? null, function ($q) use ($validated) {
+            $q->whereHas('category', function ($q) use ($validated) {
+                $q->where('id', $validated['category']);
             });
         });
-        $query->when($request->date && $request->filled('date'), fn($q) => $q->whereDate('created_at', $request->date));
-        $query->when($request->approve_status && $request->filled('approve_status'), fn($q) => $q->where('is_approved', $request->approve_status));
-        $query->when($request->status && $request->filled('status'), fn($q) => $q->where('status', $request->status));
-        $query->when($request->instructor && $request->filled('instructor'), function ($q) use ($request) {
-            $q->where('instructor_id', $request->instructor);
+        $query->when($validated['date'] ?? null, fn($q) => $q->whereDate('created_at', $validated['date']));
+        $query->when($validated['approve_status'] ?? null, fn($q) => $q->where('is_approved', $validated['approve_status']));
+        $query->when($validated['status'] ?? null, fn($q) => $q->where('status', $validated['status']));
+        $query->when($validated['instructor'] ?? null, function ($q) use ($validated) {
+            $q->where('instructor_id', $validated['instructor']);
         });
-        $orderBy = $request->order_by == 1 ? 'asc' : 'desc';
-        $courses = $request->par_page == 'all' ?
+        $orderBy = ($validated['order_by'] ?? 0) == 1 ? 'asc' : 'desc';
+        $courses = ($validated['par_page'] ?? null) == 'all' ?
         $query->orderBy('id', $orderBy)->get() :
-        $query->orderBy('id', $orderBy)->paginate($request->par_page ?? null)->withQueryString();
+        $query->orderBy('id', $orderBy)->paginate($validated['par_page'] ?? null)->withQueryString();
         $categories = CourseCategory::where('status', 1)->get();
         $instructors = User::where('role', 'instructor')->get();
         return view('course::course.index', compact('courses', 'categories', 'instructors'));
@@ -71,8 +86,8 @@ class CourseController extends Controller {
         $course->thumbnail = $request->thumbnail;
         $course->demo_video_storage = $request->demo_video_storage;
         $course->demo_video_source = $request->demo_video_storage == 'upload' ? $request->upload_path : $request->external_path;
-        $course->price = $request->price;
-        $course->discount = $request->discount_price;
+        $course->price = $request->price ?? 0;
+        $course->discount = $request->discount_price ?? 0;
         $course->description = $request->description;
         $course->instructor_id = $request->instructor;
         $course->save();

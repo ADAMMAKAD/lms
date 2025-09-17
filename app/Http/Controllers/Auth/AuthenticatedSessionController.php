@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -89,15 +90,17 @@ class AuthenticatedSessionController extends Controller
         $notification = ['messege' => $notification, 'alert-type' => 'success'];
 
         $intendedUrl = session()->get('url.intended');
-        if ($intendedUrl && \Str::contains($intendedUrl, '/admin')) {
-            if($user->role == 'instructor')  return redirect()->route('instructor.dashboard') ;
-            return redirect()->route('student.dashboard');
+        if ($intendedUrl && Str::contains($intendedUrl, '/admin')) {
+            if($user->role == 'instructor')  return redirect()->route('instructor.dashboard')->with($notification);
+            return redirect()->route('student.dashboard')->with($notification);
         }
 
-        return redirect()->intended(
-            $user->role === 'instructor' ?
-                route('instructor.dashboard') : route('student.dashboard')
-        )->with($notification);
+        // Always redirect to appropriate dashboard based on user role
+        if ($user->role === 'instructor') {
+            return redirect()->route('instructor.dashboard')->with($notification);
+        } else {
+            return redirect()->route('student.dashboard')->with($notification);
+        }
     }
 
     /**

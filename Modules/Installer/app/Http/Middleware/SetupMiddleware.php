@@ -26,7 +26,7 @@ class SetupMiddleware
             return $next($request);
         }
         if (! $setupStatus) {
-            return redirect()->route('setup.verify');
+            return redirect()->route('setup.requirements');
         }
 
         return $next($request);

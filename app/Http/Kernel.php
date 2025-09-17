@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'translation' => \App\Http\Middleware\SetLocaleMiddleware::class,
         'maintenance.mode' => \App\Http\Middleware\MaintenanceModeMiddleware::class,
         'approved.instructor' => \App\Http\Middleware\ApprovedInstructorMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'json.only' => \App\Http\Middleware\API\EnforceJsonMiddleware::class,
         'payment.api' => \App\Http\Middleware\API\HeaderBearerTokenSet::class,
         'abilities' => \Laravel\Sanctum\Http\Middleware\CheckAbilities::class,

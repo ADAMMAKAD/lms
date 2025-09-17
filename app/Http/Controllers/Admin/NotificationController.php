@@ -52,7 +52,7 @@ class NotificationController extends Controller
                 'title' => 'New User Registration',
                 'message' => $user->name . ' joined as ' . ucfirst($user->role),
                 'time' => $user->created_at->diffForHumans(),
-                'url' => $user->role === 'instructor' ? route('admin.instructor-list') : route('admin.customer-list'),
+                'url' => $user->role === 'instructor' ? route('admin.instructor-list') : route('admin.all-customers'),
                 'read' => false
             ];
         }

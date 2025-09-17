@@ -16,7 +16,7 @@ use App\Http\Controllers\Global\CloudStorageController;
 // use App\Http\Controllers\Frontend\StudentOrderController; // Removed - system is now free
 use App\Http\Controllers\Frontend\CourseContentController;
 use App\Http\Controllers\Frontend\StudentReviewController;
-use App\Http\Controllers\Frontend\BecomeInstructorController;
+
 use App\Http\Controllers\Frontend\InstructorCourseController;
 use App\Http\Controllers\Frontend\InstructorPayoutController;
 use App\Http\Controllers\Frontend\StudentDashboardController;
@@ -45,9 +45,7 @@ Route::group(['middleware' => 'maintenance.mode'], function () {
     Route::get('states/{country_id}', [HomePageController::class, 'states'])->name('states');
     Route::get('cities/{state_id}', [HomePageController::class, 'cities'])->name('cities');
 
-    /** become a instructor */
-    Route::get('become-instructor', [BecomeInstructorController::class, 'index'])->name('become-instructor')->middleware('auth');
-    Route::post('become-instructor', [BecomeInstructorController::class, 'store'])->name('become-instructor.create')->middleware('auth');
+
 
     Route::get('courses', [CoursePageController::class, 'index'])->name('courses');
     Route::get('fetch-courses', [CoursePageController::class, 'fetchCourses'])->name('fetch-courses');
@@ -125,7 +123,11 @@ Route::group(['middleware' => 'maintenance.mode'], function () {
         Route::get('reviews/{id}', [StudentReviewController::class, 'show'])->name('reviews.show');
         Route::delete('reviews/{id}', [StudentReviewController::class, 'destroy'])->name('reviews.destroy');
         Route::get('enrolled-courses', [StudentDashboardController::class, 'enrolledCourses'])->name('enrolled-courses');
+        Route::get('course-history', [StudentDashboardController::class, 'courseHistory'])->name('course-history');
         Route::get('quiz-attempts', [StudentDashboardController::class, 'quizAttempts'])->name('quiz-attempts');
+        
+        /** Course enrollment route */
+        Route::post('enroll-course', [StudentDashboardController::class, 'enrollCourse'])->name('enroll-course');
 
         /** learning routes */
         Route::get('learning/{slug}', [LearningController::class, 'index'])->name('learning.index');

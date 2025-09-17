@@ -83,57 +83,133 @@
      */
     function initResponsiveSidebar() {
         const sidebarToggle = document.querySelector('[data-toggle="sidebar"]');
+        const sidebarCollapseBtn = document.querySelector('#sidebarCollapseBtn');
         const sidebar = document.querySelector('.main-sidebar');
         const mainWrapper = document.querySelector('.main-wrapper');
         const sidebarOverlay = document.querySelector('.sidebar-overlay');
         
+        // Handle sidebar toggle for mobile
         if (sidebarToggle && sidebar) {
             sidebarToggle.addEventListener('click', function(e) {
                 e.preventDefault();
                 
-                // Toggle sidebar visibility
-                sidebar.classList.toggle('sidebar-hidden');
-                
-                // Toggle navbar position
-                const navbar = document.querySelector('.navbar');
-                if (navbar) {
-                    navbar.classList.toggle('sidebar-hidden');
-                }
-                
-                // Show/hide overlay on mobile
-                if (sidebarOverlay && window.innerWidth <= 992) {
-                    sidebarOverlay.classList.toggle('show');
+                if (window.innerWidth <= 768) {
+                    // Mobile: Show/hide sidebar
+                    sidebar.classList.toggle('show');
+                    if (sidebarOverlay) {
+                        sidebarOverlay.classList.toggle('show');
+                    }
+                } else {
+                    // Desktop: Toggle collapsed state
+                    document.body.classList.toggle('sidebar-mini');
+                    sidebar.classList.toggle('collapsed');
                 }
             });
+        }
+        
+        // Handle sidebar collapse button
+        if (sidebarCollapseBtn && sidebar) {
+            sidebarCollapseBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Toggle collapsed state
+                document.body.classList.toggle('sidebar-mini');
+                sidebar.classList.toggle('collapsed');
+                
+                // Update main wrapper and content areas
+                const mainWrapper = document.querySelector('.main-wrapper');
+                const sectionBody = document.querySelector('.section-body');
+                const mainContent = document.querySelector('.main-content');
+                
+                if (mainWrapper) {
+                    mainWrapper.classList.toggle('sidebar-collapsed');
+                }
+                
+                if (sectionBody) {
+                    sectionBody.classList.toggle('sidebar-collapsed');
+                }
+                
+                if (mainContent) {
+                    mainContent.classList.toggle('sidebar-collapsed');
+                }
+                
+                // Store state in localStorage
+                const isCollapsed = sidebar.classList.contains('collapsed');
+                localStorage.setItem('sidebar-collapsed', isCollapsed);
+                
+                // Update collapse button icon
+                const icon = this.querySelector('i');
+                if (icon) {
+                    if (isCollapsed) {
+                        icon.className = 'fas fa-angle-right';
+                    } else {
+                        icon.className = 'fas fa-angle-left';
+                    }
+                }
+                
+                // Force layout recalculation
+                if (mainContent) {
+                    mainContent.style.transition = 'all 0.3s ease';
+                    if (isCollapsed) {
+                        mainContent.style.marginLeft = '70px';
+                        mainContent.style.width = 'calc(100% - 70px)';
+                    } else {
+                        mainContent.style.marginLeft = '250px';
+                        mainContent.style.width = 'calc(100% - 250px)';
+                    }
+                }
+                
+                // Trigger window resize event for any charts or responsive elements
+                setTimeout(function() {
+                    window.dispatchEvent(new Event('resize'));
+                }, 300);
+            });
+        }
+        
+        // Restore sidebar state from localStorage
+        const savedState = localStorage.getItem('sidebar-collapsed');
+        if (savedState === 'true') {
+            document.body.classList.add('sidebar-mini');
+            sidebar.classList.add('collapsed');
+            
+            // Update main content area on page load
+            const sectionBody = document.querySelector('.section-body');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (sectionBody) {
+                sectionBody.classList.add('sidebar-collapsed');
+            }
+            
+            if (mainContent) {
+                mainContent.classList.add('sidebar-collapsed');
+            }
+            
+            const collapseBtn = document.querySelector('#sidebarCollapseBtn i');
+            if (collapseBtn) {
+                collapseBtn.className = 'fas fa-angle-right';
+            }
         }
         
         // Handle overlay click to close sidebar
         if (sidebarOverlay) {
             sidebarOverlay.addEventListener('click', function() {
-                sidebar.classList.add('sidebar-hidden');
+                sidebar.classList.remove('show');
                 sidebarOverlay.classList.remove('show');
-                
-                // Update navbar position
-                const navbar = document.querySelector('.navbar');
-                if (navbar) {
-                    navbar.classList.add('sidebar-hidden');
-                }
             });
         }
         
         // Handle window resize
         window.addEventListener('resize', function() {
-            if (window.innerWidth > 992) {
-                sidebar.classList.remove('sidebar-hidden');
+            if (window.innerWidth > 768) {
+                // Desktop: Remove mobile classes
+                sidebar.classList.remove('show');
                 if (sidebarOverlay) {
                     sidebarOverlay.classList.remove('show');
                 }
-                
-                // Reset navbar position
-                const navbar = document.querySelector('.navbar');
-                if (navbar) {
-                    navbar.classList.remove('sidebar-hidden');
-                }
+            } else {
+                // Mobile: Remove collapsed state
+                document.body.classList.remove('sidebar-mini');
+                sidebar.classList.remove('collapsed');
             }
         });
     }
@@ -749,59 +825,68 @@
         });
         
         // Handle notification item clicks
-        notificationMenu.addEventListener('click', function(e) {
-            const notificationItem = e.target.closest('.notification-item');
-            if (notificationItem) {
-                const notificationId = notificationItem.dataset.id;
-                if (notificationId) {
-                    markNotificationAsRead(notificationId);
-                    // Add visual feedback
-                    notificationItem.classList.add('read');
-                    updateUnreadCount();
+        if (notificationMenu) {
+            notificationMenu.addEventListener('click', function(e) {
+                const notificationItem = e.target.closest('.notification-item');
+                if (notificationItem) {
+                    const notificationId = notificationItem.dataset.id;
+                    if (notificationId) {
+                        markNotificationAsRead(notificationId);
+                        // Add visual feedback
+                        notificationItem.classList.add('read');
+                        updateUnreadCount();
+                    }
                 }
-            }
-        });
+            });
+        }
         
         // Keyboard navigation for notifications
-        notificationMenu.addEventListener('keydown', function(e) {
-            const items = this.querySelectorAll('.notification-item');
-            let currentIndex = Array.from(items).findIndex(item => item.classList.contains('focused'));
-            
-            switch(e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    items.forEach(item => item.classList.remove('focused'));
-                    currentIndex = (currentIndex + 1) % items.length;
-                    items[currentIndex]?.classList.add('focused');
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    items.forEach(item => item.classList.remove('focused'));
-                    currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
-                    items[currentIndex]?.classList.add('focused');
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    const focusedItem = this.querySelector('.notification-item.focused');
-                    if (focusedItem) {
-                        focusedItem.click();
-                    }
-                    break;
-                case 'Escape':
-                    closeNotificationMenu();
-                    break;
-            }
-        });
+        if (notificationMenu) {
+            notificationMenu.addEventListener('keydown', function(e) {
+                const items = this.querySelectorAll('.notification-item');
+                let currentIndex = Array.from(items).findIndex(item => item.classList.contains('focused'));
+                
+                switch(e.key) {
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        items.forEach(item => item.classList.remove('focused'));
+                        currentIndex = (currentIndex + 1) % items.length;
+                        items[currentIndex]?.classList.add('focused');
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        items.forEach(item => item.classList.remove('focused'));
+                        currentIndex = currentIndex <= 0 ? items.length - 1 : currentIndex - 1;
+                        items[currentIndex]?.classList.add('focused');
+                        break;
+                    case 'Enter':
+                        e.preventDefault();
+                        const focusedItem = this.querySelector('.notification-item.focused');
+                        if (focusedItem) {
+                            focusedItem.click();
+                        }
+                        break;
+                    case 'Escape':
+                        closeNotificationMenu();
+                        break;
+                }
+            });
+        }
         
         function openNotificationMenu() {
-            notificationMenu.classList.add('show');
-            notificationBtn.classList.add('active');
-            notificationBtn.setAttribute('aria-expanded', 'true');
+            if (notificationMenu) {
+                notificationMenu.classList.add('show');
+                
+                // Focus first notification item
+                const firstItem = notificationMenu.querySelector('.notification-item');
+                if (firstItem) {
+                    firstItem.classList.add('focused');
+                }
+            }
             
-            // Focus first notification item
-            const firstItem = notificationMenu.querySelector('.notification-item');
-            if (firstItem) {
-                firstItem.classList.add('focused');
+            if (notificationBtn) {
+                notificationBtn.classList.add('active');
+                notificationBtn.setAttribute('aria-expanded', 'true');
             }
             
             // Mark all as seen (not read, just seen)
@@ -810,14 +895,17 @@
         
         function closeNotificationMenu() {
             isOpen = false;
-            notificationMenu.classList.remove('show');
-            notificationBtn.classList.remove('active');
-            notificationBtn.setAttribute('aria-expanded', 'false');
-            
-            // Remove focus from items
-            notificationMenu.querySelectorAll('.notification-item').forEach(item => {
-                item.classList.remove('focused');
-            });
+            if (notificationMenu) {
+                notificationMenu.classList.remove('show');
+                // Remove focus from items
+                notificationMenu.querySelectorAll('.notification-item').forEach(item => {
+                    item.classList.remove('focused');
+                });
+            }
+            if (notificationBtn) {
+                notificationBtn.classList.remove('active');
+                notificationBtn.setAttribute('aria-expanded', 'false');
+            }
         }
         
         function updateUnreadCount() {
@@ -1006,7 +1094,7 @@
      * Load notifications from backend
      */
     function loadNotifications() {
-        fetch('/admin/notifications')
+        return fetch('/admin/notifications')
             .then(response => response.json())
             .then(data => {
                 updateNotificationUI(data.notifications, data.unread_count);

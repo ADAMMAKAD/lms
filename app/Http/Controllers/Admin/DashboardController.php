@@ -31,15 +31,16 @@ class DashboardController extends Controller
         $chartData = $this->getChartData($request);
 
         $data = [];
-        $data['monthly_data'] = json_encode($chartData['monthly_data']);
-        $data['user_registration_data'] = json_encode($chartData['user_registration_data']);
-        $data['course_creation_data'] = json_encode($chartData['course_creation_data']);
+        $data['monthly_data'] = $chartData['monthly_data'];
+        $data['user_registration_data'] = $chartData['user_registration_data'];
+        $data['course_creation_data'] = $chartData['course_creation_data'];
         $data['oldestYear'] = $chartData['oldestYear'];
         $data['latestYear'] = $chartData['latestYear'];
         // Order statistics removed for free learning system
         $data['total_course'] = Course::count();
-        $data['total_pending_course'] = User::where('role', 'instructor')->count();
-        $data['total_users'] = User::where('role', 'user')->count();
+        $data['total_instructor'] = User::where('role', 'instructor')->count();
+        $data['total_pending_course'] = Course::where('is_approved', 'pending')->count();
+        $data['total_student'] = User::where('role', 'student')->count();
         $data['users_online'] = User::where('updated_at', '>=', Carbon::now()->subMinutes(15))->count();
         $data['total_earning'] = $totalEarnings;
         $data['this_months_earning'] = $thisMonthsEarnings;
@@ -54,6 +55,12 @@ class DashboardController extends Controller
         // AI-based analytics data
         $data['analytics'] = $this->getAdvancedAnalytics();
         $data['learning_analytics'] = $this->getLearningAnalytics();
+        
+        // Monthly growth statistics
+        $growthStats = $this->getMonthlyGrowthStats();
+        $data['course_growth'] = $growthStats['course_growth'];
+        $data['instructor_growth'] = $growthStats['instructor_growth'];
+        $data['student_growth'] = $growthStats['student_growth'];
 
         return view('admin.dashboard', compact('data'));
     }
@@ -103,35 +110,50 @@ class DashboardController extends Controller
         $latestYear = $currentYear;
 
         // Monthly course enrollments (using course creation as proxy for free system)
+        $monthlyLabels = [];
         $monthlyData = [];
         for ($day = 1; $day <= Carbon::createFromDate($selectYear, $selectMonth)->daysInMonth; $day++) {
             $date = Carbon::createFromDate($selectYear, $selectMonth, $day)->format('Y-m-d');
             $count = Course::whereDate('created_at', $date)->count();
+            $monthlyLabels[] = $day;
             $monthlyData[] = $count;
         }
 
         // User registration data for the year
+        $userRegistrationLabels = [];
         $userRegistrationData = [];
         for ($month = 1; $month <= 12; $month++) {
             $count = User::whereYear('created_at', $selectYear)
                         ->whereMonth('created_at', $month)
                         ->count();
+            $userRegistrationLabels[] = Carbon::create()->month($month)->format('M');
             $userRegistrationData[] = $count;
         }
 
         // Course creation data for the year
+        $courseCreationLabels = [];
         $courseCreationData = [];
         for ($month = 1; $month <= 12; $month++) {
             $count = Course::whereYear('created_at', $selectYear)
                           ->whereMonth('created_at', $month)
                           ->count();
+            $courseCreationLabels[] = Carbon::create()->month($month)->format('M');
             $courseCreationData[] = $count;
         }
 
         return [
-            'monthly_data' => $monthlyData,
-            'user_registration_data' => $userRegistrationData,
-            'course_creation_data' => $courseCreationData,
+            'monthly_data' => [
+                'labels' => $monthlyLabels,
+                'data' => $monthlyData
+            ],
+            'user_registration_data' => [
+                'labels' => $userRegistrationLabels,
+                'data' => $userRegistrationData
+            ],
+            'course_creation_data' => [
+                'labels' => $courseCreationLabels,
+                'data' => $courseCreationData
+            ],
             'oldestYear' => $oldestYear,
             'latestYear' => $latestYear,
         ];
@@ -196,7 +218,47 @@ class DashboardController extends Controller
         ];
     }
 
-
-
+    private function getMonthlyGrowthStats()
+    {
+        $currentMonth = Carbon::now();
+        $lastMonth = Carbon::now()->subMonth();
+        
+        // Current month counts
+        $currentCourses = Course::whereMonth('created_at', $currentMonth->month)
+                               ->whereYear('created_at', $currentMonth->year)
+                               ->count();
+        $currentInstructors = User::where('role', 'instructor')
+                                 ->whereMonth('created_at', $currentMonth->month)
+                                 ->whereYear('created_at', $currentMonth->year)
+                                 ->count();
+        $currentStudents = User::where('role', 'student')
+                              ->whereMonth('created_at', $currentMonth->month)
+                              ->whereYear('created_at', $currentMonth->year)
+                              ->count();
+        
+        // Last month counts
+        $lastMonthCourses = Course::whereMonth('created_at', $lastMonth->month)
+                                 ->whereYear('created_at', $lastMonth->year)
+                                 ->count();
+        $lastMonthInstructors = User::where('role', 'instructor')
+                                   ->whereMonth('created_at', $lastMonth->month)
+                                   ->whereYear('created_at', $lastMonth->year)
+                                   ->count();
+        $lastMonthStudents = User::where('role', 'student')
+                                ->whereMonth('created_at', $lastMonth->month)
+                                ->whereYear('created_at', $lastMonth->year)
+                                ->count();
+        
+        // Calculate percentage changes
+        $courseGrowth = $lastMonthCourses > 0 ? round((($currentCourses - $lastMonthCourses) / $lastMonthCourses) * 100, 1) : ($currentCourses > 0 ? 100 : 0);
+        $instructorGrowth = $lastMonthInstructors > 0 ? round((($currentInstructors - $lastMonthInstructors) / $lastMonthInstructors) * 100, 1) : ($currentInstructors > 0 ? 100 : 0);
+        $studentGrowth = $lastMonthStudents > 0 ? round((($currentStudents - $lastMonthStudents) / $lastMonthStudents) * 100, 1) : ($currentStudents > 0 ? 100 : 0);
+        
+        return [
+            'course_growth' => $courseGrowth >= 0 ? "+{$courseGrowth}%" : "{$courseGrowth}%",
+            'instructor_growth' => $instructorGrowth >= 0 ? "+{$instructorGrowth}%" : "{$instructorGrowth}%",
+            'student_growth' => $studentGrowth >= 0 ? "+{$studentGrowth}%" : "{$studentGrowth}%"
+        ];
+    }
 
 }

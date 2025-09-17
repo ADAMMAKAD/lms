@@ -293,6 +293,15 @@ trait PermissionsTrait
         ],
     ];
 
+    public static array $chatPermissions = [
+        'group_name' => 'chat management',
+        'permissions' => [
+            'chat.view',
+            'chat.delete',
+            'chat.management',
+        ],
+    ];
+
     private static function getSuperAdminPermissions(): array
     {
         $reflection = new ReflectionClass(__TRAIT__);

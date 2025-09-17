@@ -26,13 +26,7 @@ if (! function_exists('setup_complete_status')) {
         return Cache::get($cacheKey);
     }
 }
-if (! function_exists('purchaseVerificationHashed')) {
-    function purchaseVerificationHashed($filepath, $isLocal = false)
-    {
-        // Purchase verification bypassed - always return success
-        return ['success' => true, 'message' => 'Verification bypassed'];
-    }
-}
+
 
 if (! function_exists('changeEnvValues')) {
     function changeEnvValues($key, $value)
@@ -55,7 +49,7 @@ if (! function_exists('updateChecking')) {
                 Cache::remember($cacheKey, now()->addDay(), function () use ($last_update_date) {
                     $response = Http::post(InstallerInfo::UPDATE_CHECK_URL->value, [
                         'updated_at' => $last_update_date,
-                        'verification_hashed' => InstallerInfo::getLicenseFileData()['verification_hashed'],
+            
                     ])->json();
 
                     if (isset($response) && isset($response['success']) && $response['success']) {

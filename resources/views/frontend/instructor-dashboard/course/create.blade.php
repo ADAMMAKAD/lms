@@ -94,20 +94,7 @@
                             </div>
 
 
-                            <div class="col-md-6">
-                                <div class="form-grp">
-                                    <label for="price">{{ __('Price') }} <code>*</code></label>
-                                    <input id="price" name="price" type="text" value="{{ @$course?->price }}">
-                                    <code>{{ __('Put 0 for free') }}</code>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-grp">
-                                    <label for="discount_price">{{ __('Discount Price') }} <code></code></label>
-                                    <input id="discount_price" name="discount_price" type="text"
-                                        value="{{ @$course?->discount_price }}">
-                                </div>
-                            </div>
+                            {{-- Price fields removed for free learning platform --}}
                             <div class="col-md-12">
                                 <div class="form-grp">
                                     <label for="description">{{ __('Description') }} <code></code></label>

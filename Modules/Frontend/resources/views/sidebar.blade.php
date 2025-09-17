@@ -16,7 +16,7 @@
             ],
             'active',
         ) }}">
-        <a href="javascript:void()" class="nav-link has-dropdown"><i
+        <!-- <a href="javascript:void()" class="nav-link has-dropdown"><i
                 class="fas fa-puzzle-piece"></i><span>{{ __('Sections') }}</span></a>
 
         <ul class="dropdown-menu">
@@ -86,4 +86,4 @@
             </li>
         </ul>
     </li>
-@endif
+@endif -->

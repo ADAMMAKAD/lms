@@ -20,6 +20,7 @@
 <script src="{{ asset('backend/js/default/backend.js') }}?v={{$setting?->version}}"></script>
 <script src="{{ asset('backend/js/custom.js') }}?v={{$setting?->version}}"></script>
 <script src="{{ asset('backend/js/modern-admin.js') }}?v={{$setting?->version}}"></script>
+<script src="{{ asset('backend/js/modern-navbar.js') }}?v={{$setting?->version}}"></script>
 
 <!-- File Manager js-->
 <script src="{{ url('/vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>

@@ -4,7 +4,7 @@
 @endsection
 @section('admin-content')
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" style="margin-top: 4rem;">
         <section class="section">
             <div class="section-header">
                 <div class="section-header-back">

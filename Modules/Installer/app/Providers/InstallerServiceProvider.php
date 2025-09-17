@@ -5,7 +5,7 @@ namespace Modules\Installer\app\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Routing\Router;
-use Modules\Installer\app\Http\Middleware\PurchaseVerifyMiddleware;
+
 use Modules\Installer\app\Http\Middleware\SetupMiddleware;
 
 class InstallerServiceProvider extends ServiceProvider
@@ -28,7 +28,7 @@ class InstallerServiceProvider extends ServiceProvider
 
         // register installer middleware globally
         $router = $this->app->make(Router::class);
-        // $router->prependMiddlewareToGroup('web', PurchaseVerifyMiddleware::class); // Removed purchase verification
+
         $router->pushMiddlewareToGroup('web', SetupMiddleware::class);
     }
 

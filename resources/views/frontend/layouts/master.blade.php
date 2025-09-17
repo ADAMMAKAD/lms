@@ -148,6 +148,10 @@
             {!! customCode()->javascript !!}
         </script>
     @endif
+
+    <!-- Chat Widget -->
+    @include('chat::components.chat-widget', ['isAdmin' => false])
+
 </body>
 
 </html>
