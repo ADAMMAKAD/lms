@@ -29,7 +29,7 @@
 }
 
 .activity-icon-primary {
-    background-color: #4787ed;
+    background-color: #282f76;
 }
 
 .activity-icon-success {
@@ -41,7 +41,7 @@
 }
 
 .activity-icon-info {
-    background-color: #3b82f6;
+    background-color: #282f76;
 }
 
 .statistics-card::before {
@@ -51,7 +51,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #4787ed 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(90deg, #282f76 0%, #764ba2 50%, #f093fb 100%);
     border-radius: 16px 16px 0 0;
 }
 
@@ -113,7 +113,7 @@
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     margin-bottom: 24px;
-    border: 1px solid #4787ed;
+    border: 1px solid #282f76;
     overflow: hidden;
     transition: all 0.3s ease;
 }
@@ -124,7 +124,7 @@
 
 .chart-header {
     padding: 24px 24px 0 24px;
-    border-bottom: 1px solid #4787ed;
+    border-bottom: 1px solid #282f76;
 }
 
 .chart-title {
@@ -162,7 +162,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+    background: linear-gradient(90deg, #282f76 0%, #282f76 100%);
     border-radius: 16px 16px 0 0;
 }
 
@@ -182,7 +182,7 @@
 }
 
 .analytics-card h5 i {
-    color: #4787ed;
+    color: #282f76;
 }
 
 /* Quick Action Buttons */
@@ -396,20 +396,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card-statistic-1">
-                    <div class="card-header">
-                        <div class="card-icon">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <h4>{{ __('Total Instructors') }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-statistic-title">{{ $data['total_instructor'] }}</div>
-                        <div class="card-growth-text">{{ $data['instructor_growth'] }} from last month</div>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="card-statistic-1">
                     <div class="card-header">

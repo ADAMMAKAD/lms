@@ -30,13 +30,23 @@
                     @include('course::sidebar')
                 @endif
 
+                {{-- Course Assignments --}}
+                @if (checkAdminHasPermission('course.management'))
+                    <li class="{{ isRoute(['admin.course-assignments.*'], 'active') }}">
+                        <a class="nav-link" href="{{ route('admin.course-assignments.index') }}">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>{{ __('Course Assignments') }}</span>
+                        </a>
+                    </li>
+                @endif
+
                 @if (Module::isEnabled('CertificateBuilder') && checkAdminHasPermission('course.certificate.management'))
                     @include('certificatebuilder::sidebar')
                 @endif
 
-                @if (Module::isEnabled('Badges') && checkAdminHasPermission('badge.management'))
+                {{-- @if (Module::isEnabled('Badges') && checkAdminHasPermission('badge.management'))
                     @include('badges::sidebar')
-                @endif
+                @endif --}}
 
                 @if (Module::isEnabled('Blog'))
                     @include('blog::sidebar')
@@ -45,13 +55,8 @@
 
             {{-- Order management section removed - system is now free --}}
 
-            @if(checkAdminHasPermission('instructor.request.list') || checkAdminHasPermission('customer.view') || checkAdminHasPermission('location.view'))
+            @if(checkAdminHasPermission('customer.view') || checkAdminHasPermission('location.view'))
                 <li class="menu-header">{{ __('Manage Users') }}</li>
-                @if (
-                    (Module::isEnabled('InstructorRequest') && checkAdminHasPermission('instructor.request.list')) ||
-                        checkAdminHasPermission('instructor.request.setting'))
-                    @include('instructorrequest::sidebar')
-                @endif
 
                 @if (Module::isEnabled('Customer') && checkAdminHasPermission('customer.view'))
                     @include('customer::sidebar')
@@ -69,9 +74,9 @@
                     @include('frontend::sidebar')
                 @endif
 
-                @if (Module::isEnabled('Brand') && checkAdminHasPermission('brand.management'))
+                {{-- @if (Module::isEnabled('Brand') && checkAdminHasPermission('brand.management'))
                     @include('brand::sidebar')
-                @endif
+                @endif --}}
 
                 @if (Module::isEnabled('FooterSetting') && checkAdminHasPermission('footer.management'))
                     @include('footersetting::sidebar')
@@ -144,7 +149,7 @@
 
 <style>
 .logout-btn {
-    background: #4787ed !important;
+    background: #282f76 !important;
     color: white !important;
     border: none;
     padding: 12px 16px;

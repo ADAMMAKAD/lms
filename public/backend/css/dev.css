@@ -459,7 +459,7 @@ img.mr-3.ml-3.rounded-circle {
 }
 
 .wsus__show_product a:hover {
-    color: #4787ed !important;
+    color: #282f76 !important;
 }
 
 .lang_list_top {
@@ -484,7 +484,7 @@ img.mr-3.ml-3.rounded-circle {
 .select2-container--default .select2-selection--multiple .select2-selection__choice,
 .select2-container--default .select2-results__option[aria-selected="true"],
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #4787ed !important;
+    background-color: #282f76 !important;
 }
 
 .select2-container--default .select2-selection--multiple {
@@ -575,8 +575,8 @@ div.switcher label input+span small {
 }
 
 div.switcher label input:checked+span {
-    background: #4787ed;
-    border-color: #4787ed;
+    background: #282f76;
+    border-color: #282f76;
 }
 
 div.switcher label input:checked+span small {
@@ -910,7 +910,7 @@ button.dropdown-item.has-icon.text-danger i {
     justify-content: center;
     width: 40px;
     height: 40px;
-    background-color: #4787ed !important;
+    background-color: #282f76 !important;
     border-radius: 50%;
 }
 
@@ -1059,7 +1059,7 @@ button.dropdown-item.has-icon.text-danger i {
 .admin_role_border .text-capitalize,
 .permission_all {
     font-weight: 700;
-    color: #4787ed;
+    color: #282f76;
 }
 
 #hwpwrap #wpbody .open-label span {
@@ -1698,12 +1698,12 @@ textarea.form-control {
 }
 
 .dashboard__review-table .nav-tabs .nav-item .nav-link:hover {
-    color: #4787ed;
+    color: #282f76;
 }
 
 .dashboard__review-table .nav-tabs .nav-item .nav-link.active {
-    background: #4787ed;
-    border-color: #4787ed !important;
+    background: #282f76;
+    border-color: #282f76 !important;
     color: #fff;
 }
 
@@ -1847,7 +1847,7 @@ textarea.form-control {
 }
 
 .search-box #admin_menu_list a:hover {
-    color: #4787ed;
+    color: #282f76;
 }
 
 .search-box #admin_menu_list a.not-found-message {
@@ -1943,22 +1943,22 @@ body.dashboard-page .card-statistic-1 {
     box-sizing: border-box !important;
 }
 
-/* Individual card flat backgrounds - exact colors from reference */
+/* Individual card flat backgrounds - using primary color */
 body.dashboard-page .card-statistic-1:nth-child(1) {
-    background: #4680ea !important;
+    background: #282f76 !important;
 }
 
 body.dashboard-page .card-statistic-1:nth-child(2) {
-    background: #58D68D !important;
+    background: #282f76 !important;
 }
 
 body.dashboard-page .card-statistic-1:nth-child(3) {
-    background: #F39C12 !important;
+    background: #282f76 !important;
     color: white !important;
 }
 
 body.dashboard-page .card-statistic-1:nth-child(4) {
-    background: #E74C3C !important;
+    background: #282f76 !important;
 }
 
 /* Card hover effects */
